@@ -19,6 +19,8 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 {
     QVBoxLayout * layout  = new QVBoxLayout(this);
 
+    QHBoxLayout * TitleLayout  = new QHBoxLayout();
+    QHBoxLayout * LoadLayout  = new QHBoxLayout();
 
 
     QPushButton *backButton = new QPushButton("Back");
@@ -26,18 +28,13 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     QLabel *title = new QLabel("Load your  Deck");
 
 
+    loadButton->setStyleSheet("font: bold;background-color: red;font-size: 36px;height: 48px;width: 120px;");
 
-
-
-
-
-
-    backButton -> setMaximumWidth(200);
-    loadButton -> setMaximumWidth(200);
-
-
-    layout -> addWidget(backButton);
-    layout -> addWidget(title);
+    TitleLayout -> addWidget(backButton);
+    TitleLayout -> addStretch();
+    TitleLayout -> addWidget(title);
+    TitleLayout -> addStretch();
+    layout -> addLayout(TitleLayout);
     layout -> addStretch();
 
     if(opendir("asset")){
@@ -49,8 +46,12 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
     layout -> addStretch();
     layout->  setAlignment(Qt::AlignCenter);
-    layout -> addWidget(loadButton);
+    LoadLayout -> addStretch();
+    LoadLayout -> addWidget(loadButton);
+    LoadLayout -> addStretch();
+    layout -> addLayout(LoadLayout);
     layout -> addStretch();
+
 
     connect(backButton,&QPushButton::clicked, this ,&LoadPage::BackHomePageSlot);
 }
@@ -61,15 +62,23 @@ void LoadPage::BackHomePageSlot(){
 
 QGroupBox *LoadPage::loadDeckGroup(){
     QGroupBox *groupBox = new QGroupBox(tr("Lista Mazzi : "));
+    QButtonGroup *buttonGroup = new QButtonGroup(this);
+    QVBoxLayout *vbox = new QVBoxLayout(groupBox);
+
     string path = "asset/";
-    QVBoxLayout *vbox = new QVBoxLayout;
+
+
     for (const auto & file : directory_iterator(path)){
           std::string name = file.path().c_str();
           QRadioButton *checkButton = new QRadioButton(name.c_str());
-          vbox -> addWidget(checkButton);
+          buttonGroup -> addButton(checkButton);
+          vbox ->addWidget(checkButton);
        }
 
     groupBox -> setLayout(vbox);
+
+    delete buttonGroup; //senno da errore di leak memory
+
     return groupBox;
 
 

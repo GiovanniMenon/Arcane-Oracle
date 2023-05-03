@@ -5,6 +5,19 @@
 #include "../Cards/spellcard.h"
 #include "../Cards/trapcard.h"
 
+//Metodi Statici
+
+bool Deck::verifyInput(std::string name){
+    char slash = '/';
+    char backslash = '\\';
+    char dollar = '$';
+
+    for(unsigned int i=0; i < name.size() ; i++ ){
+        if(name[i] == slash || name[i] == backslash || name[i] == dollar)
+             return 0;
+    }
+    return 1;
+}
 //Costruttori
 Deck::Deck() : deck() {
         mkdir("asset/", 0777);

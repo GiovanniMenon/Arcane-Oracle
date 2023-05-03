@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QGroupBox>
 class LoadPage : public QWidget{
 Q_OBJECT
@@ -14,7 +15,9 @@ public slots:
 signals :
     void BackHomePageSignal();
 private:
+
     QGroupBox *loadDeckGroup();
+
 };
 
 #endif // LOADPAGE_H

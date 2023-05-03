@@ -1,9 +1,17 @@
 #ifndef IMAGEGENERATOR_H
 #define IMAGEGENERATOR_H
-#include <string>
+
+#ifdef __has_include
+#if __has_include(<jsoncpp/json/json.h>)
+#include <jsoncpp/json/json.h>
+#elif __has_include(<json/json.h>)
 #include <json/json.h>
+#endif
+#else
+#include <json/json.h>
+#endif
 
-
+#include <string>
 
 class imageGenerator{
 private:

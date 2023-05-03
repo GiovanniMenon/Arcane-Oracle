@@ -2,17 +2,21 @@
 #define HOMEDECKPAGE_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
-
-class homedeckpage : public QWidget
+class HomeDeckPage : public QWidget
 {
 Q_OBJECT
 public:
-    homedeckpage(QWidget * parent=nullptr);
+    HomeDeckPage(QWidget * parent=nullptr);
 public slots:
-    //void exitSlots();
+    void BackHomePageSlot();
 signals :
-    //void exitSignals();
+    void BackHomePageSignal();
+private :
+    QString NomeMazzo;
 };
 
 #endif // HOMEDECKPAGE_H

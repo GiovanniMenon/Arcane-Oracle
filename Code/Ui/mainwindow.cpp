@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     manualdeck = new ManualDeck() ;
     newdeckpage = new NewDeckPage();
     loadpage = new LoadPage();
+    homedeckpage = new HomeDeckPage();
     setCentralWidget(stackedWidget);
 
     stackedWidget -> addWidget(homepage);
@@ -23,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(manualdeck,&ManualDeck::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(newdeckpage,&NewDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(loadpage,&LoadPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
+    connect(homedeckpage,&HomeDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
+
+    connect(newdeckpage,&NewDeckPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
     stackedWidget -> setCurrentIndex(0);
 
 }
@@ -49,5 +53,11 @@ void MainWindow::newDeckWindowSlot() {
 
 void MainWindow::LoadDeckPageSlot() {
     stackedWidget -> addWidget(loadpage);
+    stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
+}
+
+void MainWindow::HomeDeckPageSlot() {
+
+    stackedWidget -> addWidget(homedeckpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }

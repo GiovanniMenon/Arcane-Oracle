@@ -1,13 +1,25 @@
 #ifndef DECK_H
 #define DECK_H
 
+
+#ifdef __has_include
+#if __has_include(<jsoncpp/json/json.h>)
+#include <jsoncpp/json/json.h>
+#elif __has_include(<json/json.h>)
+#include <json/json.h>
+#endif
+#else
+#include <json/json.h>
+#endif
+
 #include "../Cards/abstractcard.h"
 #include "../Template/Dlist.h"
 #include <cstdio>
 #include <sys/stat.h>
 #include <algorithm>
 #include <fstream>
-#include <json/json.h>
+
+
 #include <list>
 
 class Deck
@@ -44,7 +56,7 @@ public: Deck();
 
         Card* operator[](unsigned int) const;
 
-
+        static bool verifyInput(std::string name);
     private:
         list<Card*> deck;
         std::string name;

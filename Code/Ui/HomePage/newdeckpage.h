@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLineEdit>
 class NewDeckPage : public QWidget
 {
@@ -17,6 +18,9 @@ public slots:
 signals :
     void BackHomePageSignal();
     void HomeDeckPageSignal();
+private :
+    QLineEdit *DeckName;
+    QVBoxLayout * layout;
 };
 
 #endif // NEWDECKPAGE_H

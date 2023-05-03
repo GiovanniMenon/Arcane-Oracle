@@ -9,6 +9,7 @@
 #include "HomePage/homepage.h"
 #include "HomePage/newdeckpage.h"
 #include "HomePage/loadpage.h"
+#include "DeckHomePage/homedeckpage.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,12 +26,16 @@ private:
     HomePage *homepage;
     NewDeckPage *newdeckpage;
     LoadPage *loadpage;
+    HomeDeckPage *homedeckpage;
 
 public slots:
     void manualWindowSlot();
     void newDeckWindowSlot();
-    void BackWindowSlot();
     void LoadDeckPageSlot();
+
+    void BackWindowSlot();
+
+    void HomeDeckPageSlot();
 signals:
     void newDeckWindowSignal();
     void manualWindowSignal();
