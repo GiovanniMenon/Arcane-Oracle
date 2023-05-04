@@ -35,6 +35,7 @@ public slots:
 
     void BackWindowSlot();
 
+
     void HomeDeckPageSlot();
 signals:
     void newDeckWindowSignal();

@@ -66,12 +66,14 @@ std::string DALL_E_generator::generate(std::string text) const{
 }
 
 std::string DALL_E_generator::convert(std::string b64,std::string name, std::string deck_name) const{
+    //PRE : Si ha l'immagine in b64 , il Nome della Carta e il deckName
+    //POST : Si ritorna la path di sistema in cui si e' salvata l'immagine, questa comporra il campo url.
     name.erase(std::remove_if(name.begin(), name.end(), ::isspace),
                name.end());
     deck_name.erase(std::remove_if(deck_name.begin(), deck_name.end(), ::isspace),
               deck_name.end());
     //convertire da 64 a immagine
-    std::string folder ="asset/";
+    std::string folder ="asset/Deck/";
     std::string deck = deck_name + "/img/";
     std::string formato = ".jpg";
     QByteArray txt = QByteArray::fromBase64(b64.c_str());
@@ -87,7 +89,7 @@ std::string DALL_E_generator::convert(std::string b64,std::string name, std::str
 
     return path.toStdString();
 
-    //salvare l'immagine
+
 
 }
 

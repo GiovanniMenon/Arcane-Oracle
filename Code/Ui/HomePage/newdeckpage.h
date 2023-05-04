@@ -15,7 +15,9 @@ public:
 public slots:
     void BackHomePageSlot();
     void HomeDeckPageSlot();
+
 signals :
+    void newDeckCreatedSignal(QString nome);
     void BackHomePageSignal();
     void HomeDeckPageSignal();
 private :

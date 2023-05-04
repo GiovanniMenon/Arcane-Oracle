@@ -13,7 +13,7 @@ ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
     QVBoxLayout * layout  = new QVBoxLayout(this);
 
 
-    QFile manualText("manualDeck.txt");
+    QFile manualText("asset/Manual/manualDeck.txt");
     manualText.open(QFile::ReadOnly);
     std::string text = manualText.readAll().toStdString();
 

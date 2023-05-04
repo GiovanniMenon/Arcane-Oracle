@@ -1,4 +1,5 @@
 #include "newdeckpage.h"
+#include "../../class/Deck/deck.h"
 #include <QPushButton>
 #include <QLabel>
 
@@ -32,6 +33,9 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
 
 
 
+
+
+
 }
 
 void NewDeckPage::BackHomePageSlot() {
@@ -40,7 +44,14 @@ void NewDeckPage::BackHomePageSlot() {
 
 void NewDeckPage::HomeDeckPageSlot() {
     QString NomeDeck = DeckName->text();
-    QLabel *text = new QLabel(NomeDeck);
-    layout ->addWidget(text);
-    //emit HomeDeckPageSignal();
+    if(Deck::verifyInput(NomeDeck.toStdString())){
+        QLabel * Errore = new QLabel ("Sono Presenti Caratteri non riconosciuti");
+        layout -> addWidget(Errore);
+    }
+    else {
+        emit HomeDeckPageSignal();
+        emit newDeckCreatedSignal(NomeDeck);
 }
+
+}
+

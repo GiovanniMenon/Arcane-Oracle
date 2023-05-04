@@ -7,74 +7,22 @@
 
 //Metodi Statici
 
-bool Deck::verifyInput(std::string name){
+bool Deck::verifyInput(const std::string &name){
+    //PRE : data una stringa
+    //Post : verifica che essa non contiene caratteri non accessibili
     char slash = '/';
     char backslash = '\\';
     char dollar = '$';
 
     for(unsigned int i=0; i < name.size() ; i++ ){
         if(name[i] == slash || name[i] == backslash || name[i] == dollar)
-             return 0;
+             return 1;
     }
-    return 1;
+    return 0;
 }
-//Costruttori
-Deck::Deck() : deck() {
-        mkdir("asset/", 0777);
-};
-
-Deck::Deck(std::string Deck_name ) : name(Deck_name) {
-
-            Deck_name.erase(std::remove_if(Deck_name.begin(), Deck_name.end(), ::isspace),
-                  Deck_name.end());
-
-            mkdir("asset", 0777);
-
-            deck_folder_path = "asset/" + Deck_name;
-
-            int folder = mkdir(deck_folder_path.c_str() , 0777);
-            if(folder == 0 ){
-                std::ofstream file(deck_folder_path + "/database.json", std::ios::out);
-                mkdir(std::string(deck_folder_path + std::string("/img")).c_str() , 0777);
-            }
-
-}
-
-//Getter
-std::string Deck::getName() const { return name;}
-unsigned int Deck::size() const { return deck.size();}
-bool Deck::is_empty() const { return deck.is_empty();}
-Card* Deck::prec(Card* c) const {
-    list<Card*>::iterator it = deck.begin();
-    while(!(*(deck[it])==(*c)))
-    {
-        ++it;
-    }
-
-    if(it==deck.begin()){
-        it = deck.end();
-        --it;
-        return deck[it];
-    }
-    else{
-         --it;
-         return deck[it];
-    }
-
-
-}
-Card*  Deck::next(Card* c) const {
-    list<Card*>::iterator it = deck.begin();
-    while(!(*(deck[it])==(*c)))
-    {
-        ++it;
-    }
-    ++it;
-    if(it==deck.end()) return deck[deck.begin()];
-    else return deck[it];
-}
-
-bool Deck::find(const std::string &card_name) const {
+bool Deck::verifyCardName(const std::string &card_name) const {
+    //PRE : data una stringa
+    //POST: ritorna 0 se non esiste una carta con quel nome, ritorna 1 se esiste una carta con quel nome.
     bool find = 0;
 
     for(list<Card*>::iterator it = deck.begin(); it!=deck.end() ; ++it){
@@ -111,19 +59,80 @@ bool Deck::find(const std::string &card_name) const {
 
 }
 
+//Costruttori
+Deck::Deck() : deck() {
+        mkdir("asset/", 0777);
+}
+
+void Deck::SetDeck(std::string Deck_name )  {
+
+            name = Deck_name;
+
+            Deck_name.erase(std::remove_if(Deck_name.begin(), Deck_name.end(), ::isspace),
+                  Deck_name.end());
+
+            mkdir("asset", 0777);
+
+            deck_folder_path = "asset/Deck/" + Deck_name;
+
+            int folder = mkdir(deck_folder_path.c_str() , 0777);
+            if(folder == 0 ){
+                std::ofstream file(deck_folder_path + "/database.json", std::ios::out);
+                mkdir(std::string(deck_folder_path + std::string("/img")).c_str() , 0777);
+            }
+
+}
+
+
+//Getter
+std::string Deck::getName() const { return name;}
+unsigned int Deck::size() const { return deck.size();}
+bool Deck::is_empty() const { return deck.is_empty();}
+Card* Deck::prec(Card* c) const {
+    list<Card*>::iterator it = deck.begin();
+    while(!(*(deck[it])==(*c)))
+    {
+        ++it;
+    }
+
+    if(it==deck.begin()){
+        it = deck.end();
+        --it;
+        return deck[it];
+    }
+    else{
+         --it;
+         return deck[it];
+    }
+
+
+}
+Card*  Deck::next(Card* c) const {
+    list<Card*>::iterator it = deck.begin();
+    while(!(*(deck[it])==(*c)))
+    {
+        ++it;
+    }
+    ++it;
+    if(it==deck.end()) return deck[deck.begin()];
+    else return deck[it];
+}
+
+
+
 // Metodi Deck
 void Deck::insert(Card* c){
 
        deck.push_back(c);
 
-};
+}
 void Deck::remove(){
         deck.pop_back();
-};
+}
 void Deck::removeElement(Card *c){
            deck.remove(c);
 
-};
+}
 Card* Deck::operator[](unsigned int pos) const{
         if(pos > deck.size()) return nullptr;
         list<Card*>::iterator it = deck.begin();
@@ -131,7 +140,7 @@ Card* Deck::operator[](unsigned int pos) const{
                     i++;
         }
         return deck[it];
-};
+}
 std::ostream& operator<<(std::ostream &os, const Deck& b){
     int i=1;
     for(list<Card*>::iterator it = b.deck.begin(); it !=  b.deck.end(); ++it )
@@ -143,6 +152,8 @@ std::ostream& operator<<(std::ostream &os, const Deck& b){
     return os;
 }
 void Deck::clear()  {
+    //PRE : Dato un mazzo che contiente della carte o anche vuoto
+    //POST: Cancella tutto il mazzo ed elimina le carte non salvate e le relative immagini
     int n = deck.size();
     for(int i=0;i<n; i++){
         remove();

@@ -17,7 +17,7 @@ using std::filesystem::directory_iterator;
 
 LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 {
-    QVBoxLayout * layout  = new QVBoxLayout(this);
+    layout  = new QVBoxLayout(this);
 
     QHBoxLayout * TitleLayout  = new QHBoxLayout();
     QHBoxLayout * LoadLayout  = new QHBoxLayout();
@@ -54,32 +54,57 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
 
     connect(backButton,&QPushButton::clicked, this ,&LoadPage::BackHomePageSlot);
-}
+    connect(loadButton,&QPushButton::clicked, this ,&LoadPage::HomeDeckPageSlot);
 
+}
+void LoadPage::HomeDeckPageSlot() {
+
+    QString CheckedButton = QString::number(buttonGroup -> checkedId());
+    emit HomeDeckPageSignal();
+    emit newDeckCreatedSignal(QString::fromStdString(NomiDeck[CheckedButton.toInt()]));
+}
 void LoadPage::BackHomePageSlot(){
     emit BackHomePageSignal();
 }
 
 QGroupBox *LoadPage::loadDeckGroup(){
     QGroupBox *groupBox = new QGroupBox(tr("Lista Mazzi : "));
-    QButtonGroup *buttonGroup = new QButtonGroup(this);
-    QVBoxLayout *vbox = new QVBoxLayout(groupBox);
+    buttonGroup = new QButtonGroup(this);
+    vbox = new QVBoxLayout(groupBox);
 
-    string path = "asset/";
+    string path = "asset/Deck/";
 
-
+    int i = 0;
     for (const auto & file : directory_iterator(path)){
           std::string name = file.path().c_str();
+          name.erase(0,11);
+          NomiDeck.push_back(name);
           QRadioButton *checkButton = new QRadioButton(name.c_str());
-          buttonGroup -> addButton(checkButton);
+          buttonGroup -> addButton(checkButton,i);
           vbox ->addWidget(checkButton);
+          i++;
        }
-
     groupBox -> setLayout(vbox);
-
-    delete buttonGroup; //senno da errore di leak memory
-
     return groupBox;
+}
 
+void LoadPage::refresh(){
+    for(QAbstractButton *button : buttonGroup->buttons()) {
+
+        buttonGroup->removeButton(button);
+        delete button;
+    }
+    string path = "asset/Deck/";
+    NomiDeck.clear();
+    int i = 0;
+    for (const auto & file : directory_iterator(path)){
+          std::string name = file.path().c_str();
+          name.erase(0,11);
+          NomiDeck.push_back(name);
+          QRadioButton *checkButton = new QRadioButton(name.c_str());
+          buttonGroup -> addButton(checkButton,i);
+          vbox ->addWidget(checkButton);
+          i++;
+       }
 
 }

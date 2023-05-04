@@ -26,7 +26,7 @@ class Deck
 {
 friend std::ostream &operator<<(std::ostream &os, const Deck& deck);
 public: Deck();
-        Deck(std::string);
+        void SetDeck(std::string);
         ~Deck() {}
 
         //ADD or Delete Card
@@ -48,7 +48,7 @@ public: Deck();
 
         void search(std::string) const;
         void order(int , bool);
-        bool find(const std::string &) const;
+
 
         void save() ;
         void garbage_collector() ;
@@ -56,7 +56,9 @@ public: Deck();
 
         Card* operator[](unsigned int) const;
 
-        static bool verifyInput(std::string name);
+        bool verifyDeckName(const std::string &) const ;
+        bool verifyCardName(const std::string &) const ;
+        static bool verifyInput(const std::string &);
     private:
         list<Card*> deck;
         std::string name;

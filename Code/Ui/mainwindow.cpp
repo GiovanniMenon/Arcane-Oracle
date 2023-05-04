@@ -27,6 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(homedeckpage,&HomeDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
 
     connect(newdeckpage,&NewDeckPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
+    connect(loadpage,&LoadPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
+
+    connect(newdeckpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
+    connect(loadpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
+
     stackedWidget -> setCurrentIndex(0);
 
 }
@@ -35,6 +40,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::manualWindowSlot() {
     stackedWidget -> addWidget(manualdeck);
@@ -52,12 +58,15 @@ void MainWindow::newDeckWindowSlot() {
 }
 
 void MainWindow::LoadDeckPageSlot() {
+    loadpage -> refresh();
     stackedWidget -> addWidget(loadpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
 
 void MainWindow::HomeDeckPageSlot() {
-
+    stackedWidget ->removeWidget(stackedWidget->currentWidget());
     stackedWidget -> addWidget(homedeckpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
+
+
