@@ -25,6 +25,7 @@ private:
     Deck* deck;
     QLabel* l1;
     QLabel* l2;
+    QGridLayout *imagesLayout;
 };
 
 #endif // SHOWDECKPAGE_H

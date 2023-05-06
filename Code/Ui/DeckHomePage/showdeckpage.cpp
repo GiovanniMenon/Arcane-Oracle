@@ -30,7 +30,7 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent){
 
     QScrollArea *scrollArea = new QScrollArea(this);
     QWidget *imagesContainer = new QWidget();
-    QGridLayout *imagesLayout = new QGridLayout(imagesContainer);
+    imagesLayout = new QGridLayout(imagesContainer);
 
     // Leggi i file nella cartella delle immagini
     QDir dir("asset/images");
@@ -78,7 +78,7 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent){
 
 
     layout->addLayout(Head);
-    layout->addWidget(scrollArea);
+    //layout->addWidget(scrollArea);
     layout->addLayout(footer);
 
 
@@ -93,11 +93,7 @@ void ShowDeckPage::BackDeckPageSlot() {
 
 void ShowDeckPage::currentDeckSlot(Deck * currDeck){
     deck = currDeck;
-    l1->setText(QString::fromStdString(deck->getName()));
-    l2->setText(QString::fromStdString(currDeck->getName()));
 
-    l1->setStyleSheet("color: red;");
-    l2->setStyleSheet("color: red;");
 }
 
 

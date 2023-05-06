@@ -59,6 +59,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 
     connect(backButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
+    connect(ShowDeck, &QPushButton::clicked, this, &HomeDeckPage::ShowDeckSlot);
 
 
 
@@ -76,5 +77,10 @@ void HomeDeckPage::BackHomePageSlot() {
 void HomeDeckPage::newDeckCreatedSlot(QString nomeDeck) {
     nome1 -> setText(nomeDeck);
     deck.SetDeck(nomeDeck.toStdString());
+}
+
+void HomeDeckPage::ShowDeckSlot() {
+    emit ShowDeckSignal();
+    emit DeckSelectedSignal(&deck);
 }
 

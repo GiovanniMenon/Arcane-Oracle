@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     manualdeck = new ManualDeck() ;
     newdeckpage = new NewDeckPage();
     loadpage = new LoadPage();
-
     homedeckpage = new HomeDeckPage();
+    showdeckpage = new ShowDeckPage();
     cardpage = new CardPage();
 
 
@@ -36,14 +36,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Back Signal Normale
     connect(cardpage,&CardPage::BackDeckPageSignal, this , &MainWindow::BackWindowSlot );
+    connect(showdeckpage, &ShowDeckPage::BackDeckPageSignal, this, &MainWindow::BackWindowSlot);
 
     connect(newdeckpage,&NewDeckPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
     connect(loadpage,&LoadPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
 
+    connect(homedeckpage, &HomeDeckPage::ShowDeckSignal, this, &MainWindow::ShowDeckPageSlot);
     connect(homedeckpage, &HomeDeckPage::GenerateCardSignal,this,&MainWindow::CardPageSlot);
-
     connect(newdeckpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
     connect(loadpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
+
+    connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), showdeckpage, SLOT(currentDeckSlot(Deck*)));
 
     stackedWidget -> setCurrentIndex(0);
 
@@ -81,9 +84,12 @@ void MainWindow::HomeDeckPageSlot() {
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
 
+void MainWindow::ShowDeckPageSlot(){
+    stackedWidget -> addWidget(showdeckpage);
+    stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
+}
+
 void MainWindow::CardPageSlot() {
     stackedWidget -> addWidget(cardpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
-
-

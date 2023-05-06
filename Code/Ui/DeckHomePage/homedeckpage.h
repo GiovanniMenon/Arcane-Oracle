@@ -17,11 +17,17 @@ public:
 public slots:
     void BackHomePageSlot();
     void GenerateCardSlot();
+    void ShowDeckSlot();
 
     void newDeckCreatedSlot(QString nome);
 signals :
     void BackHomePageSignal();
     void GenerateCardSignal();
+    void ShowDeckSignal();
+    void DeckSelectedSignal(Deck* currDeck);
+
+
+
 private :
     QVBoxLayout * layout ;
     QGroupBox * ButtonMenu;
