@@ -11,6 +11,8 @@
 ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
 {
     QVBoxLayout * layout  = new QVBoxLayout(this);
+    QHBoxLayout * Back  = new QHBoxLayout();
+    QHBoxLayout * Title  = new QHBoxLayout();
 
 
     QFile manualText("asset/Manual/manualDeck.txt");
@@ -19,12 +21,24 @@ ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
 
 
     QPushButton *backButton = new QPushButton("Back");
-    QLabel *title = new QLabel("ArcaneOracleManual");
+    QLabel *title = new QLabel("ArcaneOracle Manual");
+    title -> setObjectName("Title");
     QTextEdit *manual = new QTextEdit(QString::fromStdString(text));
-    layout -> addWidget(backButton);
-    backButton -> setMaximumWidth(200);
-    layout -> addWidget(title);
-    layout -> addStretch();
+    Back -> addWidget(backButton);
+    Back -> addStretch();
+
+
+    backButton -> setFixedSize(155, 60);
+    manual -> setFixedHeight(500);
+    manual -> setReadOnly(true);
+
+
+    Title -> addWidget(title);
+    Title ->  setAlignment(Qt::AlignCenter);
+
+    layout ->addLayout(Back);
+    layout -> addLayout(Title);
+    layout -> addSpacing(80);
     layout -> addWidget(manual);
     layout -> addStretch();
     layout->  setAlignment(Qt::AlignCenter);

@@ -12,6 +12,8 @@
 #include <QFileInfo>
 #include <QRadioButton>
 
+
+
 LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 {
     layout  = new QVBoxLayout(this);
@@ -45,7 +47,10 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
 
     if(opendir("asset")){
+
+
          layout -> addWidget(loadDeckGroup());
+
     }else{
          QLabel *notFound = new QLabel("Nessun Mazzo Presente");
          layout -> addWidget(notFound);
@@ -60,6 +65,10 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     layout -> addStretch();
 
     backButton -> setFixedSize(150, 60);
+    loadButton -> setFixedSize(250, 70);
+    groupBox -> setFixedHeight(400);
+
+
 
     connect(backButton,&QPushButton::clicked, this ,&LoadPage::BackHomePageSlot);
     connect(loadButton,&QPushButton::clicked, this ,&LoadPage::HomeDeckPageSlot);
@@ -77,7 +86,7 @@ void LoadPage::BackHomePageSlot(){
 }
 
 QGroupBox *LoadPage::loadDeckGroup(){
-    QGroupBox *groupBox = new QGroupBox(tr("Lista Mazzi : "));
+    groupBox = new QGroupBox(tr("Deck List: "));
     buttonGroup = new QButtonGroup(this);
     vbox = new QVBoxLayout(groupBox);
     SearchDeck();
@@ -112,4 +121,6 @@ void LoadPage::SearchDeck(){
         vbox->addWidget(checkButton);
         i++;
     }
+    vbox ->  setAlignment(Qt::AlignTop);
+
 }

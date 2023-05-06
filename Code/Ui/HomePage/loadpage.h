@@ -8,6 +8,8 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include <vector>
+#include <QScrollArea>
+
 class LoadPage : public QWidget{
 Q_OBJECT
 public:
@@ -25,6 +27,8 @@ private:
     QButtonGroup *buttonGroup;
     QVBoxLayout *layout;
     QVBoxLayout *vbox;
+    QGroupBox *groupBox;
+    QScrollArea *scroll;
 
     QGroupBox *loadDeckGroup();
     void SearchDeck();

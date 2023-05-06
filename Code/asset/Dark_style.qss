@@ -40,7 +40,38 @@ QLineEdit{
 	border-radius : 10px;
 	 border: 1px solid #4F9EEA;
 }
-QLineEdit::Focus{
+QLineEdit:focus{
 	background-color:#2F2F2F;
 	border : 1px solid #0074D9;
 }
+QRadioButton{
+	font-size : 16px;
+	spacing : 20px;
+}
+QRadioButton::indicator
+{   
+    position: center center;
+    width: 15px;
+    height: 15px;
+}
+
+QRadioButton::indicator::unchecked
+{
+   image: url(asset/Icon/1.png);
+}
+
+QRadioButton::indicator::checked 
+{
+   image: url(asset/Icon/2.png);
+}
+
+QGroupBox:title{
+	subcontrol-position: top center;
+}
+
+QTextEdit{
+	color : white;
+	background-color:#2F2F2F;
+	font-size : 14px;
+}
+

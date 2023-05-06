@@ -2,6 +2,8 @@
 #define MANUALDECK_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class ManualDeck : public QWidget
 {
