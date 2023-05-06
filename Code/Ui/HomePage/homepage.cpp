@@ -4,20 +4,44 @@
 HomePage::HomePage(QWidget * parent) : QWidget(parent)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
+    QHBoxLayout *Button1 = new QHBoxLayout();
+    QHBoxLayout *Button2 = new QHBoxLayout();
+    QHBoxLayout *Button3 = new QHBoxLayout();
 
     QPushButton *Manualbutton = new QPushButton("Read Manual");
-    QPushButton *NewDeckButton = new QPushButton("New Deck");
-    QPushButton *LoadDeckButton = new QPushButton("Load Deck");
-    QLabel *title = new QLabel("ArcaneOracle");
+    QPushButton *NewDeckButton = new QPushButton("Create New Deck");
+    QPushButton *LoadDeckButton = new QPushButton("Load Existing Deck");
+    QLabel *title = new QLabel("Welcome To ArcaneOracle");
+    title-> setObjectName("HomePageTitle");
+
+    Button1 -> addWidget(NewDeckButton);
+    Button1 ->setAlignment(Qt::AlignCenter);
+    Button2 -> addWidget(LoadDeckButton);
+    Button2 ->setAlignment(Qt::AlignCenter);
+    Button3-> addWidget(Manualbutton);
+    Button3 ->setAlignment(Qt::AlignCenter);
+
 
 
     layout -> addWidget(title);
     layout -> addStretch();
-    layout -> addWidget(NewDeckButton);
-    layout -> addWidget(LoadDeckButton);
-    layout -> addWidget(Manualbutton);
+    layout -> addLayout(Button1);
+     layout -> addSpacing(15);
+    layout -> addLayout(Button2);
+    layout -> addSpacing(15);
+    layout -> addLayout(Button3);
     layout -> addStretch();
     layout->setAlignment(Qt::AlignCenter);
+    title->setAlignment(Qt::AlignCenter);
+    layout->setAlignment(Qt::AlignCenter);
+    layout->setAlignment(Qt::AlignCenter);
+    layout->setAlignment(Qt::AlignCenter);
+    NewDeckButton -> setFixedSize(330, 80);
+    LoadDeckButton -> setFixedSize(330, 80);
+    Manualbutton -> setFixedSize(330, 80);
+
+
+
 
 
     connect(Manualbutton,&QPushButton::clicked, this,&HomePage::ManualHomePageSlot);

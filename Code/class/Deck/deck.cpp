@@ -4,6 +4,10 @@
 #include "../Cards/territorycard.h"
 #include "../Cards/spellcard.h"
 #include "../Cards/trapcard.h"
+#include <QDir>
+#include <QFileInfo>
+#include <QRadioButton>
+
 
 //Metodi Statici
 
@@ -20,17 +24,23 @@ bool Deck::verifyInput(const std::string &name){
     }
     return 0;
 }
-bool Deck::verifyDeckName(const std::string &Deck_name){
+bool Deck::verifyDeckName(const std::string &name){
     //PRE : data una stringa
     //Post : verifica che essa non contiene caratteri non accessibili
-    std::string path = "asset/Deck/";
+    QString path = "asset/Deck/";
+
+    QDir directory(path);
+    directory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+
+    QFileInfoList fileList = directory.entryInfoList();
+
+    foreach(QFileInfo directory, fileList) {
+        std::string Deck_name = directory.fileName().toStdString();
+        if(name==Deck_name)   return 1;
 
 
-    for (const auto & file : std::filesystem::directory_iterator(path)){
-              std::string name = file.path().c_str();
-              name.erase(0,11);
-              if(name == Deck_name) return 1;
-           }
+    }
+
     return 0;
 }
 bool Deck::verifyCardName(const std::string &card_name) const {
@@ -76,6 +86,7 @@ bool Deck::verifyCardName(const std::string &card_name) const {
 //Costruttori
 Deck::Deck() : deck() {
         mkdir("asset/", 0777);
+        mkdir("asset/Deck/", 0777);
 }
 
 void Deck::SetDeck(std::string Deck_name )  {
@@ -85,7 +96,6 @@ void Deck::SetDeck(std::string Deck_name )  {
             Deck_name.erase(std::remove_if(Deck_name.begin(), Deck_name.end(), ::isspace),
                   Deck_name.end());
 
-            mkdir("asset", 0777);
 
             deck_folder_path = "asset/Deck/" + Deck_name;
 

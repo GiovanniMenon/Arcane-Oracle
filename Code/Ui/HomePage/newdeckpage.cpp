@@ -15,7 +15,11 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
      QPushButton *createButton = new QPushButton("Create");
      QLabel *title = new QLabel("Create your Own Deck");
      QLabel *text = new QLabel("Enter the name of your deck");
-     DeckName = new QLineEdit("Ciao");
+     title -> setObjectName("Title");
+     text -> setObjectName("TextNewDeck");
+
+     DeckName = new QLineEdit();
+     DeckName-> setPlaceholderText("(example) Caso Giocattolo");
 
 
      Titlelayout -> addWidget(backButton);
@@ -30,11 +34,11 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
      Button2 -> addStretch();
 
      layout -> addLayout(Titlelayout);
-     layout -> addSpacing(100);
-     layout -> addWidget(title);
      layout -> addSpacing(80);
+     layout -> addWidget(title);
+     layout -> addSpacing(30);
      layout -> addWidget(text);
-     layout -> addSpacing(40);
+     layout -> addSpacing(10);
      layout -> addLayout(Button1);
      layout -> addSpacing(150);
      layout -> addLayout(Button2);
@@ -45,9 +49,9 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
      text -> setAlignment(Qt::AlignCenter);
      DeckName -> setAlignment(Qt::AlignCenter);
      DeckName -> setFixedSize(450, 80);
-     createButton -> setFixedSize(200, 70);
-     backButton -> setFixedSize(150, 65);
-     createButton->setStyleSheet("QPushButton { border: 2px solid #555555; border-radius: 15px; } QPushButton:hover { background-color: #555555; color: #ffffff; }");
+     createButton -> setFixedSize(250, 70);
+     backButton -> setFixedSize(150, 60);
+
 
 
 
@@ -69,7 +73,7 @@ void NewDeckPage::BackHomePageSlot() {
 
 void NewDeckPage::HomeDeckPageSlot() {
     QString NomeDeck = DeckName->text();
-    if(Deck::verifyInput(NomeDeck.toStdString()) || Deck::verifyDeckName(NomeDeck.toStdString())){
+    if(Deck::verifyInput(NomeDeck.toStdString()) || Deck::verifyDeckName(NomeDeck.toStdString()) || NomeDeck.isEmpty() ){
         Errore = new QLabel ("Sono Presenti Caratteri non riconosciuti o Esiste un Deck gia' un Deck con questo nome");
         layout -> addWidget(Errore);
     }

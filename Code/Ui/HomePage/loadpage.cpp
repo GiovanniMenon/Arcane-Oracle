@@ -8,34 +8,41 @@
 #include <string>
 #include <filesystem>
 #include <dirent.h>
-
-
-using std::cout; using std::cin;
-using std::endl; using std::string;
-using std::filesystem::directory_iterator;
-
+#include <QDir>
+#include <QFileInfo>
+#include <QRadioButton>
 
 LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 {
     layout  = new QVBoxLayout(this);
 
-    QHBoxLayout * TitleLayout  = new QHBoxLayout();
+    QHBoxLayout * Back  = new QHBoxLayout();
+    QHBoxLayout * Title  = new QHBoxLayout();
+
     QHBoxLayout * LoadLayout  = new QHBoxLayout();
 
 
     QPushButton *backButton = new QPushButton("Back");
     QPushButton *loadButton = new QPushButton("Load");
-    QLabel *title = new QLabel("Load your  Deck");
+    QLabel *title = new QLabel("Choose your Deck");
+    title -> setObjectName("Title");
 
 
-    loadButton->setStyleSheet("font: bold;background-color: red;font-size: 36px;height: 48px;width: 120px;");
 
-    TitleLayout -> addWidget(backButton);
-    TitleLayout -> addStretch();
-    TitleLayout -> addWidget(title);
-    TitleLayout -> addStretch();
-    layout -> addLayout(TitleLayout);
+
+    Back -> addWidget(backButton);
+    Back -> addStretch();
+
+    Title -> addWidget(title);
+    Title -> setAlignment(Qt::AlignCenter);
+
+    layout -> addLayout(Back);
+    layout -> addLayout(Title);
     layout -> addStretch();
+
+
+
+
 
     if(opendir("asset")){
          layout -> addWidget(loadDeckGroup());
@@ -52,16 +59,18 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     layout -> addLayout(LoadLayout);
     layout -> addStretch();
 
+    backButton -> setFixedSize(150, 60);
 
     connect(backButton,&QPushButton::clicked, this ,&LoadPage::BackHomePageSlot);
     connect(loadButton,&QPushButton::clicked, this ,&LoadPage::HomeDeckPageSlot);
 
 }
 void LoadPage::HomeDeckPageSlot() {
-
+    if(buttonGroup->checkedButton()!=nullptr){
     QString CheckedButton = QString::number(buttonGroup -> checkedId());
     emit HomeDeckPageSignal();
     emit newDeckCreatedSignal(QString::fromStdString(NomiDeck[CheckedButton.toInt()]));
+    }
 }
 void LoadPage::BackHomePageSlot(){
     emit BackHomePageSignal();
@@ -84,16 +93,23 @@ void LoadPage::refresh(){
 }
 
 void LoadPage::SearchDeck(){
-    string path = "asset/Deck/";
-        NomiDeck.clear();
-        int i = 0;
-        for (const auto & file : directory_iterator(path)){
-              std::string name = file.path().c_str();
-              name.erase(0,11);
-              NomiDeck.push_back(name);
-              QRadioButton *checkButton = new QRadioButton(name.c_str());
-              buttonGroup -> addButton(checkButton,i);
-              vbox ->addWidget(checkButton);
-              i++;
-           }
+    QString path = "asset/Deck/";
+    QDir directory(path);
+    directory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+
+
+    NomiDeck.clear();
+    QFileInfoList fileList = directory.entryInfoList();
+
+    int i = 0;
+    foreach(QFileInfo directory, fileList) {
+        QString Deck_name = directory.fileName();
+        NomiDeck.push_back(Deck_name.toStdString());
+
+        QRadioButton *checkButton = new QRadioButton(Deck_name);
+        buttonGroup->addButton(checkButton, i);
+
+        vbox->addWidget(checkButton);
+        i++;
+    }
 }

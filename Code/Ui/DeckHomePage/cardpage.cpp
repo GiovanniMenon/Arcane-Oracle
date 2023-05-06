@@ -24,6 +24,12 @@ CardPage::CardPage(QWidget * parent) : QWidget(parent)
     QPushButton * Spell = new QPushButton("Spell");
     QPushButton * Trap = new QPushButton("Trap");
 
+    Descrizioni.push_back("Descrizione Mostro");
+    Descrizioni.push_back("Descrizione Field");
+    Descrizioni.push_back("Descrizione Artifact");
+    Descrizioni.push_back("Descrizione Spell");
+    Descrizioni.push_back("Descrizione Trap");
+
 
     backButton -> setFixedSize(155, 60);
     Submit -> setFixedSize(170, 80);
@@ -39,6 +45,12 @@ CardPage::CardPage(QWidget * parent) : QWidget(parent)
     Monster -> setStyleSheet("QPushButton { border: 2px solid #a66e4a; border-radius: 15px; } QPushButton:hover { background-color: #a66e4a; color: white; }");
     Field -> setStyleSheet("QPushButton { border: 2px solid #87a96b; border-radius: 15px; } QPushButton:hover { background-color: #87a96b; color: white; }");
     Artifact -> setStyleSheet("QPushButton { border: 2px solid #f2af6d; border-radius: 15px; } QPushButton:hover { background-color: #f2af6d; color: white; }");
+
+    Spell->setProperty("id", "3");
+    Trap->setProperty("id", "4");
+    Monster->setProperty("id", "0");
+    Field->setProperty("id", "1");
+    Artifact->setProperty("id", "2");
 
 
 
@@ -80,18 +92,13 @@ CardPage::CardPage(QWidget * parent) : QWidget(parent)
     Spell->installEventFilter(this);
     Trap->installEventFilter(this);
 
-
-
-
-
-
 }
 
 
 bool CardPage::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::Enter) {
                 QPushButton* button = qobject_cast<QPushButton*>(obj);
-                DescText -> setText(button -> text());
+                DescText -> setText(Descrizioni[button->property("id").toInt()]);
     }
 
     return 0;

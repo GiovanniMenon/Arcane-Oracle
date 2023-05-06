@@ -20,6 +20,7 @@ signals:
 private:
      QVBoxLayout * layout;
      QLabel * DescText;
+     std::vector < QString> Descrizioni;
      bool eventFilter(QObject* obj, QEvent* event) ;
 
 

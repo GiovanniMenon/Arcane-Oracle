@@ -3,8 +3,9 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QStackedWidget>
+
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 
 class HomePage : public QWidget

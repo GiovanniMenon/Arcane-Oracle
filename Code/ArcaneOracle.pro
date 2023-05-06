@@ -15,6 +15,7 @@ SOURCES += \
     Ui/HomePage/loadpage.cpp \
     Ui/HomePage/manualdeck.cpp \
     Ui/HomePage/newdeckpage.cpp \
+    Ui/Visitor/card.cpp \
     class/Cards/abstractcard.cpp \
     class/Cards/artifactcard.cpp \
     class/Generator/dall_eapi.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     Ui/HomePage/loadpage.h \
     Ui/HomePage/manualdeck.h \
     Ui/HomePage/newdeckpage.h \
+    Ui/Visitor/card.h \
     class/Template/Dlist.h \
     class/Cards/abstractcard.h \
     class/Cards/artifactcard.h \

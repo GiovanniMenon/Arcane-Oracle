@@ -1,0 +1,46 @@
+* {
+	color : white;
+}
+#HomePageTitle{
+	margin-top:50px;
+	font-size : 45px;
+	color : #FFFFFF;
+	font-weight: bold;
+}
+#Title{
+	margin-top:30px;
+	font-size : 45px;
+	color : #FFFFFF;
+	font-weight: bold;
+}
+#TextNewDeck{
+	margin-top:20px;
+	font-size : 20px;
+	color : #FFFFFF;
+	font-weight: bold;
+}
+QMainWindow {
+	background-color: #323232;
+}
+QPushButton{
+    background-color: #4F9EEA;
+    font-size : 14px;
+    border-radius : 10px;
+    color : white;
+   
+    
+}
+QPushButton::hover{
+    background-color:#0074D9;
+    font-weight: bold;
+}
+QLineEdit{
+	color : white;
+	background-color:#2F2F2F;
+	border-radius : 10px;
+	 border: 1px solid #4F9EEA;
+}
+QLineEdit::Focus{
+	background-color:#2F2F2F;
+	border : 1px solid #0074D9;
+}
