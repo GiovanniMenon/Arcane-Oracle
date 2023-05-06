@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLineEdit>
+#include <QLabel>
+
 class NewDeckPage : public QWidget
 {
 Q_OBJECT
@@ -23,6 +25,7 @@ signals :
 private :
     QLineEdit *DeckName;
     QVBoxLayout * layout;
+    QLabel * Errore ;
 };
 
 #endif // NEWDECKPAGE_H

@@ -71,40 +71,29 @@ QGroupBox *LoadPage::loadDeckGroup(){
     QGroupBox *groupBox = new QGroupBox(tr("Lista Mazzi : "));
     buttonGroup = new QButtonGroup(this);
     vbox = new QVBoxLayout(groupBox);
-
-    string path = "asset/Deck/";
-
-    int i = 0;
-    for (const auto & file : directory_iterator(path)){
-          std::string name = file.path().c_str();
-          name.erase(0,11);
-          NomiDeck.push_back(name);
-          QRadioButton *checkButton = new QRadioButton(name.c_str());
-          buttonGroup -> addButton(checkButton,i);
-          vbox ->addWidget(checkButton);
-          i++;
-       }
-    groupBox -> setLayout(vbox);
+    SearchDeck();
     return groupBox;
 }
 
 void LoadPage::refresh(){
     for(QAbstractButton *button : buttonGroup->buttons()) {
-
         buttonGroup->removeButton(button);
         delete button;
     }
-    string path = "asset/Deck/";
-    NomiDeck.clear();
-    int i = 0;
-    for (const auto & file : directory_iterator(path)){
-          std::string name = file.path().c_str();
-          name.erase(0,11);
-          NomiDeck.push_back(name);
-          QRadioButton *checkButton = new QRadioButton(name.c_str());
-          buttonGroup -> addButton(checkButton,i);
-          vbox ->addWidget(checkButton);
-          i++;
-       }
+    SearchDeck();
+}
 
+void LoadPage::SearchDeck(){
+    string path = "asset/Deck/";
+        NomiDeck.clear();
+        int i = 0;
+        for (const auto & file : directory_iterator(path)){
+              std::string name = file.path().c_str();
+              name.erase(0,11);
+              NomiDeck.push_back(name);
+              QRadioButton *checkButton = new QRadioButton(name.c_str());
+              buttonGroup -> addButton(checkButton,i);
+              vbox ->addWidget(checkButton);
+              i++;
+           }
 }

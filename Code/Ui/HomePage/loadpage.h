@@ -25,7 +25,9 @@ private:
     QButtonGroup *buttonGroup;
     QVBoxLayout *layout;
     QVBoxLayout *vbox;
+
     QGroupBox *loadDeckGroup();
+    void SearchDeck();
 
 
 };

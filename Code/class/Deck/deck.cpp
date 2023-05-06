@@ -20,6 +20,19 @@ bool Deck::verifyInput(const std::string &name){
     }
     return 0;
 }
+bool Deck::verifyDeckName(const std::string &Deck_name){
+    //PRE : data una stringa
+    //Post : verifica che essa non contiene caratteri non accessibili
+    std::string path = "asset/Deck/";
+
+
+    for (const auto & file : std::filesystem::directory_iterator(path)){
+              std::string name = file.path().c_str();
+              name.erase(0,11);
+              if(name == Deck_name) return 1;
+           }
+    return 0;
+}
 bool Deck::verifyCardName(const std::string &card_name) const {
     //PRE : data una stringa
     //POST: ritorna 0 se non esiste una carta con quel nome, ritorna 1 se esiste una carta con quel nome.
@@ -58,6 +71,7 @@ bool Deck::verifyCardName(const std::string &card_name) const {
     return find;
 
 }
+
 
 //Costruttori
 Deck::Deck() : deck() {

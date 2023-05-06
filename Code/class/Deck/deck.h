@@ -18,6 +18,8 @@
 #include <sys/stat.h>
 #include <algorithm>
 #include <fstream>
+#include <filesystem>
+#include <dirent.h>
 
 
 #include <list>
@@ -56,8 +58,9 @@ public: Deck();
 
         Card* operator[](unsigned int) const;
 
-        bool verifyDeckName(const std::string &) const ;
+
         bool verifyCardName(const std::string &) const ;
+        static bool verifyDeckName(const std::string &) ;
         static bool verifyInput(const std::string &);
     private:
         list<Card*> deck;
