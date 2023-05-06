@@ -7,6 +7,11 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QRadioButton>
+#include <QDir>
+#include <QFileInfo>
+#include <QString>
+#include <QDirIterator>
+#include <QStringList>
 
 
 //Metodi Statici
@@ -38,11 +43,11 @@ bool Deck::verifyDeckName(const std::string &name){
         std::string Deck_name = directory.fileName().toStdString();
         if(name==Deck_name)   return 1;
 
-
     }
 
     return 0;
 }
+
 bool Deck::verifyCardName(const std::string &card_name) const {
     //PRE : data una stringa
     //POST: ritorna 0 se non esiste una carta con quel nome, ritorna 1 se esiste una carta con quel nome.
