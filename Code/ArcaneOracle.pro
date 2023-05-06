@@ -2,7 +2,9 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
-LIBS += -lcurl -ljsoncpp
+INCLUDEPATH += /Users/endyhysa/Qt/jsoncpp-master/include
+LIBS += -L/usr/local/lib -ljsoncpp -lcurl
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -11,6 +13,7 @@ LIBS += -lcurl -ljsoncpp
 SOURCES += \
     Ui/DeckHomePage/cardpage.cpp \
     Ui/DeckHomePage/homedeckpage.cpp \
+    Ui/DeckHomePage/showdeckpage.cpp \
     Ui/HomePage/homepage.cpp \
     Ui/HomePage/loadpage.cpp \
     Ui/HomePage/manualdeck.cpp \
@@ -31,6 +34,7 @@ SOURCES += \
 HEADERS += \
     Ui/DeckHomePage/cardpage.h \
     Ui/DeckHomePage/homedeckpage.h \
+    Ui/DeckHomePage/showdeckpage.h \
     Ui/HomePage/homepage.h \
     Ui/HomePage/loadpage.h \
     Ui/HomePage/manualdeck.h \

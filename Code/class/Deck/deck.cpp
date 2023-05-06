@@ -5,6 +5,13 @@
 #include "../Cards/spellcard.h"
 #include "../Cards/trapcard.h"
 
+#include <QDir>
+#include <QFileInfo>
+#include <QString>
+#include <QDirIterator>
+#include <QStringList>
+
+
 //Metodi Statici
 
 bool Deck::verifyInput(const std::string &name){
@@ -21,18 +28,21 @@ bool Deck::verifyInput(const std::string &name){
     return 0;
 }
 bool Deck::verifyDeckName(const std::string &Deck_name){
-    //PRE : data una stringa
-    //Post : verifica che essa non contiene caratteri non accessibili
-    std::string path = "asset/Deck/";
+    QString path = "asset/Deck/";
+    QDirIterator it(path, QStringList() << "*.txt", QDir::Files, QDirIterator::Subdirectories);
 
+    while (it.hasNext()) {
+        QString name = it.next();
+        name.remove(0, 11);
+        name.remove(".txt");
+        if (name.toStdString() == Deck_name) {
+            return true;
+        }
+    }
 
-    for (const auto & file : std::filesystem::directory_iterator(path)){
-              std::string name = file.path().c_str();
-              name.erase(0,11);
-              if(name == Deck_name) return 1;
-           }
-    return 0;
+    return false;
 }
+
 bool Deck::verifyCardName(const std::string &card_name) const {
     //PRE : data una stringa
     //POST: ritorna 0 se non esiste una carta con quel nome, ritorna 1 se esiste una carta con quel nome.
