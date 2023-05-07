@@ -1,0 +1,34 @@
+{
+	"Cards" : 
+	[
+		{
+			"attack_points" : 0,
+			"b64url" : "ciao",
+			"card_generated" : 1,
+			"cost" : 1,
+			"defense_points" : 0,
+			"description" : "cognome",
+			"grade" : 0,
+			"health" : 100,
+			"level" : 1,
+			"name" : "1",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"attack_points" : 0,
+			"b64url" : "ciao",
+			"card_generated" : 2,
+			"cost" : 1,
+			"defense_points" : 0,
+			"description" : "cognome",
+			"grade" : 0,
+			"health" : 100,
+			"level" : 1,
+			"name" : "2",
+			"save" : true,
+			"type" : 1
+		}
+	],
+	"Name" : "ayman"
+}

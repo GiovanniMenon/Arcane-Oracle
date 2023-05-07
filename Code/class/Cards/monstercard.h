@@ -20,6 +20,7 @@ public:
     bool operator ==(const Card&) const override;
     virtual monsterCard* clone() const override;
     Json::Value  serialize() const override;
+    //void accept(CardVisitor* monsterVisitor) override {   monsterVisitor -> visit(this);   };
 };
 
 

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "../../Ui/Visitor/cardvisitor.h"
+
 class Card{
 friend std::ostream& operator<<(std::ostream& os, const Card& c);
 private:
@@ -33,6 +35,7 @@ public:
     virtual  Json::Value  serialize() const;
     virtual bool operator ==(const Card&) const;
     virtual ~Card();
+    //virtual void accept(CardVisitor *);
 
 };
 

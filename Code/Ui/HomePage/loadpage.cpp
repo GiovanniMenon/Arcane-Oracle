@@ -2,7 +2,7 @@
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QRadioButton>
-#include <QLabel>
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -21,12 +21,24 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     QHBoxLayout * Back  = new QHBoxLayout();
     QHBoxLayout * Title  = new QHBoxLayout();
 
+
     QHBoxLayout * LoadLayout  = new QHBoxLayout();
 
 
     QPushButton *backButton = new QPushButton("Back");
     QPushButton *loadButton = new QPushButton("Load");
     QLabel *title = new QLabel("Choose your Deck");
+    line =  new QFrame();
+    label1 = new QLabel("Testing Decks");
+    label2 = new QLabel("Your Decks");
+    label1->setAlignment(Qt::AlignCenter);
+    label2->setAlignment(Qt::AlignCenter);
+    label1->setObjectName("GHeader");
+    label2->setObjectName("GHeader");
+
+
+    line->setFrameShape(QFrame::HLine);
+
     title -> setObjectName("Title");
 
 
@@ -58,9 +70,9 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
     layout -> addStretch();
     layout->  setAlignment(Qt::AlignCenter);
-    LoadLayout -> addStretch();
+
     LoadLayout -> addWidget(loadButton);
-    LoadLayout -> addStretch();
+    LoadLayout -> setAlignment(Qt::AlignCenter);
     layout -> addLayout(LoadLayout);
     layout -> addStretch();
 
@@ -86,7 +98,7 @@ void LoadPage::BackHomePageSlot(){
 }
 
 QGroupBox *LoadPage::loadDeckGroup(){
-    groupBox = new QGroupBox(tr("Deck List: "));
+    groupBox = new QGroupBox();
     buttonGroup = new QButtonGroup(this);
     vbox = new QVBoxLayout(groupBox);
     SearchDeck();
@@ -102,15 +114,19 @@ void LoadPage::refresh(){
 }
 
 void LoadPage::SearchDeck(){
-    QString path = "asset/Deck/";
+
+    QString path = "asset/DeckTest/";
+    QString path1 = "asset/Deck/";
+
     QDir directory(path);
     directory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
-
 
     NomiDeck.clear();
     QFileInfoList fileList = directory.entryInfoList();
 
     int i = 0;
+    vbox->addWidget(label1);
+
     foreach(QFileInfo directory, fileList) {
         QString Deck_name = directory.fileName();
         NomiDeck.push_back(Deck_name.toStdString());
@@ -120,6 +136,32 @@ void LoadPage::SearchDeck(){
 
         vbox->addWidget(checkButton);
         i++;
+    }
+
+
+
+    vbox->addWidget(label2);
+
+
+
+
+    QDir directory1(path1);
+    directory1.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+
+    QFileInfoList fileList1 = directory1.entryInfoList();
+
+    foreach(QFileInfo directory, fileList1) {
+
+        QString Deck_name = directory.fileName();
+        if(Deck_name != "TestDeck1" && Deck_name != "TestDeck" ){
+        NomiDeck.push_back(Deck_name.toStdString());
+
+        QRadioButton *checkButton = new QRadioButton(Deck_name);
+        buttonGroup->addButton(checkButton, i);
+
+        vbox->addWidget(checkButton);
+        i++;
+        }
     }
     vbox ->  setAlignment(Qt::AlignTop);
 

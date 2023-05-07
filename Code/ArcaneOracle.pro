@@ -14,11 +14,13 @@ SOURCES += \
     Ui/DeckHomePage/cardpage.cpp \
     Ui/DeckHomePage/homedeckpage.cpp \
     Ui/DeckHomePage/showdeckpage.cpp \
+    Ui/DeckHomePage/typepage.cpp \
     Ui/HomePage/homepage.cpp \
     Ui/HomePage/loadpage.cpp \
     Ui/HomePage/manualdeck.cpp \
     Ui/HomePage/newdeckpage.cpp \
-    Ui/Visitor/card.cpp \
+    Ui/Visitor/cardvisitor.cpp \
+    Ui/Visitor/monsterwidget.cpp \
     class/Cards/abstractcard.cpp \
     class/Cards/artifactcard.cpp \
     class/Generator/dall_eapi.cpp \
@@ -36,11 +38,13 @@ HEADERS += \
     Ui/DeckHomePage/cardpage.h \
     Ui/DeckHomePage/homedeckpage.h \
     Ui/DeckHomePage/showdeckpage.h \
+    Ui/DeckHomePage/typepage.h \
     Ui/HomePage/homepage.h \
     Ui/HomePage/loadpage.h \
     Ui/HomePage/manualdeck.h \
     Ui/HomePage/newdeckpage.h \
-    Ui/Visitor/card.h \
+    Ui/Visitor/cardvisitor.h \
+    Ui/Visitor/monsterwidget.h \
     class/Template/Dlist.h \
     class/Cards/abstractcard.h \
     class/Cards/artifactcard.h \

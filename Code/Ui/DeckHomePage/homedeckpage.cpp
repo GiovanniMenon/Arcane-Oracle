@@ -4,60 +4,67 @@
 
 HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 {
-    layout  = new QVBoxLayout(this);
-    QHBoxLayout * Head = new QHBoxLayout();
-    QHBoxLayout * Box = new QHBoxLayout();
-
-    nome1 = new QLabel();
-
-    QPushButton * backButton = new QPushButton("EXIT");
-    QPushButton * ShowDeck = new QPushButton("Show Deck");
-    QPushButton * GenerateCard = new QPushButton("Generate Card");
-
+    layout  = new QHBoxLayout(this);
     ButtonMenu = new QGroupBox();
     LastCard = new QGroupBox();
-    ButtonMenu->setStyleSheet("QGroupBox { border: 2px solid;border-radius: 10px; }");
-    LastCard->setStyleSheet("QGroupBox { border: 2px solid revoid BackDeckPageSlot();border-radius: 10px; }");
 
-
+    QVBoxLayout *col = new QVBoxLayout();
     QVBoxLayout * BoxVertical = new QVBoxLayout(ButtonMenu);
+    QHBoxLayout * Exit = new QHBoxLayout();
+
+    header = new QLabel();
+    header-> setAlignment(Qt::AlignCenter);
+    header -> setObjectName("Title");
+
+    QPushButton * ExitButton = new QPushButton("EXIT");
+    QPushButton * ShowDeck = new QPushButton("Show Deck");
+    QPushButton * GenerateCard = new QPushButton("Generate Card");
+    ExitButton ->setObjectName("ExitButton");
+    ShowDeck -> setObjectName("funButton");
+    GenerateCard -> setObjectName("funButton");
+    ButtonMenu ->setObjectName("ButtonGroupHomeDeck");
 
 
+
+
+
+
+    Exit -> addWidget(ExitButton);
+    Exit -> setAlignment(Qt::AlignCenter);
+    LastCard -> setAlignment(Qt::AlignCenter);
     BoxVertical -> addStretch();
     BoxVertical -> addWidget(ShowDeck);
     BoxVertical -> addStretch();
     BoxVertical -> addWidget(GenerateCard);
     BoxVertical -> addStretch();
+    BoxVertical -> addLayout(Exit);
+     BoxVertical -> addSpacing(20);
     BoxVertical -> setAlignment(Qt::AlignCenter);
 
+
     ButtonMenu -> setLayout(BoxVertical);
-    Box -> addSpacing(25);
-    Box -> addWidget(ButtonMenu);
-    Box -> addStretch();
-    Box -> addWidget(LastCard);
-    Box -> addStretch();
-
-    Head -> addSpacing(25);
-    Head -> addWidget(backButton);
-    Head -> addStretch();
-    Head -> addStretch();
-    Head -> addWidget(nome1);
-    Head -> setAlignment(Qt::AlignCenter);
-    Head -> addStretch();
 
 
-    layout -> addLayout(Head);
+    col->addWidget(header);
+    col->addStretch();
+    col->addWidget(LastCard);
+    col->addStretch();
+    col ->setAlignment(Qt::AlignCenter);
+
+    layout -> addSpacing(50);
+    layout -> addWidget(ButtonMenu);
     layout -> addStretch();
-    layout -> addLayout(Box);
-    layout -> addStretch();
+    layout -> addLayout(col);
+    layout -> addSpacing(50);
 
-    backButton -> setFixedSize(155, 60);
-    ShowDeck -> setFixedSize(250, 70);
-    GenerateCard-> setFixedSize(250, 70);
-    ButtonMenu -> setFixedSize(350, 600);
-    LastCard -> setFixedSize(350, 600);
 
-    connect(backButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
+    ExitButton -> setFixedSize(155, 60);
+    ShowDeck -> setFixedSize(260, 80);
+    GenerateCard-> setFixedSize(260, 80);
+    ButtonMenu -> setFixedSize(400, 750);
+    LastCard -> setFixedSize(400, 550);
+
+    connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
     connect(ShowDeck, &QPushButton::clicked, this, &HomeDeckPage::ShowDeckSlot);
 
@@ -75,8 +82,9 @@ void HomeDeckPage::BackHomePageSlot() {
 }
 
 void HomeDeckPage::newDeckCreatedSlot(QString nomeDeck) {
-    nome1 -> setText(nomeDeck);
+
     deck.SetDeck(nomeDeck.toStdString());
+    header -> setText(QString::fromStdString(deck.getName()));
 }
 
 void HomeDeckPage::ShowDeckSlot() {

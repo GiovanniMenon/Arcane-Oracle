@@ -7,6 +7,8 @@
 #include <iostream>
 #include <QLabel>
 #include <QPushButton>
+#include <QScrollBar>
+
 
 ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
 {
@@ -27,18 +29,16 @@ ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
     Back -> addWidget(backButton);
     Back -> addStretch();
 
-
     backButton -> setFixedSize(155, 60);
-    manual -> setFixedHeight(500);
+    manual -> setFixedHeight(550);
     manual -> setReadOnly(true);
-
 
     Title -> addWidget(title);
     Title ->  setAlignment(Qt::AlignCenter);
 
     layout ->addLayout(Back);
     layout -> addLayout(Title);
-    layout -> addSpacing(80);
+    layout -> addSpacing(30);
     layout -> addWidget(manual);
     layout -> addStretch();
     layout->  setAlignment(Qt::AlignCenter);

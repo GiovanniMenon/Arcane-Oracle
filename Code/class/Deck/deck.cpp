@@ -36,12 +36,16 @@ bool Deck::verifyDeckName(const std::string &name){
 
     QDir directory(path);
     directory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    std::string name_space = name;
+    name_space.erase(std::remove_if(name_space.begin(), name_space.end(), ::isspace),
+          name_space.end());
 
     QFileInfoList fileList = directory.entryInfoList();
 
     foreach(QFileInfo directory, fileList) {
         std::string Deck_name = directory.fileName().toStdString();
-        if(name==Deck_name)   return 1;
+
+        if(name==Deck_name || name_space==Deck_name)   return 1;
 
     }
 
@@ -108,6 +112,11 @@ void Deck::SetDeck(std::string Deck_name )  {
             if(folder == 0 ){
                 std::ofstream file(deck_folder_path + "/database.json", std::ios::out);
                 mkdir(std::string(deck_folder_path + std::string("/img")).c_str() , 0777);
+                //salvo il nome del deck
+                save();
+            }else{
+                //Se esiste gia' un deck con quel nome
+                load();
             }
 
 }
@@ -351,7 +360,10 @@ void Deck::load() {
     Json::Value obj;
     reader.parse(ifs,obj);
     const Json::Value& cards=obj["Cards"];
+    const Json::Value& Saved_Name=obj["Name"];
+    name = Saved_Name.asString();
     Card* tmp;
+
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
             case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
@@ -386,6 +398,8 @@ void Deck::save() {
         cards.append(deck[it]->serialize());
     }
     obj["Cards"]=cards;
+    obj["Name"] = getName();
+
     ofs << obj;
     ofs.close();
     }
@@ -393,7 +407,15 @@ void Deck::save() {
         std::cout << "ERROR: Non si può salvare un mazzo vuoto." << std::endl;
     }
 
+    }else{
+        std::ofstream ofs(deck_folder_path + "/database.json");
+         Json::Value obj;
+
+        obj["Name"] = getName();
+        ofs << obj;
+        ofs.close();
     }
+
 }
 
 void Deck::garbage_collector() {
@@ -406,8 +428,10 @@ void Deck::garbage_collector() {
     reader.parse(ifs,obj);
     const Json::Value& cards=obj["Cards"];
 
+
     if(cards.size()!=0){
     Card* tmp;
+
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
             case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());

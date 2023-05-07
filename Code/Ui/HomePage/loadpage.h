@@ -9,6 +9,7 @@
 #include <QButtonGroup>
 #include <vector>
 #include <QScrollArea>
+#include <QLabel>
 
 class LoadPage : public QWidget{
 Q_OBJECT
@@ -29,6 +30,9 @@ private:
     QVBoxLayout *vbox;
     QGroupBox *groupBox;
     QScrollArea *scroll;
+    QFrame* line ;
+    QLabel *label2;
+    QLabel *label1;
 
     QGroupBox *loadDeckGroup();
     void SearchDeck();

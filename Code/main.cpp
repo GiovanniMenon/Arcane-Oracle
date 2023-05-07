@@ -5,11 +5,15 @@
 #include <QLabel>
 #include <QFile>
 
+#include "class/Deck/deck.h"
+#include "class/Cards/monstercard.h"
+
 
 
 
 int main(int argc , char *argv[])
 {
+
     QApplication app(argc,argv);
 
     MainWindow application;
@@ -26,5 +30,7 @@ int main(int argc , char *argv[])
     application.show();
 
     return app.exec();
+
+
 
 }

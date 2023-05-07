@@ -1,6 +1,73 @@
 * {
 	color : white;
 }
+QMainWindow {
+	background-color: #323232;
+}
+QPushButton{
+    background-color: #FCF8E8;
+    font-size : 14px;
+    border-radius : 10px;
+    color : #1C1C1C;
+}
+QPushButton::hover{
+    background-color:#1C1C1C;
+	color : #FCF8E8;
+    font-weight: bold;
+}
+QLineEdit{
+	color : white;
+	background-color: #1C1C1C;
+	border-radius : 10px;
+	
+}
+QLineEdit:focus{
+	background-color: #1C1C1C;
+}
+QRadioButton{
+	font-size : 14px;
+	spacing : 20px;
+}
+QRadioButton::indicator
+{   
+    position: center center;
+    width: 15px;
+    height: 15px;
+}
+
+QRadioButton::indicator::unchecked
+{
+   image: url(asset/Icon/1.png);
+}
+
+QRadioButton::indicator::checked 
+{
+   image: url(asset/Icon/6.png);
+}
+QGroupBox{
+ background-color: #1C1C1C;
+ border: 0px solid;
+ border-radius: 10px;
+}
+
+QGroupBox:title{
+	subcontrol-position: top center;
+}
+
+QTextEdit{
+	color : white;
+	background-color:#2F2F2F;
+	font-size : 14px;
+}
+QScrollBar:vertical {
+	background-color: transparent;
+	width: 10px;
+}
+QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
+    background-color: transparent;
+    
+}
+
 #HomePageTitle{
 	margin-top:50px;
 	font-size : 45px;
@@ -19,59 +86,61 @@
 	color : #FFFFFF;
 	font-weight: bold;
 }
-QMainWindow {
-	background-color: #323232;
-}
-QPushButton{
-    background-color: #4F9EEA;
-    font-size : 14px;
-    border-radius : 10px;
-    color : white;
-   
-    
-}
-QPushButton::hover{
-    background-color:#0074D9;
-    font-weight: bold;
-}
-QLineEdit{
-	color : white;
-	background-color:#2F2F2F;
-	border-radius : 10px;
-	 border: 1px solid #4F9EEA;
-}
-QLineEdit:focus{
-	background-color:#2F2F2F;
-	border : 1px solid #0074D9;
-}
-QRadioButton{
-	font-size : 16px;
-	spacing : 20px;
-}
-QRadioButton::indicator
-{   
-    position: center center;
-    width: 15px;
-    height: 15px;
+#GHeader{
+	color : #FFFFFF;
+	font-weight:bold;
+	font-size:16px;
+	text-align:right;
 }
 
-QRadioButton::indicator::unchecked
-{
-   image: url(asset/Icon/1.png);
+#ExitButton{
+	background-color : #1C1C1C;
+	border: 1px solid #FCF8E8;
+	color : #FCF8E8;
 }
-
-QRadioButton::indicator::checked 
-{
-   image: url(asset/Icon/2.png);
+#ExitButton:hover{
+	background-color : #FCF8E8;
+	border: 1px solid  #1C1C1C;
+	color :  #1C1C1C;
 }
-
-QGroupBox:title{
-	subcontrol-position: top center;
+#funButton:hover{
+	border: 1px solid #FCF8E8;
 }
+#TypeMenu{
 
-QTextEdit{
-	color : white;
-	background-color:#2F2F2F;
-	font-size : 14px;
+	border-radius: 15px;
 }
-
+#cardType1{
+	background-color: #b9d7d9;  
+}
+#cardType1::hover{
+	
+	color :  #1C1C1C;
+	border: 1px solid #FCF8E8;
+}
+#cardType2{
+	
+	background-color: #9370db; 
+}
+#cardType2::hover{
+	border: 1px solid #FCF8E8;
+}
+#cardType3{
+	background-color: #a66e4a;
+}
+#cardType3::hover{
+	border: 1px solid #FCF8E8;
+}
+#cardType4{
+	background-color: #87a96b;
+}
+#cardType4::hover{
+	
+	border: 1px solid #FCF8E8;
+}
+#cardType5{
+	background-color: #f2af6d; 
+}
+#cardType5::hover{
+	border: 1px solid #FCF8E8;
+}

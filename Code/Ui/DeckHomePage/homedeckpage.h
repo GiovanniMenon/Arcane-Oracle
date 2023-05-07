@@ -29,12 +29,12 @@ signals :
 
 
 private :
-    QVBoxLayout * layout ;
+    QHBoxLayout * layout ;
     QGroupBox * ButtonMenu;
     QGroupBox * LastCard;
     QString NomeMazzo;
     Deck deck;
-    QLabel *nome1;
+    QLabel *header;
 
 };
 

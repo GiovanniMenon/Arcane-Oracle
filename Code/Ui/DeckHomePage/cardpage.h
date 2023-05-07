@@ -4,24 +4,19 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
-#include <QLabel>
-
 
 class CardPage : public QWidget
 {
     Q_OBJECT
 public:
-    CardPage(QWidget * parent=nullptr);
+    CardPage();
+
 public slots:
-    void BackDeckPageSlot();
-signals:
-    void BackDeckPageSignal();
+    void NewCardIdSlot(int);
+
+
 private:
-     QVBoxLayout * layout;
-     QLabel * DescText;
-     std::vector < QString> Descrizioni;
-     bool eventFilter(QObject* obj, QEvent* event) ;
+    QVBoxLayout *main;
 
 
 
