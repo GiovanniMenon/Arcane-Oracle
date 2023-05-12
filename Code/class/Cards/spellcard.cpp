@@ -1,6 +1,6 @@
 #include "spellcard.h"
 
-spellCard::spellCard(std::string n, std::string d, std::string b64U, unsigned int c, std::string eff, std::string el , bool status) : EffectCards(n,d,b64U,c,eff,status), element(el){}
+spellCard::spellCard(std::string n, std::string d, std::string b64U, unsigned int c, std::string eff, std::string el ,unsigned int danno, bool status) : EffectCards(n,d,b64U,c,eff,status), element(el) , dmg(danno){}
 
 std::string spellCard::getElement() const {return element;}
 
@@ -28,6 +28,7 @@ Json::Value spellCard::serialize() const{
     json["type"] = 2;
     json["element"] = getElement();
     json["grade"] = grade;
+    json["attack_points"] = dmg;
 
     return json;
 }

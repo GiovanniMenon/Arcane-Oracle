@@ -2,14 +2,23 @@
 #define MONSTERWIDGET_H
 
 #include <QWidget>
+#include "cardwidget.h"
 #include "../../class/Cards/monstercard.h"
 
-class monsterwidget : QWidget
+class monsterWidget : public cardWidget
 {
     Q_OBJECT
 public:
-    monsterwidget(QWidget *parent=nullptr);
-    monsterwidget(monsterCard) ;
+    monsterWidget(Deck * , QWidget *parent=nullptr);
+    monsterWidget(monsterCard,QWidget *parent=nullptr) ;
+    virtual Card* getInput() override;
+
+    virtual bool checkInput() const override ;
+private:
+    QLineEdit * cardAtt;
+    QLineEdit * cardDef;
+    QLineEdit * cardHP;
+
 };
 
 #endif // MONSTERWIDGET_H

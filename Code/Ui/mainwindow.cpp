@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "HomePage/homepage.h"
+#include "../class/Deck/deck.h"
 
 #include <QVBoxLayout>
 #include <iostream>
@@ -34,10 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(newdeckpage,&NewDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(loadpage,&LoadPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(homedeckpage,&HomeDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
-
-    //Back Signal Normale
+    connect(cardpage,&CardPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(typepage,&TypePage::BackDeckPageSignal, this , &MainWindow::BackWindowSlot );
     connect(showdeckpage, &ShowDeckPage::BackDeckPageSignal, this, &MainWindow::BackWindowSlot);
+
+    //Doppio Back
+    connect(cardpage,&CardPage::BackBackHomePageSignal, this , &MainWindow::BackBackWindowSlot );
 
     connect(newdeckpage,&NewDeckPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
     connect(loadpage,&LoadPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
@@ -50,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(loadpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
 
     connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), showdeckpage, SLOT(currentDeckSlot(Deck*)));
-    connect(typepage, SIGNAL(CardSignal(int)), cardpage, SLOT(NewCardIdSlot(int)));
+    connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), typepage, SLOT(currentDeckSlot(Deck*)));
+
+    connect(typepage, SIGNAL(CardSignal(Deck*,QWidget*)), cardpage, SLOT(NewCardIdSlot(Deck*,QWidget*)));
 
     stackedWidget -> setCurrentIndex(0);
 
@@ -70,6 +75,11 @@ void MainWindow::manualWindowSlot() {
 void MainWindow::BackWindowSlot() {
     stackedWidget ->removeWidget(stackedWidget->currentWidget());
 }
+void MainWindow::BackBackWindowSlot() {
+    homedeckpage -> lastCardGenerate() ;
+    stackedWidget ->removeWidget(stackedWidget->currentWidget());
+    stackedWidget ->removeWidget(stackedWidget->currentWidget());
+}
 
 void MainWindow::newDeckWindowSlot() {
     stackedWidget -> addWidget(newdeckpage);
@@ -83,6 +93,7 @@ void MainWindow::LoadDeckPageSlot() {
 }
 
 void MainWindow::HomeDeckPageSlot() {
+
     stackedWidget -> removeWidget(stackedWidget->currentWidget());
     stackedWidget -> addWidget(homedeckpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);

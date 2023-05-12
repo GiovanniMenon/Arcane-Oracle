@@ -57,6 +57,8 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
      createButton -> setFixedSize(250, 70);
      backButton -> setFixedSize(150, 60);
 
+     DeckName -> setMaxLength(16);
+
 
 
 

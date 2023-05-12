@@ -2,9 +2,19 @@
 #define ABSTRACTCARD_H
 #include <string>
 #include <iostream>
-#include <json/json.h>
 
-#include "../../Ui/Visitor/cardvisitor.h"
+#ifdef __has_include
+#if __has_include(<jsoncpp/json/json.h>)
+#include <jsoncpp/json/json.h>
+#elif __has_include(<json/json.h>)
+#include <json/json.h>
+#endif
+#else
+#include <json/json.h>
+#endif
+
+//#include "../../Ui/Visitor/visitor.h"
+
 
 class Card{
 friend std::ostream& operator<<(std::ostream& os, const Card& c);
@@ -35,7 +45,7 @@ public:
     virtual  Json::Value  serialize() const;
     virtual bool operator ==(const Card&) const;
     virtual ~Card();
-    //virtual void accept(CardVisitor *);
+    //virtual void accept(visitor *);
 
 };
 

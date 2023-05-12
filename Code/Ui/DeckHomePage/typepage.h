@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QGroupBox>
 
+#include "../../class/Deck/deck.h"
 
 class TypePage : public QWidget
 {
@@ -17,17 +18,19 @@ public:
 public slots:
     void BackDeckPageSlot();
     void CardSlot();
-
+    void currentDeckSlot(Deck* currDeck);
 signals:
-    void CardSignal(int );
+    void CardSignal(Deck*, QWidget* );
     void CreateCardPageSignal();
     void BackDeckPageSignal();
 private:
-     QVBoxLayout * layout;
-     QLabel * DescText;
-     QGroupBox * ButtonMenu;
-     std::vector < QString> Descrizioni;
-     bool eventFilter(QObject* obj, QEvent* event) ;
+    Deck* deck;
+    QVBoxLayout * layout;
+    QLabel * DescText;
+    QGroupBox * ButtonMenu;
+    std::vector < QString> Descrizioni;
+    std::vector < QWidget*> cardWidgets;
+    bool eventFilter(QObject* obj, QEvent* event) ;
 
 
 

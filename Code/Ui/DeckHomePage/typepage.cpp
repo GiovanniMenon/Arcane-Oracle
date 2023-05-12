@@ -1,8 +1,17 @@
 #include "typepage.h"
 
-#include <QHoverEvent>
+
 #include <QEvent>
+
+
+#include "../Visitor/monsterwidget.h"
+#include "../Visitor/trapwidget.h"
+#include "../Visitor/artifactwidget.h"
+#include "../Visitor/fieldwidget.h"
+#include "../Visitor/spellwidget.h"
 #include <QDebug>
+
+
 
 TypePage::TypePage(QWidget * parent) : QWidget(parent)
 {
@@ -16,10 +25,10 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
 
     QPushButton * backButton = new QPushButton("EXIT");
     QLabel * TextTitle = new QLabel("Choose your Card Type");
-    DescText = new QLabel("");
+    DescText = new QLabel();
 
 
-    QPushButton * Submit = new QPushButton("Avanti");
+
     QPushButton * Monster = new QPushButton("Monster");
     QPushButton * Field = new QPushButton("Field");
     QPushButton * Artifact = new QPushButton("Artifact");
@@ -34,7 +43,7 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
 
 
     backButton -> setFixedSize(155, 60);
-    Submit -> setFixedSize(170, 80);
+
 
     Monster -> setFixedSize(200, 85);
     Field -> setFixedSize(200, 85);
@@ -101,6 +110,9 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
     Spell->installEventFilter(this);
     Trap->installEventFilter(this);
 
+
+
+
     connect(Monster,&QPushButton::clicked, this ,&TypePage::CardSlot);
     connect(Field,&QPushButton::clicked, this ,&TypePage::CardSlot);
     connect(Artifact,&QPushButton::clicked, this ,&TypePage::CardSlot);
@@ -127,5 +139,23 @@ void TypePage::CardSlot() {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
 
     emit CreateCardPageSignal();
-    emit CardSignal(clickedButton->property("id").toInt());
+    emit CardSignal(deck , cardWidgets[clickedButton->property("id").toInt()]);
+
+
+}
+
+void TypePage::currentDeckSlot(Deck * currDeck){
+    deck = currDeck;
+
+    cardWidgets.clear();
+    //Carico I CardWidgets
+    cardWidgets.push_back(new monsterWidget(deck));
+    cardWidgets.push_back(new fieldWidget(deck));
+    cardWidgets.push_back(new artifactWidget(deck));
+    cardWidgets.push_back(new spellWidget(deck));
+    cardWidgets.push_back(new trapWidget(deck));
+
+
+
+
 }

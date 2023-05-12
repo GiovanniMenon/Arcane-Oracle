@@ -144,3 +144,123 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
 #cardType5::hover{
 	border: 1px solid #FCF8E8;
 }
+
+#cardName{
+	font-size: 20px;
+	color: white;
+	font-weight: bold;
+}
+#cardImage{
+	border: 1px solid white;
+	border-radius:10px;
+}
+#cardDesc{
+	border-radius: 10px;
+	background-color: #323232;
+	border: 1px solid white
+}
+#cardMonster{
+	background-color: #a66e4a;
+}
+#cardArtifact{
+	background-color: #f2af6d;
+}
+#cardTrap{
+	background-color: #9370db;
+}
+#cardField{
+	background-color: #87a96b;
+}
+#cardSpell{
+	background-color: #b9d7d9;
+}
+#saveButton{
+	background-color : #1C1C1C;
+	border: 1px solid #FCF8E8;
+	color : #FCF8E8;
+}
+#saveButton::hover{
+	background-color : #1C1C1C;
+	border: 2px solid  #FCF8E8;
+	color :  #FCF8E8;
+}
+
+#remButton{
+	background-color : #1C1C1C;
+	border: 1px solid #FCF8E8;
+	color : #FCF8E8;
+}
+#remButton::hover{
+	background-color : #1C1C1C;
+	border: 2px solid  #FF7F7F;
+	color :  #FF7F7F;
+}
+#addButton{
+	background-color : #1C1C1C;
+	border: 1px solid #FCF8E8;
+	color : #FCF8E8;
+}
+#addButton::hover{
+	background-color : #1C1C1C;
+	border: 2px solid  #7FDB94;
+	color :  #7FDB94;
+}
+
+#cardCost{
+	font-weight:bold;
+	font-size:25px;
+	
+}
+#imageInside{
+
+	border-radius : 5px;
+}
+
+#HPAttr{
+	background-color: transparent;
+	background-image: url(asset/Icon/heart.png);
+	font-weight:bold;
+	font-size:30px;
+}
+
+#AttAttr{
+	background-color: transparent;
+	background-image: url(asset/Icon/att1.png);
+	font-weight:bold;
+	
+	font-size:40px;
+	
+}
+
+#DefAttr{
+	background-color: transparent;
+	background-image: url(asset/Icon/def1.png);
+	background-image: no-repeat;
+	font-weight:bold;
+	
+	font-size:24px;
+}
+
+#cardEff{
+	font-size:18;
+	
+	font-family: italic;
+	color : white;
+	background-color: #1C1C1C;
+	border-radius : 10px;
+	text-align: center center;
+}
+#cardEffTitle{
+	color : #323232;
+	font-weight: bold;
+	
+	
+}
+#Elements:hover{
+	border: 2px solid white;
+	border-radius: 10px;
+	
+	
+}
+
+

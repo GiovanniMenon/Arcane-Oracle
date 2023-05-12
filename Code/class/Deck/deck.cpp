@@ -145,6 +145,13 @@ Card* Deck::prec(Card* c) const {
 
 
 }
+Card*  Deck::last() const {
+    list<Card*>::iterator it = deck.end();
+    --it;
+
+    return deck[it];
+}
+
 Card*  Deck::next(Card* c) const {
     list<Card*>::iterator it = deck.begin();
     while(!(*(deck[it])==(*c)))
@@ -157,11 +164,10 @@ Card*  Deck::next(Card* c) const {
 }
 
 
-
 // Metodi Deck
 void Deck::insert(Card* c){
+       if(c!=nullptr) deck.push_back(c);
 
-       deck.push_back(c);
 
 }
 void Deck::remove(){
@@ -362,6 +368,7 @@ void Deck::load() {
     const Json::Value& cards=obj["Cards"];
     const Json::Value& Saved_Name=obj["Name"];
     name = Saved_Name.asString();
+    if(cards.size()!=0){
     Card* tmp;
 
     for(unsigned int i=0;i < cards.size();i++){
@@ -376,12 +383,13 @@ void Deck::load() {
                    break;
             case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
                    break;
+            default:tmp=nullptr;
         }
 
         deck.push_back(tmp);
     }
     ifs.close();
-    }
+    }}
 }
 void Deck::save() {
     if(deck.size()!=0){
@@ -431,12 +439,11 @@ void Deck::garbage_collector() {
 
     if(cards.size()!=0){
     Card* tmp;
-
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
             case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
                    break;
-            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["save"].asBool());
+            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["attack_points"].asInt(),cards[i]["save"].asBool());
                    break;
             case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
                    break;
@@ -444,6 +451,7 @@ void Deck::garbage_collector() {
                    break;
             case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
                    break;
+            default:tmp=nullptr;
         }
         deck_tmp.insert(tmp);
         }

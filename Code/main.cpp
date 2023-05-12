@@ -5,9 +5,6 @@
 #include <QLabel>
 #include <QFile>
 
-#include "class/Deck/deck.h"
-#include "class/Cards/monstercard.h"
-
 
 
 

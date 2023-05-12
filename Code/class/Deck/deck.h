@@ -47,6 +47,7 @@ public: Deck();
 
         Card* next(Card*) const;
         Card* prec(Card*) const;
+        Card* last() const;
 
         void search(std::string) const;
         void order(int , bool);

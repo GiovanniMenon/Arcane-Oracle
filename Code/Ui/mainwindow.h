@@ -41,6 +41,7 @@ public slots:
     void newDeckWindowSlot();
     void LoadDeckPageSlot();
     void BackWindowSlot();
+    void BackBackWindowSlot();
 
     void HomeDeckPageSlot();
     void ShowDeckPageSlot();

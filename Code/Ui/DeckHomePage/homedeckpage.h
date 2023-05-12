@@ -14,6 +14,7 @@ class HomeDeckPage : public QWidget
 Q_OBJECT
 public:
     HomeDeckPage(QWidget * parent=nullptr);
+    void lastCardGenerate() const;
 public slots:
     void BackHomePageSlot();
     void GenerateCardSlot();
@@ -29,6 +30,7 @@ signals :
 
 
 private :
+
     QHBoxLayout * layout ;
     QGroupBox * ButtonMenu;
     QGroupBox * LastCard;

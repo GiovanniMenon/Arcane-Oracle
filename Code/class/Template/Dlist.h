@@ -91,7 +91,9 @@ template <class T>
 list<T>::nodo::nodo(): next(0) , prev(0){};
 
 template <class T>
-list<T>::nodo::nodo(T& i, nodo* n ,nodo* p): info(new T(i)) , next(n) , prev(p) {};
+list<T>::nodo::nodo(T& i, nodo* n ,nodo* p): info(new T(i)), next(n) , prev(p) {
+
+};
 
 
 //List
@@ -142,6 +144,7 @@ list<T>& list<T>::operator=(const list<T>& l){
 //Operazioni su lista
 template <class T>
 void list<T>::push_back(T info){
+    if(info != nullptr){
     nodo* q=new nodo(info);
     if(sizel==0){
         first=last=q;
@@ -152,6 +155,7 @@ void list<T>::push_back(T info){
         last->next=0;
     }
     sizel++;
+    }
 }
 
 

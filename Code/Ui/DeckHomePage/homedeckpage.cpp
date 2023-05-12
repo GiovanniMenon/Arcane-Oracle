@@ -38,7 +38,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     BoxVertical -> addWidget(GenerateCard);
     BoxVertical -> addStretch();
     BoxVertical -> addLayout(Exit);
-     BoxVertical -> addSpacing(20);
+    BoxVertical -> addSpacing(20);
     BoxVertical -> setAlignment(Qt::AlignCenter);
 
 
@@ -62,7 +62,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     ShowDeck -> setFixedSize(260, 80);
     GenerateCard-> setFixedSize(260, 80);
     ButtonMenu -> setFixedSize(400, 750);
-    LastCard -> setFixedSize(400, 550);
+    LastCard -> setFixedSize(370, 600);
 
     connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
@@ -71,20 +71,31 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 
 
 }
+void HomeDeckPage::lastCardGenerate() const {
+    if(!deck.is_empty()){
+
+    }
+
+}
 
 void HomeDeckPage::GenerateCardSlot() {
+    emit DeckSelectedSignal(&deck);
     emit GenerateCardSignal();
+
 }
 
 void HomeDeckPage::BackHomePageSlot() {
     deck.clear(); //pulisco il mazzo da quello precedente
     emit BackHomePageSignal();
+
 }
 
 void HomeDeckPage::newDeckCreatedSlot(QString nomeDeck) {
 
     deck.SetDeck(nomeDeck.toStdString());
     header -> setText(QString::fromStdString(deck.getName()));
+
+    lastCardGenerate();
 }
 
 void HomeDeckPage::ShowDeckSlot() {

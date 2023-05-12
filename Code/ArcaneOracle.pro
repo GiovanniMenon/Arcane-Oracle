@@ -19,8 +19,15 @@ SOURCES += \
     Ui/HomePage/loadpage.cpp \
     Ui/HomePage/manualdeck.cpp \
     Ui/HomePage/newdeckpage.cpp \
-    Ui/Visitor/cardvisitor.cpp \
+    Ui/Utils/clickablelabel.cpp \
+    Ui/Visitor/artifactwidget.cpp \
+    Ui/Visitor/cardwidget.cpp \
+    Ui/Visitor/effectwidget.cpp \
+    Ui/Visitor/fieldwidget.cpp \
     Ui/Visitor/monsterwidget.cpp \
+    Ui/Visitor/spellwidget.cpp \
+    Ui/Visitor/trapwidget.cpp \
+    Ui/Visitor/visitor.cpp \
     class/Cards/abstractcard.cpp \
     class/Cards/artifactcard.cpp \
     class/Generator/dall_eapi.cpp \
@@ -43,8 +50,15 @@ HEADERS += \
     Ui/HomePage/loadpage.h \
     Ui/HomePage/manualdeck.h \
     Ui/HomePage/newdeckpage.h \
-    Ui/Visitor/cardvisitor.h \
+    Ui/Utils/clickablelabel.h \
+    Ui/Visitor/artifactwidget.h \
+    Ui/Visitor/cardwidget.h \
+    Ui/Visitor/effectwidget.h \
+    Ui/Visitor/fieldwidget.h \
     Ui/Visitor/monsterwidget.h \
+    Ui/Visitor/spellwidget.h \
+    Ui/Visitor/trapwidget.h \
+    Ui/Visitor/visitor.h \
     class/Template/Dlist.h \
     class/Cards/abstractcard.h \
     class/Cards/artifactcard.h \
