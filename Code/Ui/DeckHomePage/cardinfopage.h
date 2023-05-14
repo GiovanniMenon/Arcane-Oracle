@@ -26,8 +26,12 @@ public slots:
     void nextImageSlot();
     void previousImageSlot();
     void receiveImagePaths(QStringList& imagePaths);
+    void deleteCardSlot();
 signals :
     void BackShowDeckPageSignal();
+    void LastCardEliminatedSignal();
+    void refreshDeckSignal();
+    //void BackShowDeckLastCardSignal();
 private:
     QLabel *image;
     QPixmap* pixmap;
@@ -40,6 +44,10 @@ private:
     QStringList paths;
     QString currPath;
     Card* cardSelected;
+    QPushButton * deleteCard;
+    QPushButton * exportPNG;
+    QDir* dir;
+
 
 };
 

@@ -204,8 +204,8 @@ void Deck::clear()  {
     }
 }
 
-void Deck::search(std::string string)  const {
-        Deck tmp;
+Deck* Deck::search(std::string string)  const {
+        Deck* tmp = new Deck();
         for(list<Card*>::iterator it = deck.begin(); it !=  deck.end(); ++it )
         {
             std::string name = deck[it]->getName();
@@ -221,11 +221,11 @@ void Deck::search(std::string string)  const {
             if(found_name!=std::string::npos || found_desc!=std::string::npos)
             {
                //Copia profonda della carta
-               tmp.insert(deck[it]->clone());
+               tmp->insert(deck[it]->clone());
             }
 
         }
-        std::cout << tmp;
+        return tmp;
 
 }
 void Deck::order(int option, bool ord){
@@ -443,7 +443,7 @@ void Deck::garbage_collector() {
         switch(cards[i]["type"].asInt()){
             case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
                    break;
-            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["attack_points"].asInt(),cards[i]["save"].asBool());
+            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["save"].asBool());
                    break;
             case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
                    break;

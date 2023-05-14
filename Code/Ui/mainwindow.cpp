@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     showdeckpage = new ShowDeckPage();
     typepage = new TypePage();
     cardpage = new CardPage();
+    cardinfopage = new CardInfoPage();
 
 
 
@@ -48,15 +49,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(homedeckpage, &HomeDeckPage::ShowDeckSignal, this, &MainWindow::ShowDeckPageSlot);
     connect(homedeckpage, &HomeDeckPage::GenerateCardSignal,this,&MainWindow::TypePageSlot);
     connect(typepage, &TypePage::CreateCardPageSignal,this,&MainWindow::CardPageSlot);
-
     connect(newdeckpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
     connect(loadpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
-
+    connect(showdeckpage, &ShowDeckPage::CardInfoSignal, this, &MainWindow::CardInfoPageSlot);
+    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, this,&MainWindow::BackWindowSlot);
+    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, showdeckpage, &ShowDeckPage::refreshDeckSlot);
     connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), showdeckpage, SLOT(currentDeckSlot(Deck*)));
     connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), typepage, SLOT(currentDeckSlot(Deck*)));
-
+    connect(showdeckpage, SIGNAL(CurrentDeckSignal(Deck*)), cardinfopage, SLOT(currentDeckSlot(Deck*)));
+    connect(showdeckpage, SIGNAL(ImagePathsSignal(QStringList&)), cardinfopage, SLOT(receiveImagePaths(QStringList&)));
     connect(typepage, SIGNAL(CardSignal(Deck*,QWidget*)), cardpage, SLOT(NewCardIdSlot(Deck*,QWidget*)));
-
     stackedWidget -> setCurrentIndex(0);
 
 }
@@ -101,6 +103,7 @@ void MainWindow::HomeDeckPageSlot() {
 
 void MainWindow::ShowDeckPageSlot(){
     stackedWidget -> addWidget(showdeckpage);
+    showdeckpage->clear();
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
 
@@ -111,4 +114,11 @@ void MainWindow::TypePageSlot() {
 void MainWindow::CardPageSlot() {
     stackedWidget -> addWidget(cardpage);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
+}
+
+void MainWindow::CardInfoPageSlot(QPixmap* pixmap, Card* card){
+    stackedWidget->addWidget(cardinfopage);
+    cardinfopage->setPixmapp(pixmap,card);
+    stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
+
 }

@@ -15,6 +15,11 @@ QPushButton::hover{
 	color : #FCF8E8;
     font-weight: bold;
 }
+QPushButton::focus{
+    background-color:#1C1C1C;
+	color : #FCF8E8;
+    font-weight: bold;
+}
 QLineEdit{
 	color : white;
 	background-color: #1C1C1C;
@@ -223,6 +228,12 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
 	font-size:30px;
 }
 
+#TimeAttr{
+	background-color: transparent;
+	background-image: url(asset/Icon/time.png);
+	font-weight:bold;
+	font-size:30px;
+}
 #AttAttr{
 	background-color: transparent;
 	background-image: url(asset/Icon/att1.png);
@@ -263,4 +274,18 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
 	
 }
 
+#ImageLayout{
+	background-color: #323232;
+	border-radius:5px;
+}
+#scrollArea{
+	background-color: #323232;
+	border: 1px solid white;
+	border-radius:5px;
+	
+}
 
+#sortButtons:hover{
+	border: 2px solid #1C1C1C;
+	background-color: #FCF8E8 ; 
+}

@@ -10,12 +10,14 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 
     QVBoxLayout *col = new QVBoxLayout();
     QVBoxLayout * BoxVertical = new QVBoxLayout(ButtonMenu);
+    lastCardLayout = new QVBoxLayout(LastCard);
     QHBoxLayout * Exit = new QHBoxLayout();
 
     header = new QLabel();
     header-> setAlignment(Qt::AlignCenter);
     header -> setObjectName("Title");
-
+    imageLabel = new QLabel();
+    stillNoCard = new QLabel();
     QPushButton * ExitButton = new QPushButton("EXIT");
     QPushButton * ShowDeck = new QPushButton("Show Deck");
     QPushButton * GenerateCard = new QPushButton("Generate Card");
@@ -62,7 +64,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     ShowDeck -> setFixedSize(260, 80);
     GenerateCard-> setFixedSize(260, 80);
     ButtonMenu -> setFixedSize(400, 750);
-    LastCard -> setFixedSize(370, 600);
+    LastCard -> setFixedSize(400, 625);
 
     connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
@@ -73,9 +75,24 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 }
 void HomeDeckPage::lastCardGenerate() const {
     if(!deck.is_empty()){
+            imageLabel -> setText("");
+            stillNoCard -> hide();
+            QPixmap lastCard = (QString::fromStdString(deck.last()->getUrl()));
+            imageLabel ->setPixmap(lastCard);
 
+
+    }else{
+            stillNoCard -> show();
+            imageLabel ->setText("˙◠˙" );
+            stillNoCard ->setText("The Deck is Empty");
+            imageLabel->setObjectName("Title");
+            stillNoCard->setObjectName("GHeader");
+            imageLabel ->setAlignment(Qt::AlignCenter);
+            stillNoCard ->setAlignment(Qt::AlignCenter);
     }
-
+    lastCardLayout ->addWidget(imageLabel);
+    lastCardLayout ->addWidget(stillNoCard);
+    lastCardLayout -> setContentsMargins(0,0,0,0);
 }
 
 void HomeDeckPage::GenerateCardSlot() {
@@ -101,5 +118,7 @@ void HomeDeckPage::newDeckCreatedSlot(QString nomeDeck) {
 void HomeDeckPage::ShowDeckSlot() {
     emit ShowDeckSignal();
     emit DeckSelectedSignal(&deck);
+    //emit ClearShowDeckPageSignal();
+
 }
 

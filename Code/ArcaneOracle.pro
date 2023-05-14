@@ -11,6 +11,7 @@ LIBS += -L/usr/local/lib -ljsoncpp -lcurl
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Ui/DeckHomePage/cardinfopage.cpp \
     Ui/DeckHomePage/cardpage.cpp \
     Ui/DeckHomePage/homedeckpage.cpp \
     Ui/DeckHomePage/showdeckpage.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
     Ui/mainwindow.cpp \
 
 HEADERS += \
+    Ui/DeckHomePage/cardinfopage.h \
     Ui/DeckHomePage/cardpage.h \
     Ui/DeckHomePage/homedeckpage.h \
     Ui/DeckHomePage/showdeckpage.h \

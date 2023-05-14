@@ -13,6 +13,7 @@
 #include "DeckHomePage/typepage.h"
 #include "DeckHomePage/showdeckpage.h"
 #include "DeckHomePage/cardpage.h"
+#include "DeckHomePage/cardinfopage.h"
 
 
 class MainWindow : public QMainWindow
@@ -34,6 +35,7 @@ private:
     TypePage *typepage;
     ShowDeckPage *showdeckpage;
     CardPage *cardpage;
+    CardInfoPage* cardinfopage;
 
 
 public slots:
@@ -47,6 +49,7 @@ public slots:
     void ShowDeckPageSlot();
     void CardPageSlot();
     void TypePageSlot();
+    void CardInfoPageSlot(QPixmap* pixmap, Card* card);
 signals:
     void newDeckWindowSignal();
     void manualWindowSignal();
