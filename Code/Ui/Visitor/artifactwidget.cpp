@@ -126,5 +126,7 @@ void artifactWidget::generate(){
     potions -> hide();
     magic -> hide();
     title -> hide();
+    cardAtt -> setReadOnly(true);
+    cardDef -> setReadOnly(true);
     cardWidget::generate();
 } ;

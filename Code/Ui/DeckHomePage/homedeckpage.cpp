@@ -64,7 +64,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     ShowDeck -> setFixedSize(260, 80);
     GenerateCard-> setFixedSize(260, 80);
     ButtonMenu -> setFixedSize(400, 750);
-    LastCard -> setFixedSize(400, 625);
+    LastCard -> setFixedSize(390, 625);
 
     connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
@@ -74,6 +74,10 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 
 }
 void HomeDeckPage::lastCardGenerate() const {
+    QVBoxLayout *centerImage = new QVBoxLayout();
+
+    lastCardLayout ->setAlignment(Qt::AlignCenter);
+    centerImage ->setAlignment(Qt::AlignCenter);
     if(!deck.is_empty()){
             imageLabel -> setText("");
             stillNoCard -> hide();
@@ -90,9 +94,11 @@ void HomeDeckPage::lastCardGenerate() const {
             imageLabel ->setAlignment(Qt::AlignCenter);
             stillNoCard ->setAlignment(Qt::AlignCenter);
     }
-    lastCardLayout ->addWidget(imageLabel);
-    lastCardLayout ->addWidget(stillNoCard);
+    centerImage ->addWidget(imageLabel);
+    centerImage ->addWidget(stillNoCard);
+    lastCardLayout ->addLayout(centerImage);
     lastCardLayout -> setContentsMargins(0,0,0,0);
+    centerImage-> setContentsMargins(0,0,0,0);
 }
 
 void HomeDeckPage::GenerateCardSlot() {

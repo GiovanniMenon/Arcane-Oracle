@@ -82,7 +82,7 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
     desc -> setFixedSize(350,250);
     image -> setFixedSize(290,290);
 
-
+    cardGroup->setObjectName("cardGroup");
     nameCard ->setObjectName("cardName");
     costCard -> setObjectName("cardCost");
     image -> setObjectName("cardImage");

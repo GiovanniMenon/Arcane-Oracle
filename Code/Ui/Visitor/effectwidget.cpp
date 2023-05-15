@@ -27,6 +27,7 @@ effectWidget::effectWidget(Deck * currDeck,QWidget *parent) : cardWidget(currDec
 
 
 void effectWidget::generate(){
+    effect -> setReadOnly(true);
     cardWidget::generate();
 } ;
 bool effectWidget::checkInput() const{
