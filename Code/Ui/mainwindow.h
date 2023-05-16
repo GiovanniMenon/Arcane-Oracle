@@ -50,6 +50,7 @@ public slots:
     void CardPageSlot();
     void TypePageSlot();
     void CardInfoPageSlot(QPixmap* pixmap, Card* card);
+    void BackWindowSlotHomePage();
 signals:
     void newDeckWindowSignal();
     void manualWindowSignal();

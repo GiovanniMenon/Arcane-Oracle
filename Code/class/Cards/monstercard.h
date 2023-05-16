@@ -16,7 +16,7 @@ public:
     unsigned int getHealth() const;
     unsigned int getDamage() const;
     unsigned int getDefense() const;
-    void setGrade() override;
+
     bool operator ==(const Card&) const override;
     virtual monsterCard* clone() const override;
     Json::Value  serialize() const override;

@@ -15,11 +15,7 @@ QPushButton::hover{
 	color : #FCF8E8;
     font-weight: bold;
 }
-QPushButton::focus{
-    background-color:#1C1C1C;
-	color : #FCF8E8;
-    font-weight: bold;
-}
+
 QLineEdit{
 	color : white;
 	background-color: #1C1C1C;
@@ -71,6 +67,10 @@ QScrollBar:vertical {
 QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
     background-color: transparent;
     
+}
+QMessageBox{
+	background-color: #323232;
+	color : white;
 }
 
 #HomePageTitle{
@@ -288,4 +288,21 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{
 #sortButtons:hover{
 	border: 2px solid #1C1C1C;
 	background-color: #FCF8E8 ; 
+}
+
+#LoadScroll{
+	border-radius: 10px;
+	border: none;
+	background-color: transparent;
+}
+#DeleteButton{
+	background-color : #1C1C1C;
+	border: 1px solid  #FF7F7F;
+	color : #FCF8E8;
+}
+#DeleteButton:hover{
+
+	background-color : #1C1C1C;
+	border: 2px solid  #FF7F7F;
+	color :  #FF7F7F;
 }

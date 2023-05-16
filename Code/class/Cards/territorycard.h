@@ -12,7 +12,7 @@ public:
     std::string getType() const;
     bool operator ==(const Card&) const override;
     virtual  Json::Value  serialize() const override;
-    void setGrade() override;
+
     virtual territoryCard* clone() const override;
 };
 

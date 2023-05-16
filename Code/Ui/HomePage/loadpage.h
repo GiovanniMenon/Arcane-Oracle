@@ -34,6 +34,8 @@ private:
     QLabel *label2;
     QLabel *label1;
 
+    QScrollArea * scrollArea;
+
     QGroupBox *loadDeckGroup();
     void SearchDeck();
 

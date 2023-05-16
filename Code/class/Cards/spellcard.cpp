@@ -16,9 +16,6 @@ bool spellCard::operator==(const Card& c) const {
     return r && EffectCards::operator==(c) && element == r->getElement();
 }
 
-void spellCard::setGrade() {
-    //Da fare
-}
 
 Json::Value spellCard::serialize() const{
     Json::Value json;
@@ -27,7 +24,6 @@ Json::Value spellCard::serialize() const{
 
     json["type"] = 2;
     json["element"] = getElement();
-    json["grade"] = grade;
     json["attack_points"] = dmg;
 
     return json;

@@ -23,12 +23,12 @@ trapWidget::trapWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDeck,
 
 
     spellDmg -> setObjectName("AttAttr");
-    durata -> setObjectName("HPAttr");
+    durata -> setObjectName("TimeAttr");
 
 
 
     spellDmg ->setFixedSize(64,64);
-    durata ->setFixedSize(72,72);
+    durata ->setFixedSize(64,64);
 
 
     durata -> setAlignment(Qt::AlignCenter);

@@ -1,0 +1,30 @@
+{
+	"Cards" : 
+	[
+		{
+			"attack_points" : 1,
+			"b64url" : "asset/Deck/Deck1/img/123.jpg",
+			"cost" : 1,
+			"defense_points" : 1,
+			"description" : "1",
+			"health" : 1,
+			"level" : 1,
+			"name" : "123",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"attack_points" : 2,
+			"b64url" : "asset/Deck/Deck1/img/1.jpg",
+			"cost" : 1,
+			"defense_points" : 1,
+			"description" : "1",
+			"health" : 1,
+			"level" : 1,
+			"name" : "1",
+			"save" : true,
+			"type" : 1
+		}
+	],
+	"Name" : "Deck1"
+}

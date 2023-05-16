@@ -13,20 +13,12 @@ unsigned int defenseCompare = 40;
 unsigned int Lifecompare = 100;
 unsigned int LevelCompare = 10;
 
-void monsterCard::setGrade(){
-    if(damage > attackCompare && defense > defenseCompare){
-        if(health > Lifecompare && level > LevelCompare){
-            grade = 3; //Ultra rare
-        }
-        grade = 2; //Rare
-    }
-    grade = 1; //commmon
-}
+
 
 
 std::ostream& monsterCard::print(std::ostream& os) const {
     Card::print(os);
-    os <<"Attack Point: " << damage <<std::endl<< "Defense Point: " << defense <<std::endl<< "Life Points: " << health <<std::endl<< "Level: " << level <<std::endl<< "Card Generated: " << number << std::endl;
+    os <<"Attack Point: " << damage <<std::endl<< "Defense Point: " << defense <<std::endl<< "Life Points: " << health <<std::endl<< "Level: " << level <<std::endl<< "Card Generated: "  << std::endl;
     return os;
 }
 
@@ -47,7 +39,7 @@ Json::Value monsterCard::serialize() const {
    json["health"] = health;
    json["attack_points"] = damage;
    json["defense_points"] = defense;
-   json["grade"] = grade;
+
 
 
 

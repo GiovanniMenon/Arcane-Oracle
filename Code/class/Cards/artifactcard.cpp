@@ -7,13 +7,10 @@ unsigned int damageCompare = 50;
 unsigned int defCompare = 30;
 unsigned int healthCompare = 20;
 
-void artifactCard::setGrade(){
-    //da rifare
-}
 
 std::ostream& artifactCard::print(std::ostream& os) const{
     Card::print(os);
-    os << "Tipo: " << type <<std::endl<< "Attacco: " << damage <<std::endl<< "Difesa: " << defense <<std::endl<< "Salute: "  <<std::endl<< "Scale: " <<std::endl<< "Ncard Generated:" << number << std::endl<<std::endl;
+    os << "Tipo: " << type <<std::endl<< "Attacco: " << damage <<std::endl<< "Difesa: " << defense <<std::endl<< "Salute: "  <<std::endl<< "Scale: " <<std::endl<< "Ncard Generated:" << std::endl<<std::endl;
     return os;
 }
 
@@ -31,7 +28,7 @@ Json::Value  artifactCard::serialize() const {
    json["artifact_type"] = type;
    json["attack_points"] = damage;
    json["defense_points"] = defense;
-   json["grade"] = grade;
+
 
    return json;
 }

@@ -7,7 +7,9 @@
 #include <QPushButton>
 #include <QGroupBox>
 #include <QLabel>
+#include <QMessageBox>
 #include "../../class/Deck/deck.h"
+
 
 class HomeDeckPage : public QWidget
 {
@@ -19,7 +21,7 @@ public slots:
     void BackHomePageSlot();
     void GenerateCardSlot();
     void ShowDeckSlot();
-
+    void DeleteDeckSlot();
     void newDeckCreatedSlot(QString nome);
 signals :
     void BackHomePageSignal();

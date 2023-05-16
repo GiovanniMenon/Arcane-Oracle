@@ -9,17 +9,7 @@ unsigned int trapCard::getDuration() const { return duration;}
 unsigned int durationCompare = 5; //seconds
 unsigned int trapDamageCompare = 10;
 
-void trapCard::setGrade() {
-    if(duration > durationCompare){
-        if(damage > trapDamageCompare){
-            grade = 3; //ultra rare trap card
-            return;
-        }
-        grade = 2; //rare
-        return;
-    }
-    grade = 1; //common
-}
+
 
 std::ostream& trapCard::print(std::ostream& os) const{
     EffectCards::print(os);
@@ -39,7 +29,6 @@ Json::Value trapCard::serialize() const {
 
     json["damage"] = damage;
     json["duration"] = duration;
-    json["grade"] = grade;
     json["type"] = 4;
 
     return json;

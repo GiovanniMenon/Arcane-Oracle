@@ -15,7 +15,7 @@ public:
     bool getScale() const;
     bool operator ==(const Card&) const override;
     virtual  Json::Value  serialize() const override;
-    void setGrade() override;
+
     virtual spellCard* clone() const override;
 };
 

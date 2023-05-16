@@ -15,7 +15,7 @@ bool territoryCard::operator==(const Card& c) const{
     return r && EffectCards::operator==(c) && type == r->getType();
 }
 
-void territoryCard::setGrade() {grade = 1; } //Tutte le carte territorio hanno lo stesso grado
+//Tutte le carte territorio hanno lo stesso grado
 
 Json::Value territoryCard::serialize() const {
     Json::Value json;
@@ -24,7 +24,7 @@ Json::Value territoryCard::serialize() const {
 
     json["type"] = 3;
     json["type_effect"] = getType();
-    json["grade"] = grade;
+
 
     return json;
 }

@@ -23,11 +23,14 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
 
     QHBoxLayout * LoadLayout  = new QHBoxLayout();
+    scrollArea = new QScrollArea();
 
 
     QPushButton *backButton = new QPushButton("Back");
     QPushButton *loadButton = new QPushButton("Load");
     QLabel *title = new QLabel("Choose your Deck");
+
+
     line =  new QFrame();
     label1 = new QLabel("Testing Decks");
     label2 = new QLabel("Your Decks");
@@ -35,6 +38,7 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     label2->setAlignment(Qt::AlignCenter);
     label1->setObjectName("GHeader");
     label2->setObjectName("GHeader");
+    scrollArea->setObjectName("LoadScroll");
 
 
     line->setFrameShape(QFrame::HLine);
@@ -60,8 +64,9 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
     if(opendir("asset")){
 
-
-         layout -> addWidget(loadDeckGroup());
+        scrollArea -> setWidget(loadDeckGroup());
+        scrollArea -> setWidgetResizable(true);
+        layout -> addWidget(scrollArea);
 
     }else{
          QLabel *notFound = new QLabel("Nessun Mazzo Presente");
@@ -78,7 +83,8 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
 
     backButton -> setFixedSize(150, 60);
     loadButton -> setFixedSize(250, 70);
-    groupBox -> setFixedHeight(400);
+    scrollArea -> setFixedHeight(400);
+
 
 
 

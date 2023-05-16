@@ -276,22 +276,7 @@ void Deck::order(int option, bool ord){
                     }
                 }
                 break;
-            case 3:
-                //Ordine Di creazione
-                for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
 
-                    for(list<Card*>::iterator i = it ; i!=deck.end();++i){
-
-                        if(deck[it]->getNumber()>deck[i]->getNumber()){
-
-                            Card* tmp = deck[it];
-                            deck[it]=deck[i];
-                            deck[i]=tmp;
-
-                        }
-                    }
-                }
-                break;
         }
         }else{
                 switch(option){
@@ -338,21 +323,7 @@ void Deck::order(int option, bool ord){
                         }
                     }
                     break;
-                case 3:
-                    //Ordine Di creazione
-                    for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
 
-                        for(list<Card*>::iterator i = it ; i!=deck.end();++i){
-
-                            if(deck[it]->getNumber()<deck[i]->getNumber()){
-
-                                Card* tmp = deck[it];
-                                deck[it]=deck[i];
-                                deck[i]=tmp;
-                            }
-                        }
-                    }
-                    break;
             }
     }
 

@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(homedeckpage,&HomeDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(cardpage,&CardPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(typepage,&TypePage::BackDeckPageSignal, this , &MainWindow::BackWindowSlot );
-    connect(showdeckpage, &ShowDeckPage::BackDeckPageSignal, this, &MainWindow::BackWindowSlot);
+    connect(showdeckpage, &ShowDeckPage::BackDeckPageSignal, this, &MainWindow::BackWindowSlotHomePage);
 
     //Doppio Back
     connect(cardpage,&CardPage::BackBackHomePageSignal, this , &MainWindow::BackBackWindowSlot );
@@ -75,6 +75,10 @@ void MainWindow::manualWindowSlot() {
 }
 
 void MainWindow::BackWindowSlot() {
+    stackedWidget ->removeWidget(stackedWidget->currentWidget());
+}
+void MainWindow::BackWindowSlotHomePage() {
+    homedeckpage -> lastCardGenerate() ;
     stackedWidget ->removeWidget(stackedWidget->currentWidget());
 }
 void MainWindow::BackBackWindowSlot() {
