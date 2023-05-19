@@ -19,15 +19,13 @@ class cardWidget : public QWidget
     Q_OBJECT
 public:
     cardWidget(Deck *,QWidget *parent=nullptr);
-    virtual Card* getInput() = 0;
-
+    virtual Card* getInput() = 0;\
     virtual void generate() ;
     virtual bool checkInput() const;
     QPixmap takeScreen(bool i) const;
     std::string getUrl() const{
             return path;
     }
-
 protected:
     Deck *deck;
     std::string path;
@@ -40,7 +38,8 @@ protected:
     QVBoxLayout *imageLayout;
 
     QGroupBox *cardGroup;
-
+    QLabel *loading;
+    QMovie *gif ;
     QPixmap scaledPixmap;
 
 
@@ -53,6 +52,7 @@ protected:
     //Descrizione
     QTextEdit *desc;
     QString descText;
+
 
 
 };

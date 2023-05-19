@@ -25,6 +25,8 @@ trapWidget::trapWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDeck,
     spellDmg -> setObjectName("AttAttr");
     durata -> setObjectName("TimeAttr");
 
+    spellDmg ->setMaxLength(1);
+
 
 
     spellDmg ->setFixedSize(64,64);
@@ -39,6 +41,14 @@ Card* trapWidget::getInput() {
     return new trapCard(nameCard->text().toStdString(),descText.toStdString(),path,costCard->text().toInt(),effect->toPlainText().toStdString() ,spellDmg -> text().toInt(),durata->text().toInt());
 }
 
+void trapWidget::generate(){
+
+
+    spellDmg -> setReadOnly(true);
+    durata -> setReadOnly(true);
+
+    effectWidget::generate();
+} ;
 bool trapWidget::checkInput() const{
 
     if(effectWidget::checkInput() && !(spellDmg ->text().simplified().isEmpty()) && !(durata ->text().simplified().isEmpty())){

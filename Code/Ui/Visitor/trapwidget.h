@@ -12,7 +12,7 @@ public:
     trapWidget(Deck * , QWidget *parent=nullptr);
 
     virtual Card* getInput() override;
-
+    virtual void generate() override ;
     virtual bool checkInput() const override ;
 private:
     QLineEdit *spellDmg;

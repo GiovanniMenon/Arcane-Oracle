@@ -173,6 +173,8 @@ spellWidget::spellWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDec
     connect(time, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
     connect(storm, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
 
+    spellDmg ->setMaxLength(1);
+
 
 }
 
@@ -193,7 +195,7 @@ bool spellWidget::checkInput() const{
 void spellWidget::generate(){
 
 
-
+    spellDmg ->setReadOnly(true);
     title ->hide();
 
     flame ->hide();

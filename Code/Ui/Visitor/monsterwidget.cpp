@@ -38,9 +38,14 @@ monsterWidget::monsterWidget(Deck * currDeck,QWidget *parent) : cardWidget(currD
     cardHP ->setFixedSize(72,72);
     cardDef ->setFixedSize(48,48);
 
+    cardAtt ->setMaxLength(1);
+    cardHP ->setMaxLength(1);
+    cardDef ->setMaxLength(1);
+
     cardAtt -> setAlignment(Qt::AlignCenter);
     cardHP -> setAlignment(Qt::AlignCenter);
     cardDef -> setAlignment(Qt::AlignCenter);
+
 
 
 
@@ -51,7 +56,13 @@ Card* monsterWidget::getInput() {
     return new monsterCard(nameCard->text().toStdString(),descText.toStdString(),path,costCard->text().toInt(), 1,cardHP->text().toInt(),cardAtt->text().toInt(), cardDef->text().toInt());
 }
 
+void monsterWidget::generate(){
 
+    cardAtt -> setReadOnly(true);
+    cardDef -> setReadOnly(true);
+    cardHP -> setReadOnly(true);
+    cardWidget::generate();
+} ;
 
 bool monsterWidget::checkInput() const{
 

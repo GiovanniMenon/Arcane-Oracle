@@ -93,6 +93,8 @@ artifactWidget::artifactWidget(Deck * currDeck,QWidget *parent) : cardWidget(cur
     connect(magic, &ClickableLabel::clicked, this, &artifactWidget::onImageClickedSlot);
 
 
+    cardAtt ->setMaxLength(1);
+    cardDef ->setMaxLength(1);
 
 }
 
@@ -100,8 +102,6 @@ Card* artifactWidget::getInput() {
     return new artifactCard(nameCard->text().toStdString(),descText.toStdString(),path,costCard->text().toInt(),artifactType[id],cardAtt->text().toInt(),cardDef->text().toInt());
 }
 
-
-//aggiungere genere che nasconde le immagini
 
 bool artifactWidget::checkInput() const{
 

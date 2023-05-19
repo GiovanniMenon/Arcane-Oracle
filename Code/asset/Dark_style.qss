@@ -157,7 +157,7 @@ QMessageBox{
 }
 #cardImage{
 	border: 1px solid white;
-	border-radius:10px;
+	border-radius:5px;
 }
 #cardDesc{
 	border-radius: 10px;
@@ -233,6 +233,7 @@ QMessageBox{
 	background-image: url(asset/Icon/time.png);
 	font-weight:bold;
 	font-size:30px;
+	color : #1C1C1C;
 }
 #AttAttr{
 	background-color: transparent;
@@ -286,7 +287,7 @@ QMessageBox{
 }
 
 #sortButtons:hover{
-	border: 2px solid #1C1C1C;
+	border: 2px solid #323232;
 	background-color: #FCF8E8 ; 
 }
 

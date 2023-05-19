@@ -74,7 +74,7 @@ std::string DALL_E_generator::convert(std::string b64,std::string name, std::str
               deck_name.end());
     //convertire da 64 a immagine
     std::string folder ="asset/Deck/";
-    std::string deck = deck_name + "/img/";
+    std::string deck = deck_name + "/CardImg/";
     std::string formato = ".jpg";
     QByteArray txt = QByteArray::fromBase64(b64.c_str());
     QString path = QString::fromStdString( folder + deck + name + formato);

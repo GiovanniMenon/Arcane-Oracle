@@ -75,7 +75,7 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     generateButton -> setFixedSize(250, 70);
     addButton -> setFixedSize(250, 70);
     removeButton -> setFixedSize(250, 70);
-    footerMenu -> setFixedWidth(1200);
+    footerMenu -> setMinimumWidth(1200);
 
 
     connect(generateButton,&QPushButton::clicked, this ,&CardPage::generateCardSlot);
@@ -99,7 +99,8 @@ void CardPage::generateCardSlot() {
 
     // chiamiamo il metodo per rimuovere la desc
     // chiamiamo il metodo che displaya l'immagine dentro il rettangolo centrale
-    dynamic_cast<cardWidget*>(absCard)->generate();
+    dynamic_cast<cardWidget*>(absCard) -> generate();
+
 
     backButton -> hide();
     generateButton -> hide();
@@ -110,7 +111,13 @@ void CardPage::generateCardSlot() {
 }
 
 void CardPage::RemoveCardSlot() {
-    ::remove(dynamic_cast<cardWidget*>(absCard) -> getUrl().c_str());
+    std::string imgPath = dynamic_cast<cardWidget*>(absCard) -> getUrl();
+    std::string searchString = "Card";
+
+    size_t index = imgPath.find(searchString);
+    imgPath.replace(index, searchString.length(), "CardImg");
+
+    ::remove(imgPath.c_str());
     dynamic_cast<cardWidget*>(absCard) -> hide();
     backButton -> show();
     addButton ->hide();

@@ -12,7 +12,7 @@ public:
     monsterWidget(Deck * , QWidget *parent=nullptr);
     monsterWidget(monsterCard,QWidget *parent=nullptr) ;
     virtual Card* getInput() override;
-
+    virtual void generate() override ;
     virtual bool checkInput() const override ;
 private:
     QLineEdit * cardAtt;

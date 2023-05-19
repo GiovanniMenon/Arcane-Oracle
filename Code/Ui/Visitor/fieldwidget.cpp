@@ -83,6 +83,8 @@ fieldWidget::fieldWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDec
     connect(wind, &ClickableLabel::clicked, this, &fieldWidget::onImageClickedSlot);
     connect(water, &ClickableLabel::clicked, this, &fieldWidget::onImageClickedSlot);
     connect(fire, &ClickableLabel::clicked, this, &fieldWidget::onImageClickedSlot);
+
+
 }
 
 Card* fieldWidget::getInput() {

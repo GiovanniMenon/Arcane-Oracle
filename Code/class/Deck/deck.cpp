@@ -31,7 +31,7 @@ bool Deck::verifyInput(const std::string &name){
 }
 bool Deck::verifyDeckName(const std::string &name){
     //PRE : data una stringa
-    //Post : verifica che essa non contiene caratteri non accessibili
+    //Post : verifica che non esistono deck con quel nome
     QString path = "asset/Deck/";
 
     QDir directory(path);
@@ -111,7 +111,8 @@ void Deck::SetDeck(std::string Deck_name )  {
             int folder = mkdir(deck_folder_path.c_str() , 0777);
             if(folder == 0 ){
                 std::ofstream file(deck_folder_path + "/database.json", std::ios::out);
-                mkdir(std::string(deck_folder_path + std::string("/img")).c_str() , 0777);
+                mkdir(std::string(deck_folder_path + std::string("/CardImg")).c_str() , 0777);
+                mkdir(std::string(deck_folder_path + std::string("/Card")).c_str() , 0777);
                 //salvo il nome del deck
                 save();
             }else{
@@ -439,6 +440,13 @@ void Deck::garbage_collector() {
             }
             if(find==0){
                ::remove(deck_tmp.deck[it_tmp]->getUrl().c_str());
+               std::string imgPath = deck_tmp.deck[it_tmp]->getUrl();
+               std::string searchString = "Card";
+
+               size_t index = imgPath.find(searchString);
+               imgPath.replace(index, searchString.length(), "CardImg");
+               ::remove(imgPath.c_str());
+
             }
 
         }

@@ -7,7 +7,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     layout  = new QHBoxLayout(this);
     ButtonMenu = new QGroupBox();
     LastCard = new QGroupBox();
-
+    centerImage = new QVBoxLayout();
     QVBoxLayout *col = new QVBoxLayout();
     QVBoxLayout * BoxVertical = new QVBoxLayout(ButtonMenu);
     lastCardLayout = new QVBoxLayout(LastCard);
@@ -18,6 +18,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     header -> setObjectName("Title");
     imageLabel = new QLabel();
     stillNoCard = new QLabel();
+    sadFace = new QLabel();
     QPushButton * ExitButton = new QPushButton("Log Out");
     QPushButton * DeleteButton = new QPushButton("");
     DeleteButton -> setToolTip("Delete Mazzo");
@@ -80,35 +81,42 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
     connect(ShowDeck, &QPushButton::clicked, this, &HomeDeckPage::ShowDeckSlot);
 
+    sadFace -> setObjectName("Title");
+    stillNoCard -> setObjectName("GHeader");
+    sadFace ->setText("˙◠˙" );
+    stillNoCard ->setText("The Deck is Empty");
+    sadFace ->setAlignment(Qt::AlignCenter);
+    stillNoCard ->setAlignment(Qt::AlignCenter);
+    lastCardLayout ->setAlignment(Qt::AlignCenter);
+    centerImage -> setAlignment(Qt::AlignCenter);
 
+    centerImage ->addWidget(imageLabel);
+    centerImage ->addWidget(sadFace);
+    centerImage ->addWidget(stillNoCard);
+    lastCardLayout ->addLayout(centerImage);
+
+
+    lastCardLayout -> setContentsMargins(0,0,0,0);
+    centerImage-> setContentsMargins(0,0,0,0);
 
 }
 void HomeDeckPage::lastCardGenerate() const {
-    QVBoxLayout *centerImage = new QVBoxLayout();
 
-    lastCardLayout ->setAlignment(Qt::AlignCenter);
-    centerImage ->setAlignment(Qt::AlignCenter);
+
+
     if(!deck.is_empty()){
-            imageLabel -> setText("");
+            imageLabel -> show();
             stillNoCard -> hide();
+            sadFace -> hide();
             QPixmap lastCard = (QString::fromStdString(deck.last()->getUrl()));
             imageLabel ->setPixmap(lastCard);
-
-
     }else{
+            imageLabel -> hide();
+            sadFace -> show();
             stillNoCard -> show();
-            imageLabel ->setText("˙◠˙" );
-            stillNoCard ->setText("The Deck is Empty");
-            imageLabel->setObjectName("Title");
-            stillNoCard->setObjectName("GHeader");
-            imageLabel ->setAlignment(Qt::AlignCenter);
-            stillNoCard ->setAlignment(Qt::AlignCenter);
+
     }
-    centerImage ->addWidget(imageLabel);
-    centerImage ->addWidget(stillNoCard);
-    lastCardLayout ->addLayout(centerImage);
-    lastCardLayout -> setContentsMargins(0,0,0,0);
-    centerImage-> setContentsMargins(0,0,0,0);
+
 }
 
 void HomeDeckPage::GenerateCardSlot() {

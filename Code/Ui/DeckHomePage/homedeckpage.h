@@ -35,6 +35,7 @@ private :
 
     QHBoxLayout * layout ;
     QVBoxLayout * lastCardLayout;
+    QVBoxLayout *centerImage;
     QGroupBox * ButtonMenu;
     QGroupBox * LastCard;
     QString NomeMazzo;
@@ -42,6 +43,7 @@ private :
     QLabel *header;
     QLabel* stillNoCard;
     QLabel* imageLabel;
+    QLabel* sadFace;
 
 };
 

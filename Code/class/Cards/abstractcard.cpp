@@ -1,5 +1,5 @@
 #include "abstractcard.h"
-
+#include <QDebug>
 
 
 Card::Card(std::string n, std::string d, std::string b64U, unsigned int c , bool status): name(n), description(d), b64Url(b64U), cost(c), save(status) {}
@@ -39,7 +39,18 @@ Json::Value Card::serialize() const {
 
 Card::~Card() {
     if(!save){
+
+
+
+        std::string imgPath = b64Url;
+        std::string searchString = "Card";
+
+        size_t index = imgPath.find(searchString);
+        imgPath.replace(index, searchString.length(), "CardImg");
+
+        ::remove(imgPath.c_str());
         ::remove(b64Url.c_str());
+
     }
 }
 

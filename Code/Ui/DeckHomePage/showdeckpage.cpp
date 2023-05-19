@@ -134,7 +134,7 @@ void ShowDeckPage::currentDeckSlot(Deck * currDeck){
 void ShowDeckPage::setPage(Deck* de) {
 
     // Leggi i file nella cartella delle immagini
-    dir = QDir("asset/Deck/" + nameDeck + "/img");
+    dir = QDir("asset/Deck/" + nameDeck + "/Card");
     QStringList filters;
     filters << "*.png" << "*.jpg" << "*.jpeg" << "*.bmp";
     dir.setNameFilters(filters);
