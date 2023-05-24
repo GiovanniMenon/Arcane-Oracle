@@ -78,11 +78,21 @@ trapWidget::trapWidget(trapCard* t , QWidget *parent) : effectWidget(nullptr, pa
     spellDmg->setText(QString::number(t->getDamage()));
     durata->setText(QString::number(t->getDuration()));
 
-    QPixmap pixmap(QString::fromStdString(t->getUrl()));
+    std::string imgPath = t->getUrl();
+    std::string searchString = "Card";
+
+    size_t index = imgPath.find(searchString);
+    if (index != std::string::npos) {
+            imgPath.replace(index, searchString.length(), "CardImg");
+        }
+
+    QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
+
     imageLayout -> addWidget(imageLabel);
     desc->setEnabled(false);
+    imageLayout-> setContentsMargins(0,0,0,0);
 }
 
 Card* trapWidget::getInput() {

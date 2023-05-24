@@ -127,7 +127,15 @@ spellWidget::spellWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDec
 
     spellDmg -> setObjectName("AttAttr");
 
-
+    ground->setProperty("id" ,0);
+    flame->setProperty("id" ,1);
+    ocean->setProperty("id" ,2);
+    air->setProperty("id" ,3);
+    poison->setProperty("id" ,4);
+    thunder->setProperty("id" ,5);
+    ice->setProperty("id" ,6);
+    time->setProperty("id" ,7);
+    storm->setProperty("id" ,8);
 
 
 
@@ -145,23 +153,7 @@ spellWidget::spellWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDec
     flame -> setAlignment(Qt::AlignCenter);
     menuIcon2 -> setAlignment(Qt::AlignCenter);
     menuIcon -> setAlignment(Qt::AlignCenter);
-
     spellDmg -> setAlignment(Qt::AlignCenter);
-
-
-
-
-
-    ground->setProperty("id" ,0);
-    flame->setProperty("id" ,1);
-    ocean->setProperty("id" ,2);
-    air->setProperty("id" ,3);
-    poison->setProperty("id" ,4);
-    thunder->setProperty("id" ,5);
-    ice->setProperty("id" ,6);
-    time->setProperty("id" ,7);
-    storm->setProperty("id" ,8);
-
 
     connect(ground, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
     connect(air, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
@@ -178,10 +170,17 @@ spellWidget::spellWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDec
 
 }
 
+
 spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, parent){
 
     card = s;
     idSpell = -1;
+    for(unsigned int i = 0 ; i < spellElement.size(); i++){
+        if(spellElement[i]==s->getElement()){
+        idSpell = i;
+        break;
+        }
+    }
     cardGroup -> setObjectName("cardSpell");
 
 
@@ -306,11 +305,6 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
     spellDmg -> setObjectName("AttAttr");
 
 
-
-
-
-
-
     title -> setAlignment(Qt::AlignCenter);
     ground -> setAlignment(Qt::AlignCenter);
     air -> setAlignment(Qt::AlignCenter);
@@ -343,6 +337,7 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
     desc->setText(QString::fromStdString(s->getDescription()));
     spellDmg->setText(QString::number(s->getDamage()));
     effect->setText(QString::fromStdString(s->getEffect()));
+    effect -> setAlignment(Qt::AlignCenter);
 
     std::string element = s->getElement();
     if(element == "Earth"){
@@ -373,7 +368,35 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
         spellType->setPixmap(stormImg);
     }
 
+    std::string imgPath = s->getUrl();
+    std::string searchString = "Card";
+
+    size_t index = imgPath.find(searchString);
+    if (index != std::string::npos) {
+            imgPath.replace(index, searchString.length(), "CardImg");
+        }
+    QPixmap pixmap(QString::fromStdString(imgPath));
+    scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    imageLabel -> setPixmap(scaledPixmap);
+
+    imageLayout -> addWidget(imageLabel);
+    desc->setEnabled(false);
+    imageLayout-> setContentsMargins(0,0,0,0);
+
+    connect(ground, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(air, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(ocean, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(flame, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(poison, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(thunder, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(ice, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(time, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+    connect(storm, &ClickableLabel::clicked, this, &spellWidget::onImageClickedSlot);
+
+
 }
+
+
 
 Card* spellWidget::getInput() {
     return  new spellCard(nameCard->text().toStdString(),descText.toStdString(),path,costCard->text().toInt(),effect->toPlainText().toStdString(), spellElement[idSpell],spellDmg->text().toInt());;
@@ -410,7 +433,7 @@ void spellWidget::onImageClickedSlot(){
 
     QLabel* tmp = qobject_cast<QLabel*>(sender());
     idSpell = tmp -> property("id").toInt();
-    QPixmap image =tmp->pixmap();
+    QPixmap image = tmp->pixmap(Qt::ReturnByValue);
     spellType -> setPixmap(image);
 
 }
@@ -418,6 +441,7 @@ void spellWidget::onImageClickedSlot(){
 
 void spellWidget::setFieldsCardSlot() {
     effectWidget::setFieldsCardSlot();
+
     spellCard* tmp = dynamic_cast<spellCard*>(card);
     tmp->setDamage(spellDmg->text().toInt());
     tmp->setElement(spellElement[idSpell]);

@@ -39,14 +39,14 @@ Json::Value Card::serialize() const {
 
 Card::~Card() {
     if(!save){
-
-
-
         std::string imgPath = b64Url;
         std::string searchString = "Card";
 
         size_t index = imgPath.find(searchString);
-        imgPath.replace(index, searchString.length(), "CardImg");
+        if (index != std::string::npos) {
+                imgPath.replace(index, searchString.length(), "CardImg");
+            }
+
 
         ::remove(imgPath.c_str());
         ::remove(b64Url.c_str());

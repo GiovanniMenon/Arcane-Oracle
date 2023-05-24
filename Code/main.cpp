@@ -16,9 +16,6 @@ int main(int argc , char *argv[])
     MainWindow application;
     application.resize(1250,800);
 
-
-
-
     QFile stylesheet("asset/Dark_style.qss");
     stylesheet.open(QFile::ReadOnly);
     application.setStyleSheet(QLatin1String(stylesheet.readAll()));

@@ -96,7 +96,12 @@ fieldWidget::fieldWidget(territoryCard* f, QWidget *parent) : effectWidget(nullp
     elements.push_back("Fire");
     elements.push_back("Water");
     elements.push_back("Wind");
-
+    for(unsigned int i = 0 ; i < elements.size(); i++){
+        if(elements[i]==f->getType()){
+        id = i;
+        break;
+        }
+    }
     elementMenu = new QHBoxLayout();
     QHBoxLayout *CenterfieldType = new QHBoxLayout();
     LabelElement = new QLabel("Scegli l'elemento: ");
@@ -186,13 +191,21 @@ fieldWidget::fieldWidget(territoryCard* f, QWidget *parent) : effectWidget(nullp
     }
 
 
-    QPixmap pixmap(QString::fromStdString(f->getUrl()));
+    std::string imgPath = f->getUrl();
+    std::string searchString = "Card";
+
+    size_t index = imgPath.find(searchString);
+    if (index != std::string::npos) {
+            imgPath.replace(index, searchString.length(), "CardImg");
+        }
+
+    QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
-
+    imageLayout-> setContentsMargins(0,0,0,0);
     imageLayout -> addWidget(imageLabel);
     desc->setEnabled(false);
-
+    effect -> setAlignment(Qt::AlignCenter);
 
     connect(earth, &ClickableLabel::clicked, this, &fieldWidget::onImageClickedSlot);
     connect(wind, &ClickableLabel::clicked, this, &fieldWidget::onImageClickedSlot);
@@ -227,13 +240,14 @@ void fieldWidget::onImageClickedSlot(){
 
     QLabel* tmp = qobject_cast<QLabel*>(sender());
     id = tmp -> property("id").toInt();
-    QPixmap image =tmp->pixmap();
+    QPixmap image =tmp->pixmap(Qt::ReturnByValue);
     fieldType ->setPixmap(image);
 }
 
 void fieldWidget::setFieldsCardSlot(){
     effectWidget::setFieldsCardSlot();
     territoryCard* tmp = dynamic_cast<territoryCard*>(card);
+
     tmp->setType(elements[id]);
 
     takeScreen(tmp);

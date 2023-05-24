@@ -121,9 +121,10 @@ void CardPage::RemoveCardSlot() {
     std::string searchString = "Card";
 
     size_t index = imgPath.find(searchString);
+     if (index != std::string::npos) {
     imgPath.replace(index, searchString.length(), "CardImg");
-
     ::remove(imgPath.c_str());
+     }
     dynamic_cast<cardWidget*>(absCard) -> hide();
     backButton -> show();
     addButton ->hide();

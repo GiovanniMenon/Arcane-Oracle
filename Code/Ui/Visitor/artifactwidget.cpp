@@ -105,6 +105,12 @@ artifactWidget::artifactWidget(artifactCard* a,QWidget *parent) : cardWidget(nul
     artifactType.push_back("Weapon");
 
     id = -1;
+    for(unsigned int i = 0 ; i < artifactType.size(); i++){
+        if(artifactType[i]==a->getType()){
+        id = i;
+        break;
+        }
+    }
     cardGroup ->setObjectName("cardArtifact");
 
     cardAtt = new QLineEdit();
@@ -217,12 +223,20 @@ artifactWidget::artifactWidget(artifactCard* a,QWidget *parent) : cardWidget(nul
     connect(potions, &ClickableLabel::clicked, this, &artifactWidget::onImageClickedSlot);
     connect(magic, &ClickableLabel::clicked, this, &artifactWidget::onImageClickedSlot);
 
-    QPixmap pixmap(QString::fromStdString(a->getUrl()));
+    std::string imgPath = a->getUrl();
+    std::string searchString = "Card";
+
+    size_t index = imgPath.find(searchString);
+    if (index != std::string::npos) {
+            imgPath.replace(index, searchString.length(), "CardImg");
+        }
+    QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
 
     imageLayout -> addWidget(imageLabel);
     desc->setEnabled(false);
+    imageLayout-> setContentsMargins(0,0,0,0);
 
 }
 
@@ -244,7 +258,7 @@ bool artifactWidget::checkInput() const{
 void artifactWidget::onImageClickedSlot(){
     QLabel* tmp = qobject_cast<QLabel*>(sender());
     id = tmp -> property("id").toInt();
-    QPixmap image = tmp->pixmap();
+    QPixmap image = tmp->pixmap(Qt::ReturnByValue);
     artType ->setPixmap(image);
     artTypeText -> setText(QString::fromStdString(artifactType[id]));
 

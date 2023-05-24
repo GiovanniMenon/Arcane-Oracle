@@ -1,13 +1,18 @@
 
 #include "cardinfopage.h"
+#include <QGroupBox>
+
 
 CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     layout = new QHBoxLayout(this);
     QVBoxLayout * headLayout = new QVBoxLayout();
     QHBoxLayout * headWidgetLayout = new QHBoxLayout();
+
     QHBoxLayout * imageLayout = new QHBoxLayout();
     QHBoxLayout * footerLayout = new QHBoxLayout();
 
+    QGroupBox *cardMenu = new QGroupBox();
+    cardLayout = new QHBoxLayout(cardMenu);
     image = new QLabel();
     rightImage = new ClickableLabel();
     leftImage = new ClickableLabel();
@@ -26,11 +31,13 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     headLayout->addLayout(headWidgetLayout);
     headLayout->addStretch();
 
+    cardLayout -> addWidget(image);
+    cardLayout -> setContentsMargins(0,0,0,0);
 
     imageLayout->addStretch();
     imageLayout->addWidget(leftImage);
     imageLayout->addSpacing(25);
-    imageLayout->addWidget(image);
+    imageLayout->addWidget(cardMenu);
     imageLayout->addSpacing(25);
     imageLayout->addWidget(rightImage);
     imageLayout->addStretch();
@@ -60,6 +67,7 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     deleteCard->setFixedSize(200, 60);
     exportPNG->setFixedSize(200, 60);
     modifyCard->setFixedSize(200, 60);
+    cardMenu ->setFixedSize(390,625);
 
     connect(exportPNG, &QPushButton::clicked, this, &CardInfoPage::ExportPNGSlot);
     connect(rightImage, &ClickableLabel::clicked, this, &CardInfoPage::nextImageSlot);
@@ -69,8 +77,8 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
 
 void CardInfoPage::setPixmapp(QPixmap* pixmap, Card* card) {
-    this->pixmap = pixmap;
-    image->setPixmap(*pixmap);
+    QPixmap *tmp = new QPixmap(QString::fromStdString(card->getUrl()));
+    image->setPixmap(*tmp);
     cardSelected = card;
 }
 
@@ -82,12 +90,12 @@ void CardInfoPage::BackShowDeckPageSlot() {
     emit BackShowDeckPageSignal();
 }
 void CardInfoPage::ExportPNGSlot(){
-    QString filePath = QFileDialog::getSaveFileName(this, "Export PNG", "", "Immagini (*.png *.xpm *.jpg)");
-
-    if(!filePath.isEmpty()){
-            QImage img = image->pixmap().toImage();
-            img.save(filePath);
-    }
+    clearFocus();
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Salva immagine"), "", tr("Immagini (*.png *.jpg *.bmp)"));
+    if(!fileName.isEmpty()){
+                QPixmap *pixmap = new QPixmap(QString::fromStdString(cardSelected->getUrl())) ;
+                pixmap -> save(fileName);
+     }
 }
 
 void CardInfoPage::currentDeckSlot(Deck* currDeck) {
@@ -95,9 +103,6 @@ void CardInfoPage::currentDeckSlot(Deck* currDeck) {
     QString name = QString::fromStdString(deck->getName());
     title->setText(name);
     title->setAlignment(Qt::AlignRight);
-
-
-
 
     updateImage(cardSelected);
 }
@@ -110,7 +115,8 @@ void CardInfoPage::updateImage(Card* curr) {
 
     if (curr) {
         cardSelected = curr;
-        QSize size(185, 300);
+        QSize size(296, 480);
+
         // Imposta l'immagine corrente nella label centrale
         QString imagePath = QString::fromStdString(cardSelected->getUrl());
         QPixmap newPixmap(imagePath);
@@ -119,7 +125,7 @@ void CardInfoPage::updateImage(Card* curr) {
             // Se il pixmap è nullo, pulisci l'immagine visualizzata sulla QLabel image
             image->clear();
         } else {
-            image->setPixmap(newPixmap.scaled(500, 500, Qt::KeepAspectRatio));
+            image->setPixmap(newPixmap.scaled(370, 600, Qt::KeepAspectRatio));
 
             if (deck->next(cardSelected)) {
                 // Imposta l'immagine successiva nella label destra

@@ -53,7 +53,7 @@ private:
     QPushButton * exportPNG;
     QPushButton * modifyCard;
     QDir* dir;
-
+    QHBoxLayout * cardLayout;
 
 };
 

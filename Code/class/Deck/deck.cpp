@@ -444,9 +444,10 @@ void Deck::garbage_collector() {
                std::string searchString = "Card";
 
                size_t index = imgPath.find(searchString);
+                if (index != std::string::npos) {
                imgPath.replace(index, searchString.length(), "CardImg");
                ::remove(imgPath.c_str());
-
+                }
             }
 
         }

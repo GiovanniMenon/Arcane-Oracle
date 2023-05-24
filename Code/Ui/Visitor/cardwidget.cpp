@@ -149,8 +149,9 @@ bool cardWidget::checkInput() const{
     std::string searchString = "CardImg";
 
     size_t index = path.find(searchString);
+     if (index != std::string::npos) {
     path.replace(index, searchString.length(), "Card");
-
+     }
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
 
@@ -226,6 +227,17 @@ bool cardWidget::checkInput() const{
 
      card->setPath(newUrl);
 
-     QFile::rename(QString::fromStdString(path), QString::fromStdString(newUrl));
+     std::string imgPathOld = path;
+     std::string imgPathNew = newUrl;
+     std::string searchString = "Card";
 
+     size_t index1 = imgPathOld.find(searchString);
+     size_t index2 = imgPathNew.find(searchString);
+      if (index1 != std::string::npos && index2!= std::string::npos ) {
+     imgPathOld.replace(index1, searchString.length(), "CardImg");
+     imgPathNew.replace(index2, searchString.length(), "CardImg");
+
+     QFile::rename(QString::fromStdString(path), QString::fromStdString(newUrl));
+     QFile::rename(QString::fromStdString(imgPathOld), QString::fromStdString(imgPathNew));
+    }
   }

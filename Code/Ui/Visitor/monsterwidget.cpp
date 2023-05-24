@@ -136,7 +136,9 @@ monsterWidget::monsterWidget(monsterCard* m, QWidget *parent) : cardWidget(nullp
     std::string searchString = "Card";
 
     size_t index = imgPath.find(searchString);
-    imgPath.replace(index, searchString.length(), "CardImg");
+    if (index != std::string::npos) {
+            imgPath.replace(index, searchString.length(), "CardImg");
+        }
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);

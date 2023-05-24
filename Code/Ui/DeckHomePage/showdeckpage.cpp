@@ -174,7 +174,7 @@ void ShowDeckPage::setPage(Deck* de) {
 
 void ShowDeckPage::imageClikedSlot(Card* card) {
         ClickableLabel* clickedLabel = qobject_cast<ClickableLabel*>(sender()); // Ottiene il puntatore alla label cliccata
-        QPixmap pixmap = clickedLabel->pixmap().scaled(500, 500, Qt::KeepAspectRatio);
+        QPixmap pixmap = clickedLabel->pixmap(Qt::ReturnByValue).scaled(500, 500, Qt::KeepAspectRatio);
 
         imageLabel = new QLabel();
 
