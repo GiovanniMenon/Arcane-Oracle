@@ -13,11 +13,13 @@
 
 #include "../../class/Deck/deck.h"
 
+
 class CardPage : public QWidget
 {
     Q_OBJECT
 public:
     CardPage(QWidget * parent=nullptr);
+    void setCard(Card *);
 
 public slots:
     void NewCardIdSlot(Deck*,QWidget*);
@@ -26,10 +28,20 @@ public slots:
     void RemoveCardSlot();
     void generateCardSlot();
     void SaveScreenSlot();
+
+    void ModifyCardSlot(Card* toModify);
+    void BackShowDeckPageSlot();
+    void SaveDeckAfterModifySlot();
+
+    void RefreshImageSlot();
 signals:
     void BackHomePageSignal();
     void BackBackHomePageSignal();
+    void ModifiedCardSignal();
+    void BackShowDeckPageSignal();
+    void saveDeckAfterModifySignal();
 
+    void refreshImageModifiedSignal(Card* modified);
 
 
 private:
@@ -46,6 +58,8 @@ private:
 
     QLabel *errore;
     QPushButton *backButton;
+
+    Card* c;
 
 
 

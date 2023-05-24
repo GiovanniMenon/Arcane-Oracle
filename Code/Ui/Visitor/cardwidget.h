@@ -27,6 +27,10 @@ public:
     std::string getUrl() const{
             return path;
     }
+    void takeScreen(Card* c);
+
+public slots:
+    virtual void setFieldsCardSlot();
 protected:
     Deck *deck;
     std::string path;
@@ -53,6 +57,9 @@ protected:
     //Descrizione
     QTextEdit *desc;
     QString descText;
+
+    //visitor
+    Card* card;
 
 
 

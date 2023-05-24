@@ -35,3 +35,20 @@ Json::Value trapCard::serialize() const {
 }
 
 trapCard* trapCard::clone() const { return new trapCard(*this);}
+
+//Visitor
+void trapCard::accept(Visitor*v) {
+    v->visit(this);
+}
+
+void trapCard::setDamage(const unsigned int& newDamage){
+    damage = newDamage;
+}
+
+void trapCard::setDuration(const unsigned int& newDuration){
+    duration = newDuration;
+}
+
+void trapCard::setEffect(const std::string& newEffect){
+    setEffectBase(newEffect);
+}

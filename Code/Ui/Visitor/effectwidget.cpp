@@ -39,3 +39,9 @@ bool effectWidget::checkInput() const{
     }
 }
 
+void effectWidget::setFieldsCardSlot(){
+    cardWidget::setFieldsCardSlot();
+    EffectCards* tmp = dynamic_cast<EffectCards*>(card);
+    tmp->setEffectBase(effect->toPlainText().toStdString());
+}
+

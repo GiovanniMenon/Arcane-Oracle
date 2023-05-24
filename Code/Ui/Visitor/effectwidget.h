@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include "cardwidget.h"
+#include "../../class/Cards/effectcards.h"
 
 
 class effectWidget : public cardWidget
@@ -17,7 +18,8 @@ public:
 
     virtual bool checkInput() const override ;
     virtual void generate() override ;
-
+public slots:
+    void setFieldsCardSlot() override;
 protected:
     QTextEdit *effect;
 

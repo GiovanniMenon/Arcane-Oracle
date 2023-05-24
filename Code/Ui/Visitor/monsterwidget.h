@@ -10,12 +10,13 @@ class monsterWidget : public cardWidget
     Q_OBJECT
 public:
     monsterWidget(Deck * , QWidget *parent=nullptr);
-    monsterWidget(monsterCard,QWidget *parent=nullptr) ;
+    monsterWidget(monsterCard*,QWidget *parent=nullptr) ;
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
 
 public slots:
+    void setFieldsCardSlot() override;
     void levelSlot(int value);
 private:
     QLineEdit * cardAtt;

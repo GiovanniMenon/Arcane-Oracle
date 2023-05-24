@@ -30,7 +30,7 @@ std::string DALL_E_generator::generate(std::string text) const{
     // Set the request headers
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, "Authorization: Bearer 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"); //api_key
+    headers = curl_slist_append(headers, "Authorization: Bearer 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"); //api_key
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
     std::string response;

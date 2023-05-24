@@ -26,3 +26,8 @@ Json::Value  EffectCards::serialize() const {
 
 EffectCards::~EffectCards() {}
 
+//Metodi Visitor
+void EffectCards::setEffectBase(const std::string& newEffect){
+    effect = newEffect;
+}
+

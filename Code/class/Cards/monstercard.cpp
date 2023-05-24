@@ -47,3 +47,27 @@ Json::Value monsterCard::serialize() const {
 }
 
 monsterCard* monsterCard::clone() const { return new monsterCard(*this); }
+
+void monsterCard::setLevel(unsigned int newLevel) {
+    level = newLevel;
+}
+
+// Setter per il campo "health"
+void monsterCard::setHealth(unsigned int newHealth) {
+    health = newHealth;
+}
+
+// Setter per il campo "damage"
+void monsterCard::setDamage(unsigned int newDamage) {
+    damage = newDamage;
+}
+
+// Setter per il campo "defense"
+void monsterCard::setDefense(unsigned int newDefense) {
+    defense = newDefense;
+}
+
+//Visitor
+void monsterCard::accept(Visitor* v) {
+    v->visit(this);
+}

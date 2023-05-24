@@ -10,10 +10,12 @@ class trapWidget : public effectWidget
     Q_OBJECT
 public:
     trapWidget(Deck * , QWidget *parent=nullptr);
-
+    trapWidget(trapCard*, QWidget *parent=nullptr);
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
+public slots:
+    void setFieldsCardSlot() override;
 private:
     QLineEdit *spellDmg;
     QLineEdit *durata;

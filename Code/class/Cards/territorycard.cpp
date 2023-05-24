@@ -30,3 +30,12 @@ Json::Value territoryCard::serialize() const {
 }
 
 territoryCard* territoryCard::clone() const{ return new territoryCard(*this);}
+
+//visitor
+void territoryCard::accept(Visitor* v) {
+    v->visit(this);
+}
+
+void territoryCard::setType(const std::string& newType){
+    type = newType;
+}

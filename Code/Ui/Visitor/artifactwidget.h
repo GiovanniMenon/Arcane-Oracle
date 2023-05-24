@@ -11,12 +11,14 @@ class artifactWidget : public cardWidget
     Q_OBJECT
 public:
     artifactWidget(Deck * , QWidget *parent=nullptr);
+    artifactWidget(artifactCard* ,QWidget *parent=nullptr) ;
     virtual Card* getInput() override;
 
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:
     void onImageClickedSlot();
+    void setFieldsCardSlot() override;
 private:
     std::vector<std::string> artifactType;
     QLineEdit * cardAtt;

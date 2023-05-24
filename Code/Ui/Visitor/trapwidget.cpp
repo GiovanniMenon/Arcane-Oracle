@@ -37,6 +37,54 @@ trapWidget::trapWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDeck,
     spellDmg -> setAlignment(Qt::AlignCenter);
 }
 
+trapWidget::trapWidget(trapCard* t , QWidget *parent) : effectWidget(nullptr, parent){
+    card = t;
+    cardGroup ->setObjectName("cardTrap");
+    spellDmg = new QLineEdit();
+    durata = new QLineEdit();
+    QIntValidator *validator = new QIntValidator();
+    validator->setRange(1, 9);
+
+    spellDmg->setValidator(validator);
+    durata->setValidator(validator);
+    QHBoxLayout *footer = new QHBoxLayout();
+
+
+    footer -> addWidget(durata);
+
+    footer -> addStretch();
+    footer -> addWidget(spellDmg);
+
+    inside -> addStretch();
+    inside -> addLayout(footer);
+
+
+    spellDmg -> setObjectName("AttAttr");
+    durata -> setObjectName("HPAttr");
+
+
+
+    spellDmg ->setFixedSize(64,64);
+    durata ->setFixedSize(72,72);
+
+
+    durata -> setAlignment(Qt::AlignCenter);
+    spellDmg -> setAlignment(Qt::AlignCenter);
+
+    nameCard->setText(QString::fromStdString(t->getName()));
+    costCard->setText(QString::number(t->getCost()));
+    desc->setText(QString::fromStdString(t->getDescription()));
+    effect->setText(QString::fromStdString(t->getEffect()));
+    spellDmg->setText(QString::number(t->getDamage()));
+    durata->setText(QString::number(t->getDuration()));
+
+    QPixmap pixmap(QString::fromStdString(t->getUrl()));
+    scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    imageLabel -> setPixmap(scaledPixmap);
+    imageLayout -> addWidget(imageLabel);
+    desc->setEnabled(false);
+}
+
 Card* trapWidget::getInput() {
     return new trapCard(nameCard->text().toStdString(),descText.toStdString(),path,costCard->text().toInt(),effect->toPlainText().toStdString() ,spellDmg -> text().toInt(),durata->text().toInt());
 }
@@ -56,4 +104,14 @@ bool trapWidget::checkInput() const{
     }else{
         return 0;
     }
+}
+
+void trapWidget::setFieldsCardSlot(){
+    effectWidget::setFieldsCardSlot();
+    trapCard* tmp = dynamic_cast<trapCard*>(card);
+    tmp->setDuration(durata->text().toUInt());
+    tmp->setDamage(spellDmg->text().toUInt());
+
+
+    takeScreen(tmp);
 }

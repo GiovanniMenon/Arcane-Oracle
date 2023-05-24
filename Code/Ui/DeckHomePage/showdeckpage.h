@@ -52,7 +52,6 @@ private:
     QString nameDeck;
     QScrollArea *scrollArea;
     QWidget *imagesContainer;
-    //ClickableLabel* lastClickedLabel;
     ClickableLabel* label;
     QLabel* imageLabel;
     QStringList filePathCards;

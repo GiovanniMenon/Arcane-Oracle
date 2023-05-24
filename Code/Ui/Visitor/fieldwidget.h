@@ -13,6 +13,7 @@ class fieldWidget : public effectWidget
     Q_OBJECT
 public:
     fieldWidget(Deck * , QWidget *parent=nullptr);
+    fieldWidget(territoryCard* , QWidget *parent=nullptr);
 
     virtual Card* getInput() override;
 
@@ -20,6 +21,7 @@ public:
     virtual void generate() override ;
 public slots:
     void onImageClickedSlot();
+    void setFieldsCardSlot() override;
 private:
     std::vector <std::string> elements;
     int id;

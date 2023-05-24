@@ -1,3 +1,4 @@
+
 #include "cardinfopage.h"
 
 CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
@@ -14,10 +15,10 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     title->setObjectName("Title");
 
 
-
     QPushButton * backButton = new QPushButton("Back");
     deleteCard = new QPushButton("Delete");
     exportPNG = new QPushButton("Export PNG");
+    modifyCard = new QPushButton("Modify");
 
     headWidgetLayout->addWidget(backButton);
     headWidgetLayout->addSpacing(20);
@@ -25,11 +26,12 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     headLayout->addLayout(headWidgetLayout);
     headLayout->addStretch();
 
+
+    imageLayout->addStretch();
     imageLayout->addWidget(leftImage);
-    imageLayout->addStretch();
     imageLayout->addWidget(image);
-    imageLayout->addStretch();
     imageLayout->addWidget(rightImage);
+    imageLayout->addStretch();
 
     headLayout->addLayout(imageLayout);
     headLayout->addStretch();
@@ -37,6 +39,8 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     footerLayout->addStretch();
     footerLayout->addWidget(deleteCard);
+
+    footerLayout->addWidget(modifyCard);
     footerLayout->addWidget(exportPNG);
     footerLayout->addStretch();
     headLayout->addLayout(footerLayout);
@@ -47,15 +51,18 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     layout->addLayout(headLayout);
 
-    backButton->setFixedSize(155, 60);
+    backButton -> setFixedSize(155, 75);
     deleteCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     exportPNG->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    modifyCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     deleteCard->setFixedSize(200, 60);
     exportPNG->setFixedSize(200, 60);
+    modifyCard->setFixedSize(200, 60);
 
     connect(exportPNG, &QPushButton::clicked, this, &CardInfoPage::ExportPNGSlot);
     connect(rightImage, &ClickableLabel::clicked, this, &CardInfoPage::nextImageSlot);
     connect(leftImage, &ClickableLabel::clicked, this, &CardInfoPage::previousImageSlot);
+    connect(modifyCard, &QPushButton::clicked, this, &CardInfoPage::modifyCardSlot);
 }
 
 
@@ -70,10 +77,8 @@ void CardInfoPage::BackShowDeckPageSlot() {
     deck = nullptr;
     cardSelected = nullptr;
     emit refreshDeckSignal();
-    //dir->refresh();
     emit BackShowDeckPageSignal();
 }
-
 void CardInfoPage::ExportPNGSlot(){
     QString filePath = QFileDialog::getSaveFileName(this, "Export PNG", "", "Immagini (*.png *.xpm *.jpg)");
 
@@ -180,5 +185,15 @@ void CardInfoPage::deleteCardSlot() {
 
 }
 
+void CardInfoPage::modifyCardSlot(){
+    emit modifyCardSignal(cardSelected);
 
+}
 
+void CardInfoPage::saveDeckAfterModifySlot(){
+    deck->save();
+}
+
+void CardInfoPage::refreshImageSlot(Card* modified){
+    updateImage(modified);
+}

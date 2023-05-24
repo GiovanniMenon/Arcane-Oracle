@@ -1,6 +1,7 @@
 #ifndef MONSTERCARD_H
 #define MONSTERCARD_H
 #include "abstractcard.h"
+#include "../../Ui/Visitor/visitor.h"
 
 class monsterCard : public Card{
 private:
@@ -17,10 +18,19 @@ public:
     unsigned int getDamage() const;
     unsigned int getDefense() const;
 
+    void setLevel(unsigned int newLevel);
+    void setHealth(unsigned int newHealth);
+    void setDamage(unsigned int newDamage);
+    void setDefense(unsigned int newDefense);
+
     bool operator ==(const Card&) const override;
     virtual monsterCard* clone() const override;
     Json::Value  serialize() const override;
-    //void accept(visitor* monsterVisitor) override {   monsterVisitor -> visit(*this);   };
+
+    //Visitor
+    void accept(Visitor*) override;
+
+
 };
 
 

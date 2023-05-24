@@ -13,7 +13,7 @@
 #include <json/json.h>
 #endif
 
-//#include "../../Ui/Visitor/visitor.h"
+class Visitor;
 
 
 class Card{
@@ -28,17 +28,27 @@ protected:
     virtual std::ostream& print(std::ostream& os) const;
 public:
     Card(std::string n, std::string desc, std::string b64U, unsigned int c , bool save=0);
-    std::string getName() const;
-    std::string getDescription() const;
-    std::string getUrl() const;
-    unsigned int getCost() const;
-    void set_status ();
-    bool get_status() const ;
     virtual Card* clone() const = 0;
     virtual  Json::Value  serialize() const;
     virtual bool operator ==(const Card&) const;
     virtual ~Card();
-    //virtual void accept(visitor *);
+
+    //Getter
+    std::string getName() const;
+    std::string getDescription() const;
+    std::string getUrl() const;
+    unsigned int getCost() const;
+    bool get_status() const ;
+
+
+    //Setter
+    void set_status ();
+    void setName(const std::string& newName);
+    void setCost(unsigned int newCost);
+    void setPath(const std::string& newb64url);
+
+    //Metodi Visitor
+    virtual void accept(Visitor *) = 0;
 
 };
 

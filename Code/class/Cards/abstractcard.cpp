@@ -57,3 +57,18 @@ Card::~Card() {
 void Card::set_status(){
     save = 1;
 }
+
+//Metodi Visitor
+
+
+void Card::setName(const std::string& newName) {
+        name = newName;
+}
+
+void Card::setCost(unsigned int newCost) {
+        cost = newCost;
+}
+
+void Card::setPath(const std::string& newb64url){
+    b64Url = newb64url;
+}

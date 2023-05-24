@@ -31,6 +31,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(homepage,&HomePage::NewDeckPageSignal, this, &MainWindow::newDeckWindowSlot );
     connect(homepage,&HomePage::LoadDeckPageSignal, this , &MainWindow::LoadDeckPageSlot );
 
+    //Segnali DeckHomePage
+    connect(homedeckpage, &HomeDeckPage::ShowDeckSignal, this, &MainWindow::ShowDeckPageSlot);
+    connect(homedeckpage, &HomeDeckPage::GenerateCardSignal,this,&MainWindow::TypePageSlot);
+    connect(typepage, &TypePage::CreateCardPageSignal,this,&MainWindow::CardPageSlot);
+    connect(showdeckpage, &ShowDeckPage::CardInfoSignal, this, &MainWindow::CardInfoPageSlot);
+
     //BackSignal HomePage
     connect(manualdeck,&ManualDeck::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(newdeckpage,&NewDeckPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
@@ -39,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(cardpage,&CardPage::BackHomePageSignal, this , &MainWindow::BackWindowSlot );
     connect(typepage,&TypePage::BackDeckPageSignal, this , &MainWindow::BackWindowSlot );
     connect(showdeckpage, &ShowDeckPage::BackDeckPageSignal, this, &MainWindow::BackWindowSlotHomePage);
+    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, this,&MainWindow::BackWindowSlot);
 
     //Doppio Back
     connect(cardpage,&CardPage::BackBackHomePageSignal, this , &MainWindow::BackBackWindowSlot );
@@ -46,14 +53,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(newdeckpage,&NewDeckPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
     connect(loadpage,&LoadPage::HomeDeckPageSignal, this , &MainWindow::HomeDeckPageSlot );
 
-    connect(homedeckpage, &HomeDeckPage::ShowDeckSignal, this, &MainWindow::ShowDeckPageSlot);
-    connect(homedeckpage, &HomeDeckPage::GenerateCardSignal,this,&MainWindow::TypePageSlot);
-    connect(typepage, &TypePage::CreateCardPageSignal,this,&MainWindow::CardPageSlot);
+
+
+    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, showdeckpage, &ShowDeckPage::refreshDeckSlot);
+
     connect(newdeckpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
     connect(loadpage, SIGNAL(newDeckCreatedSignal(QString)), homedeckpage, SLOT(newDeckCreatedSlot(QString)));
-    connect(showdeckpage, &ShowDeckPage::CardInfoSignal, this, &MainWindow::CardInfoPageSlot);
-    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, this,&MainWindow::BackWindowSlot);
-    connect(cardinfopage, &CardInfoPage::BackShowDeckPageSignal, showdeckpage, &ShowDeckPage::refreshDeckSlot);
     connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), showdeckpage, SLOT(currentDeckSlot(Deck*)));
     connect(homedeckpage, SIGNAL(DeckSelectedSignal(Deck*)), typepage, SLOT(currentDeckSlot(Deck*)));
     connect(showdeckpage, SIGNAL(CurrentDeckSignal(Deck*)), cardinfopage, SLOT(currentDeckSlot(Deck*)));
@@ -61,6 +66,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(typepage, SIGNAL(CardSignal(Deck*,QWidget*)), cardpage, SLOT(NewCardIdSlot(Deck*,QWidget*)));
     stackedWidget -> setCurrentIndex(0);
 
+    connect(cardinfopage, &CardInfoPage::LastCardEliminatedSignal, showdeckpage, &ShowDeckPage::lastCardDeletedSlot);
+
+    connect(cardinfopage, SIGNAL(modifyCardSignal(Card*)), cardpage, SLOT(ModifyCardSlot(Card*)));
+    connect(cardpage, &CardPage::ModifiedCardSignal, this, &MainWindow::CardPageSlot);
+
+    connect(cardpage, &CardPage::saveDeckAfterModifySignal, cardinfopage, &CardInfoPage::saveDeckAfterModifySlot);
+    connect(cardpage, SIGNAL(refreshImageModifiedSignal(Card*)), cardinfopage, SLOT(refreshImageSlot(Card*)));
+    connect(cardpage, &CardPage::refreshImageModifiedSignal, cardinfopage, &CardInfoPage::refreshImageSlot);
 }
 
 MainWindow::~MainWindow()

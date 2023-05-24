@@ -13,13 +13,14 @@ class spellWidget : public effectWidget
     Q_OBJECT
 public:
     spellWidget(Deck * , QWidget *parent=nullptr);
-
+    spellWidget(spellCard * , QWidget *parent=nullptr);
     virtual Card* getInput() override;
 
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:
     void onImageClickedSlot();
+    void setFieldsCardSlot() override;
 private:
     std::vector <std::string> spellElement;
     int idSpell;

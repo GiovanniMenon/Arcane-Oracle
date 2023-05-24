@@ -43,12 +43,6 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostAsc->setIconSize(size);
     sortByCostDesc->setIconSize(size);
 
-
-    /*sadFace = new QLabel("˙◠˙");
-    sadFace->setObjectName("Title");
-    stillNoCard = new QLabel("Still no cards saved");
-    stillNoCard->setObjectName("GHeader");*/
-
     search->setPlaceholderText("Search");
     search->setFixedSize(400,50);
     backButton -> setFixedSize(155, 75);
@@ -116,7 +110,7 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
 }
 
 void ShowDeckPage::BackDeckPageSlot() {
-    //lastClickedLabel = nullptr;
+
     dir.refresh();
     clear();
     emit BackDeckPageSignal();
@@ -126,7 +120,7 @@ void ShowDeckPage::currentDeckSlot(Deck * currDeck){
     deck = currDeck;
     sortedDeck = currDeck;
     nameDeck = QString::fromStdString(deck->getName());
-    //dir.refresh();
+
     setPage(deck);
 }
 
@@ -134,7 +128,7 @@ void ShowDeckPage::currentDeckSlot(Deck * currDeck){
 void ShowDeckPage::setPage(Deck* de) {
 
     // Leggi i file nella cartella delle immagini
-    dir = QDir("asset/Deck/" + nameDeck + "/Card");
+    dir = QDir("asset/Deck/" + nameDeck.replace(" ","") + "/Card");
     QStringList filters;
     filters << "*.png" << "*.jpg" << "*.jpeg" << "*.bmp";
     dir.setNameFilters(filters);

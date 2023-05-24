@@ -7,6 +7,15 @@ unsigned int damageCompare = 50;
 unsigned int defCompare = 30;
 unsigned int healthCompare = 20;
 
+std::string  artifactCard::getType() const{
+    return type;
+}
+unsigned int artifactCard::getDamage() const{
+    return damage;
+}
+unsigned int artifactCard::getDefense() const{
+    return defense;
+}
 
 std::ostream& artifactCard::print(std::ostream& os) const{
     Card::print(os);
@@ -34,3 +43,21 @@ Json::Value  artifactCard::serialize() const {
 }
 
 artifactCard* artifactCard::clone() const { return new artifactCard(*this); }
+
+
+//Metodi Visitor
+
+void artifactCard::accept(Visitor* v) {
+    v->visit(this);
+}
+void artifactCard::setType(const std::string& newtype) {
+    type = newtype;
+}
+
+void artifactCard::setDamage(unsigned int newdam) {
+    damage = newdam;
+}
+
+void artifactCard::setDefense(unsigned int newdef) {
+    defense = newdef;
+}

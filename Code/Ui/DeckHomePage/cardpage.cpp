@@ -1,5 +1,5 @@
 #include "cardpage.h"
-
+#include "../Visitor/visitor.h"
 #include <QFileDialog>
 
 
@@ -86,6 +86,12 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
 }
 
 void CardPage::BackHomePageSlot() {
+   disconnect(generateButton, &QPushButton::clicked, this, &CardPage::BackHomePageSlot);
+   disconnect(generateButton, &QPushButton::clicked, dynamic_cast<cardWidget*>(absCard), &cardWidget::setFieldsCardSlot);
+   disconnect(generateButton, &QPushButton::clicked, this, &CardPage::RefreshImageSlot);
+   disconnect(generateButton, &QPushButton::clicked, this, &CardPage::SaveDeckAfterModifySlot);
+   connect(generateButton,&QPushButton::clicked, this ,&CardPage::generateCardSlot);
+   generateButton->setText("Generate Card");
    dynamic_cast<cardWidget*>(absCard) -> hide();
    emit BackHomePageSignal();
 }
@@ -161,4 +167,39 @@ void CardPage::AddNewCardSlot() {
 
 }
 
+void CardPage::setCard(Card* card){
+    c = card;
+}
 
+void CardPage::ModifyCardSlot(Card* toModify){
+    setCard(toModify);
+    Visitor* v = new Visitor();
+    c->accept(v);
+    absCard = dynamic_cast<cardWidget*>(v->getWidget());
+    card -> addWidget(absCard);
+    generateButton->setText("Modify Card");
+
+    disconnect(generateButton, &QPushButton::clicked, this,&CardPage::generateCardSlot );
+    connect(generateButton, &QPushButton::clicked, dynamic_cast<cardWidget*>(absCard), &cardWidget::setFieldsCardSlot);
+
+    connect(generateButton, &QPushButton::clicked, this, &CardPage::SaveDeckAfterModifySlot);
+    connect(generateButton, &QPushButton::clicked, this, &CardPage::RefreshImageSlot);
+    connect(generateButton, &QPushButton::clicked, this, &CardPage::BackHomePageSlot);
+    emit ModifiedCardSignal();
+    emit refreshImageModifiedSignal(toModify);
+
+}
+
+void CardPage::BackShowDeckPageSlot(){
+    emit BackShowDeckPageSignal();
+}
+
+
+
+void CardPage::SaveDeckAfterModifySlot(){
+    emit saveDeckAfterModifySignal();
+}
+
+void CardPage::RefreshImageSlot(){
+    emit refreshImageModifiedSignal(c);
+}

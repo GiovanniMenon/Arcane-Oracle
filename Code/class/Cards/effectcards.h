@@ -1,6 +1,7 @@
 #ifndef EFFECTCARDS_H
 #define EFFECTCARDS_H
 #include "abstractcard.h"
+#include "../../Ui/Visitor/visitor.h"
 
 class EffectCards : public Card{ //effectCards non implementa il metodo setGrade quindi anche lei è astratta pura
 private:
@@ -13,6 +14,9 @@ public:
     virtual  Json::Value  serialize() const override;
     bool operator ==(const Card&) const override;
     virtual ~EffectCards();
+
+    //Visitor
+    void setEffectBase(const std::string& newEffect);
 };
 
 #endif // EFFECTCARDS_H

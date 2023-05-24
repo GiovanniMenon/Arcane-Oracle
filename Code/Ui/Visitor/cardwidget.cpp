@@ -184,3 +184,48 @@ bool cardWidget::checkInput() const{
 
  }
 
+ void cardWidget::takeScreen(Card* c){
+    QRect area = cardGroup->geometry();
+    QPixmap screenshot(area.size());
+    QPainter painter(&screenshot);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.setRenderHint(QPainter::TextAntialiasing, true);
+    cardGroup->render(&painter, QPoint(), QRegion(), QWidget::DrawChildren);
+    // Salvare l'immagine su disco
+    screenshot.save(QString::fromStdString(c->getUrl()));
+
+    // Aggiorna l'immagine visualizzata nel widget
+    imageLabel->setPixmap(screenshot);
+    imageLabel->setScaledContents(true);
+ }
+
+ void cardWidget::setFieldsCardSlot() {
+     card->setName(nameCard->text().toStdString());
+     card->setCost(costCard->text().toInt());
+
+     std::string path = card->getUrl();
+     std::string newUrl;
+
+     // Trova l'ultima occorrenza di '/'
+     size_t lastSlashPos = path.find_last_of('/');
+
+     if (lastSlashPos != std::string::npos) {
+     // Estrai la parte del percorso dopo l'ultima '/'
+     std::string newPath = path.substr(0, lastSlashPos + 1);
+
+     // Nuovo nome da assegnare
+     std::string newFileName = card->getName()+ ".jpg";
+
+     // Concatena il nuovo nome al percorso
+     newPath += newFileName;
+
+     // Sostituisci la stringa originale con la nuova
+     newUrl = newPath;
+     }
+
+     card->setPath(newUrl);
+
+     QFile::rename(QString::fromStdString(path), QString::fromStdString(newUrl));
+
+  }

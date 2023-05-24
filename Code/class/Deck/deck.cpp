@@ -345,18 +345,18 @@ void Deck::load() {
 
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
-            case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
-                   break;
-            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["save"].asBool());
-                   break;
-            case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
-                   break;
-            case 4:tmp = new trapCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["damage"].asInt(),cards[i]["duration"].asInt(),cards[i]["save"].asBool());
-                   break;
-            case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
-                   break;
-            default:tmp=nullptr;
-        }
+                    case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["attack_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
+                           break;
+                    case 4:tmp = new trapCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["damage"].asInt(),cards[i]["duration"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    default:tmp=nullptr;
+                }
 
         deck.push_back(tmp);
     }
@@ -413,18 +413,18 @@ void Deck::garbage_collector() {
     Card* tmp;
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
-            case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
-                   break;
-            case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["save"].asBool());
-                   break;
-            case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
-                   break;
-            case 4:tmp = new trapCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["damage"].asInt(),cards[i]["duration"].asInt(),cards[i]["save"].asBool());
-                   break;
-            case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
-                   break;
-            default:tmp=nullptr;
-        }
+                    case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 2:tmp = new spellCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["element"].asString(),cards[i]["attack_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 3:tmp = new territoryCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(), cards[i]["type_effect"].asString(),cards[i]["save"].asBool());
+                           break;
+                    case 4:tmp = new trapCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["effect"].asString(),cards[i]["damage"].asInt(),cards[i]["duration"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    case 5:tmp = new artifactCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["artifact_type"].asString(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
+                           break;
+                    default:tmp=nullptr;
+                }
         deck_tmp.insert(tmp);
         }
 
