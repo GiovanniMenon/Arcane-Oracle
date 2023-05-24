@@ -10,6 +10,7 @@
 #include <QTextEdit>
 #include <QIntValidator>
 #include <QLabel>
+#include <QSpinBox>
 #include "../Utils/clickablelabel.h"
 #include "../../class/Cards/abstractcard.h"
 #include "../../class/Deck/deck.h"

@@ -307,3 +307,19 @@ QMessageBox{
 	border: 2px solid  #FF7F7F;
 	color :  #FF7F7F;
 }
+
+#level{
+	font-size:30px;
+	color: #FCF8E8;
+	background-color : #323232;
+	border-radius: 5px;
+	border: 1px solid #FCF8E8;
+}
+#levelIcon{
+	font-size: 20px;
+	color: white;
+	color : white;
+	background-color: #1C1C1C;
+	border-radius : 10px;
+	font-weight: bold;
+}

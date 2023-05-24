@@ -14,10 +14,19 @@ public:
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
+
+public slots:
+    void levelSlot(int value);
 private:
     QLineEdit * cardAtt;
     QLineEdit * cardDef;
     QLineEdit * cardHP;
+    QSpinBox *level;
+    QLabel *levelTitle;
+    QGroupBox *levelIcon;
+    QHBoxLayout *iconLayout;
+
+    int id;
 
 };
 

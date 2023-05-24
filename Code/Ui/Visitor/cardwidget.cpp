@@ -63,16 +63,18 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
 
 
 
-    outside->addWidget(cardGroup);
+    outside -> addWidget(cardGroup);
     outside -> addWidget(loading);
 
 
     outsideVerticalCentral ->  addWidget(desc);
+
     outsideVerticalCentral ->  setAlignment(Qt::AlignCenter);
 
+    outsideVertical -> addStretch();
     outsideVertical -> addLayout(outsideVerticalCentral);
 
-    outside->addLayout(outsideVertical);
+    outside-> addLayout(outsideVertical);
     outside-> setAlignment(Qt::AlignCenter);
 
 
