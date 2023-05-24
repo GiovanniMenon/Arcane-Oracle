@@ -13,7 +13,7 @@ std::ostream& spellCard::print(std::ostream& os) const{
 
 bool spellCard::operator==(const Card& c) const {
     const spellCard* r = dynamic_cast<const spellCard*> (&c);
-    return r && EffectCards::operator==(c) && element == r->getElement();
+    return r && EffectCards::operator==(c) && element == r->getElement() && dmg== r->getDamage();
 }
 
 

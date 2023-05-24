@@ -29,7 +29,9 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     imageLayout->addStretch();
     imageLayout->addWidget(leftImage);
+    imageLayout->addSpacing(25);
     imageLayout->addWidget(image);
+    imageLayout->addSpacing(25);
     imageLayout->addWidget(rightImage);
     imageLayout->addStretch();
 

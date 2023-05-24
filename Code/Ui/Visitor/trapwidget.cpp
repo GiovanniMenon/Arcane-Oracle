@@ -20,7 +20,7 @@ trapWidget::trapWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDeck,
 
     inside -> addStretch();
     inside -> addLayout(footer);
-
+    outsideVertical -> addStretch();
 
     spellDmg -> setObjectName("AttAttr");
     durata -> setObjectName("TimeAttr");

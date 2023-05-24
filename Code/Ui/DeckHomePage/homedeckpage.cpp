@@ -1,6 +1,6 @@
 #include "homedeckpage.h"
 #include <QLabel>
-
+#include <QDir>
 
 HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 {
@@ -163,7 +163,8 @@ void HomeDeckPage::DeleteDeckSlot() {
     deckNamePath.end());
 
     std::string deckPath = "asset/Deck/" + deckNamePath ;
-    std::filesystem::remove_all(deckPath);
+    QDir directory(QString::fromStdString(deckPath));
+    directory.removeRecursively();
     emit BackHomePageSignal();
     }
 
