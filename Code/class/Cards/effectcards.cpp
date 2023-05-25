@@ -4,15 +4,10 @@ EffectCards::EffectCards(std::string n, std::string d, std::string b64U, unsigne
 
 std::string EffectCards::getEffect() const {return effect;}
 
-std::ostream& EffectCards::print(std::ostream& os) const{
-    Card::print(os);
-    os << "Effect: " << effect << std::endl;
-    return os;
-}
 
 bool EffectCards::operator==(const Card& c) const{
-    const EffectCards * r = dynamic_cast<const EffectCards*> (&c);
-    return r && Card::operator==(c) && r->getEffect() == effect;
+
+    return Card::operator==(c);
 }
 
 Json::Value  EffectCards::serialize() const {

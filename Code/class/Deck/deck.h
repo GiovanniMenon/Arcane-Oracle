@@ -26,7 +26,6 @@
 
 class Deck
 {
-friend std::ostream &operator<<(std::ostream &os, const Deck& deck);
 public: Deck();
         void SetDeck(std::string);
         ~Deck() {}

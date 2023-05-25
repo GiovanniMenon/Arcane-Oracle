@@ -161,25 +161,10 @@ void CardInfoPage::receiveImagePaths(QStringList& imagePaths) {
 
 void CardInfoPage::deleteCardSlot() {
     if (deck && cardSelected) {
-        Card* nextCard = deck->next(cardSelected);
 
-        deck->removeElement(cardSelected);
-        //deck->save();
+        if(deck->size() == 1){
 
-        cardSelected = nullptr;
-
-        // Se il mazzo non è vuoto, aggiorna l'immagine con la carta successiva
-        if (nextCard) {
-            updateImage(nextCard);
-            cardSelected = nextCard;
-        } else {
-            // Se il mazzo è vuoto, pulisci le immagini e il titolo
-            //image->clear();
-            rightImage->clear();
-            leftImage->clear();
-        }
-
-        if(deck->size() == 0){
+            deck->removeElement(cardSelected);
 
             rightImage->clear();
             leftImage->clear();
@@ -187,7 +172,26 @@ void CardInfoPage::deleteCardSlot() {
             emit BackShowDeckPageSignal();
             emit LastCardEliminatedSignal();
 
+        }else{
+            Card* nextCard = deck->next(cardSelected);
+            deck->removeElement(cardSelected);
+
+            cardSelected = nullptr;
+
+            // Se il mazzo non è vuoto, aggiorna l'immagine con la carta successiva
+            if (nextCard) {
+                updateImage(nextCard);
+                cardSelected = nextCard;
+            } else {
+                // Se il mazzo è vuoto, pulisci le immagini e il titolo
+                //image->clear();
+                rightImage->clear();
+                leftImage->clear();
+            }
+
+
         }
+
 
     }
 
@@ -200,6 +204,7 @@ void CardInfoPage::modifyCardSlot(){
 
 void CardInfoPage::saveDeckAfterModifySlot(){
     deck->save();
+
 }
 
 void CardInfoPage::refreshImageSlot(Card* modified){

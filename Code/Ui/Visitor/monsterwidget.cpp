@@ -206,13 +206,11 @@ void monsterWidget::setFieldsCardSlot(){
     tmp->setDefense(cardDef->text().toUInt());
     tmp->setHealth(cardHP->text().toUInt());
 
-
     takeScreen(tmp);
 
 }
 
 void monsterWidget::manual() {
-
 
 
     manuale->setWindowTitle("Manuale Mostro");

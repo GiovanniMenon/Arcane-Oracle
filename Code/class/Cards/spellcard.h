@@ -7,9 +7,6 @@ class spellCard : public EffectCards{
 private:
     std::string element;
     int dmg;
-
-protected:
-    std::ostream& print(std::ostream& os) const override;
 public:
     spellCard(std::string n, std::string d, std::string b64U, unsigned int c, std::string eff, std::string el, unsigned int dmg,bool status = 0);
     std::string getElement() const;

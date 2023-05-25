@@ -175,12 +175,7 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
 
     card = s;
     idSpell = -1;
-    for(unsigned int i = 0 ; i < spellElement.size(); i++){
-        if(spellElement[i]==s->getElement()){
-        idSpell = i;
-        break;
-        }
-    }
+
     cardGroup -> setObjectName("cardSpell");
 
 
@@ -193,6 +188,15 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
     spellElement.push_back("Ice");
     spellElement.push_back("Time");
     spellElement.push_back("Storm");
+
+    for(unsigned int i = 0 ; i < spellElement.size(); i++){
+        if(spellElement[i]==s->getElement()){
+        idSpell = i;
+
+        }
+
+    }
+
 
     QHBoxLayout *footer = new QHBoxLayout();
     QHBoxLayout *menuIcon = new QHBoxLayout();
@@ -441,7 +445,6 @@ void spellWidget::onImageClickedSlot(){
 
 void spellWidget::setFieldsCardSlot() {
     effectWidget::setFieldsCardSlot();
-
     spellCard* tmp = dynamic_cast<spellCard*>(card);
     tmp->setDamage(spellDmg->text().toInt());
     tmp->setElement(spellElement[idSpell]);

@@ -24,8 +24,6 @@ private:
     std::string b64Url;     //base64 url of the image of the card
     unsigned int cost;      //cost in Mana of the card
     bool save ;
-protected:
-    virtual std::ostream& print(std::ostream& os) const;
 public:
     Card(std::string n, std::string desc, std::string b64U, unsigned int c , bool save=0);
     virtual Card* clone() const = 0;

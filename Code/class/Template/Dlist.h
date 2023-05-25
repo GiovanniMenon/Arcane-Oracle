@@ -6,12 +6,8 @@
 
 template <class T> class list;
 
-template <class T> std::ostream& operator<<(std::ostream&,const list<T>&);
-
 template <class T>
 class list{
-friend std::ostream& operator<< <T>(std::ostream&,const list<T>&);
-//friend void Deck::sort();
 friend class iterator;
 private: class nodo{
 
@@ -201,7 +197,7 @@ void list<T>::remove(T i){
         delete q;
         sizel--;
     }else{
-        std::cout << "DATO NON PRESENTE" ;
+        std::cerr << "dato non presente" ;
     }
 
 }
@@ -215,19 +211,6 @@ unsigned int list<T>::size() const{
 template <class T>
 bool list<T>::is_empty() const{
     return sizel==0;
-}
-
-
-
-template <class T>
-std::ostream &operator<<(std::ostream &os, const list<T>& b){
-    typename list<T>::nodo* q = b.first;
-    while(q){
-        os << *(q->info) << " ";
-        q=q->next;
-    }
-    os << std::endl;
-    return os;
 }
 
 //ITERATOR

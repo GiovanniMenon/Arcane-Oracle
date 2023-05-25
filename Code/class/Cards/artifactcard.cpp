@@ -17,15 +17,10 @@ unsigned int artifactCard::getDefense() const{
     return defense;
 }
 
-std::ostream& artifactCard::print(std::ostream& os) const{
-    Card::print(os);
-    os << "Tipo: " << type <<std::endl<< "Attacco: " << damage <<std::endl<< "Difesa: " << defense <<std::endl<< "Salute: "  <<std::endl<< "Scale: " <<std::endl<< "Ncard Generated:" << std::endl<<std::endl;
-    return os;
-}
+
 
 bool artifactCard::operator==(const Card& c) const{
-    const artifactCard* r = dynamic_cast<const artifactCard*> (&c);
-    return r && Card::operator==(c) && r->damage == damage && r->defense == defense && r->type == type;
+    return Card::operator==(c);
 }
 
 Json::Value  artifactCard::serialize() const {

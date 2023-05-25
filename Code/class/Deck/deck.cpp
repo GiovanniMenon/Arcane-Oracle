@@ -11,10 +11,10 @@
 #include <QFileInfo>
 #include <QString>
 #include <QDirIterator>
-#include <QStringList>
 
 
-//Metodi Statici
+
+//Metodi Per il controllo
 
 bool Deck::verifyInput(const std::string &name){
     //PRE : data una stringa
@@ -51,8 +51,8 @@ bool Deck::verifyDeckName(const std::string &name){
 
     return 0;
 }
-
 bool Deck::verifyCardName(const std::string &card_name) const {
+
     //PRE : data una stringa
     //POST: ritorna 0 se non esiste una carta con quel nome, ritorna 1 se esiste una carta con quel nome.
     bool find = 0;
@@ -91,13 +91,11 @@ bool Deck::verifyCardName(const std::string &card_name) const {
 
 }
 
-
-//Costruttori
+//Costruttori e Setter
 Deck::Deck() : deck() {
         mkdir("asset/", 0777);
         mkdir("asset/Deck/", 0777);
 }
-
 void Deck::SetDeck(std::string Deck_name )  {
 
             name = Deck_name;
@@ -122,7 +120,6 @@ void Deck::SetDeck(std::string Deck_name )  {
 
 }
 
-
 //Getter
 std::string Deck::getName() const { return name;}
 unsigned int Deck::size() const { return deck.size();}
@@ -146,14 +143,13 @@ Card* Deck::prec(Card* c) const {
 
 
 }
-Card*  Deck::last() const {
+Card* Deck::last() const {
     list<Card*>::iterator it = deck.end();
     --it;
 
     return deck[it];
 }
-
-Card*  Deck::next(Card* c) const {
+Card* Deck::next(Card* c) const {
     list<Card*>::iterator it = deck.begin();
     while(!(*(deck[it])==(*c)))
     {
@@ -164,19 +160,15 @@ Card*  Deck::next(Card* c) const {
     else return deck[it];
 }
 
-
 // Metodi Deck
 void Deck::insert(Card* c){
        if(c!=nullptr) deck.push_back(c);
-
-
 }
 void Deck::remove(){
         deck.pop_back();
 }
 void Deck::removeElement(Card *c){
            deck.remove(c);
-
 }
 Card* Deck::operator[](unsigned int pos) const{
         if(pos > deck.size()) return nullptr;
@@ -186,16 +178,6 @@ Card* Deck::operator[](unsigned int pos) const{
         }
         return deck[it];
 }
-std::ostream& operator<<(std::ostream &os, const Deck& b){
-    int i=1;
-    for(list<Card*>::iterator it = b.deck.begin(); it !=  b.deck.end(); ++it )
-    {
-        os  << i << " | Prec " << b.prec(b.deck[it])->getName() << " | " << (b.deck[it])->getName() << " | Next " << b.next(b.deck[it])->getName()  <<"\n" ;
-        i++;
-
-    }
-    return os;
-}
 void Deck::clear()  {
     //PRE : Dato un mazzo che contiente della carte o anche vuoto
     //POST: Cancella tutto il mazzo ed elimina le carte non salvate e le relative immagini
@@ -204,8 +186,9 @@ void Deck::clear()  {
         remove();
     }
 }
-
 Deck* Deck::search(std::string string)  const {
+    //Pre: Data una stringa
+    //POST : Ritorna un mazzo costituito da tutte le carte che hanno quella stringa nel nome o nella descrizione
         Deck* tmp = new Deck();
         for(list<Card*>::iterator it = deck.begin(); it !=  deck.end(); ++it )
         {
@@ -230,12 +213,12 @@ Deck* Deck::search(std::string string)  const {
 
 }
 void Deck::order(int option, bool ord){
-
+    //PRE: Dato un mazzo
+    //POST: Ordina il mazzo con diversi criteri
         if(ord){
             switch(option){
             case 1:
-
-                //Order for Name
+                //Nome
                 for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
 
                     std::string string1 = deck[it]->getName();
@@ -262,7 +245,7 @@ void Deck::order(int option, bool ord){
                 }
                 break;
             case 2:
-                //costo
+                //Costo
                 for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
 
                     for(list<Card*>::iterator i = it ; i!=deck.end();++i){
@@ -282,26 +265,17 @@ void Deck::order(int option, bool ord){
         }else{
                 switch(option){
                 case 1:
-
-                    //Order for Name
+                    //Name
                     for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
-
                         std::string string1 = deck[it]->getName();
                         transform(string1.begin(), string1.end(), string1.begin(), ::tolower);
-
                         for(list<Card*>::iterator i = it ; i!=deck.end();++i){
-
-
                             std::string string2 = deck[i]->getName();
                             transform(string2.begin(), string2.end(), string2.begin(), ::tolower);
-
                             if(string1[0]<string2[0]){
-
-
                                 Card* tmp = deck[it];
                                 deck[it]=deck[i];
                                 deck[i]=tmp;
-
                                 string1 = deck[it]->getName();
                                 transform(string1.begin(), string1.end(), string1.begin(), ::tolower);
 
@@ -312,11 +286,8 @@ void Deck::order(int option, bool ord){
                 case 2:
                     //Costo
                     for(list<Card*>::iterator it = deck.begin(); it!=deck.end();++it){
-
                         for(list<Card*>::iterator i = it ; i!=deck.end();++i){
-
                             if(deck[it]->getCost()<deck[i]->getCost()){
-
                                 Card* tmp = deck[it];
                                 deck[it]=deck[i];
                                 deck[i]=tmp;
@@ -330,7 +301,10 @@ void Deck::order(int option, bool ord){
 
 };
 
+// Metodi Per la gestione dei dati
 void Deck::load() {
+    //PRE : Si ha un mazzo
+    //POST : Si legge da file e si caricano le carte lette nel mazzo.
     clear();
     std::ifstream ifs(deck_folder_path + "/database.json");
     if(ifs){
@@ -342,7 +316,6 @@ void Deck::load() {
     name = Saved_Name.asString();
     if(cards.size()!=0){
     Card* tmp;
-
     for(unsigned int i=0;i < cards.size();i++){
         switch(cards[i]["type"].asInt()){
                     case 1:tmp = new monsterCard(cards[i]["name"].asString(),cards[i]["description"].asString(),cards[i]["b64url"].asString(),cards[i]["cost"].asInt(),cards[i]["level"].asInt(),cards[i]["health"].asInt(),cards[i]["attack_points"].asInt(),cards[i]["defense_points"].asInt(),cards[i]["save"].asBool());
@@ -364,6 +337,8 @@ void Deck::load() {
     }}
 }
 void Deck::save() {
+    //PRE : Si ha un mazzo
+    //POST : Si scrive nel file le carte del proprio mazzo. Si invoca il garbage Collector per evitare garbage
     if(deck.size()!=0){
     garbage_collector();
 
@@ -383,13 +358,9 @@ void Deck::save() {
     ofs << obj;
     ofs.close();
     }
-    else{
-        std::cout << "ERROR: Non si può salvare un mazzo vuoto." << std::endl;
-    }
-
     }else{
         std::ofstream ofs(deck_folder_path + "/database.json");
-         Json::Value obj;
+        Json::Value obj;
 
         obj["Name"] = getName();
         ofs << obj;
@@ -397,9 +368,10 @@ void Deck::save() {
     }
 
 }
-
 void Deck::garbage_collector() {
-
+    //PRE : Si ha un mazzo salvato
+    //POST :Si eliminano le immagini delle carte che non compaiono piu' nel nuovo salvataggio rispetto al precedente.
+    //      in questo modo si evitano immagini di carte salvate e poi eliminate.
     std::ifstream ifs(deck_folder_path + "/database.json");
     Deck deck_tmp;
     if(ifs){
@@ -407,8 +379,6 @@ void Deck::garbage_collector() {
     Json::Value obj;
     reader.parse(ifs,obj);
     const Json::Value& cards=obj["Cards"];
-
-
     if(cards.size()!=0){
     Card* tmp;
     for(unsigned int i=0;i < cards.size();i++){
@@ -427,8 +397,6 @@ void Deck::garbage_collector() {
                 }
         deck_tmp.insert(tmp);
         }
-
-
     bool find;
     for(list<Card*>::iterator it_tmp = deck_tmp.deck.begin() ; it_tmp!=deck_tmp.deck.end() ; ++it_tmp){
             find = 0;
@@ -442,18 +410,16 @@ void Deck::garbage_collector() {
                ::remove(deck_tmp.deck[it_tmp]->getUrl().c_str());
                std::string imgPath = deck_tmp.deck[it_tmp]->getUrl();
                std::string searchString = "Card";
-
                size_t index = imgPath.find(searchString);
                 if (index != std::string::npos) {
                imgPath.replace(index, searchString.length(), "CardImg");
                ::remove(imgPath.c_str());
                 }
+
             }
 
         }
-    }else{
-        std::cout << "Non c'e' un mazzo salvato";
-        }
+    }
     }
     ifs.close();
 }

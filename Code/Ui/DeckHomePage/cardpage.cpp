@@ -194,8 +194,8 @@ void CardPage::ModifyCardSlot(Card* toModify){
 
     disconnect(generateButton, &QPushButton::clicked, this,&CardPage::generateCardSlot );
     connect(generateButton, &QPushButton::clicked, dynamic_cast<cardWidget*>(absCard), &cardWidget::setFieldsCardSlot);
-
     connect(generateButton, &QPushButton::clicked, this, &CardPage::SaveDeckAfterModifySlot);
+
     connect(generateButton, &QPushButton::clicked, this, &CardPage::RefreshImageSlot);
     connect(generateButton, &QPushButton::clicked, this, &CardPage::BackHomePageSlot);
     emit ModifiedCardSignal();

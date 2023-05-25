@@ -6,20 +6,8 @@ unsigned int trapCard::getDamage() const { return damage;}
 unsigned int trapCard::getDuration() const { return duration;}
 
 
-unsigned int durationCompare = 5; //seconds
-unsigned int trapDamageCompare = 10;
-
-
-
-std::ostream& trapCard::print(std::ostream& os) const{
-    EffectCards::print(os);
-    os << "Damage: " << damage <<std::endl<< "Duration: " << duration<<std::endl;
-    return os;
-}
-
 bool trapCard::operator==(const Card& c) const {
-    const trapCard* r = dynamic_cast<const trapCard*> (&c);
-    return r && EffectCards::operator==(c) && duration == r->getDuration() && damage == r->getDamage();
+     return EffectCards::operator==(c);
 }
 
 Json::Value trapCard::serialize() const {

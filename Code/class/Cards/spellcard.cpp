@@ -5,15 +5,11 @@ spellCard::spellCard(std::string n, std::string d, std::string b64U, unsigned in
 std::string spellCard::getElement() const {return element;}
 int spellCard::getDamage() const {return dmg;}
 
-std::ostream& spellCard::print(std::ostream& os) const{
-    EffectCards::print(os);
-    os << "Element: " << element << std::endl << "Scale: "  << std::endl;
-    return os;
-}
+
 
 bool spellCard::operator==(const Card& c) const {
-    const spellCard* r = dynamic_cast<const spellCard*> (&c);
-    return r && EffectCards::operator==(c) && element == r->getElement() && dmg== r->getDamage();
+
+    return EffectCards::operator==(c);
 }
 
 

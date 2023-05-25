@@ -4,15 +4,9 @@ territoryCard::territoryCard(std::string n, std::string d, std::string b64U, uns
 
 std::string territoryCard::getType() const {return type;}
 
-std::ostream& territoryCard::print(std::ostream& os) const {
-    EffectCards::print(os);
-    os << "Type: " << type << std::endl;
-    return os;
-}
 
 bool territoryCard::operator==(const Card& c) const{
-    const territoryCard* r = dynamic_cast<const territoryCard*> (&c);
-    return r && EffectCards::operator==(c) && type == r->getType();
+     return EffectCards::operator==(c);
 }
 
 //Tutte le carte territorio hanno lo stesso grado

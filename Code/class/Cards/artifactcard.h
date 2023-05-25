@@ -8,8 +8,6 @@ private:
     std::string type;
     unsigned int damage;
     unsigned int defense;
-protected:
-    std::ostream& print(std::ostream& os) const override;
 public:
     artifactCard(std::string n, std::string d, std::string b64U, unsigned int c, std::string t, unsigned int dam = 0, unsigned int dif = 0 , bool status = 0);
 

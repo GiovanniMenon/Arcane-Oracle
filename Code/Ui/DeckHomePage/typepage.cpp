@@ -35,11 +35,11 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
     QPushButton * Spell = new QPushButton("Spell");
     QPushButton * Trap = new QPushButton("Trap");
 
-    Descrizioni.push_back("Descrizione Mostro");
-    Descrizioni.push_back("Descrizione Field");
-    Descrizioni.push_back("Descrizione Artifact");
-    Descrizioni.push_back("Descrizione Spell");
-    Descrizioni.push_back("Descrizione Trap");
+    Descrizioni.push_back("La Carta Mostro rappresenta una Creatura, e' dotata di diversi Campi Unici.\n Ogni Carta Mostro ha un LIVELLO, una DIFESA ,un ATTACCO e dei PUNTI . \nAlcuni esempi possono essere: Un tipo di Drago");
+    Descrizioni.push_back("La Carta Terreno rappresenta un Ambiente Naturale o un Zona .\n Ogni Carta terreno e' composta dall'elemento (ACQUA , FUOCO , ARIA , TERRA) e dall'effetto che applica. \n Alcuni Esempi possono essere: Una Foresta, Un Deserto, Un Oceano ...");
+    Descrizioni.push_back("Le carte Artefatto rappresentano degli equipaggiamenti per le Carte Mostro. \n Si divino in ARMATURE , POZIONI e ARMI. \n Hanno degli atributi unici come DIFESA e ATTACCO.");
+    Descrizioni.push_back("Le carte Maga rappresentano diversi tipi di Incantesimi. \n Si divino in varie Categorie in base al Tipo. \n Ogni magia ha un DANNO e un EFFETTO.");
+    Descrizioni.push_back("Le carte Trappola rappresentano diversi tipi di Trappole e Maledizioni. \n Hanno diversi campi Unici tra cui la DURATA della maledizione e il DANNO di essa. \n Inoltre ogni carta Trappola e' dotata di un EFFETTO");
 
 
     backButton -> setFixedSize(155, 60);
@@ -76,6 +76,7 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
     Title -> addWidget(TextTitle);
     Title -> setAlignment(Qt::AlignCenter);
 
+    DescText ->setAlignment(Qt::AlignCenter);
     Desc -> addWidget(DescText);
     Desc -> setAlignment(Qt::AlignCenter);
 

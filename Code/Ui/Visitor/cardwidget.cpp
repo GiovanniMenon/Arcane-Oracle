@@ -12,6 +12,7 @@
 #include <QCoreApplication>
 #include <QtConcurrent/QtConcurrent>
 
+
 cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(currDeck)
 {
     main = new QHBoxLayout(this);
@@ -135,19 +136,12 @@ bool cardWidget::checkInput() const{
 
 
  void cardWidget::generate() {
-     desc -> hide();
-     cardGroup -> hide();
-     loading ->show();
+    desc -> hide();
+    cardGroup -> hide();
+    loading ->show();
 
-     gif->start();
+    gif->start();
 
-
-
-
-
-
-    //Nascondo il campo desc
-    //Setto La carta come non piu modificabile
     nameCard -> setReadOnly(true);
     costCard -> setReadOnly(true);
     descText = desc -> toPlainText();
@@ -228,45 +222,41 @@ bool cardWidget::checkInput() const{
     imageLabel->setScaledContents(true);
  }
 
+
  void cardWidget::setFieldsCardSlot() {
+     std::string oldName = card->getName();
+     std::string newName = nameCard->text().toStdString();
      card->setName(nameCard->text().toStdString());
      card->setCost(costCard->text().toInt());
-
      std::string path = card->getUrl();
-     std::string newUrl;
 
-     // Trova l'ultima occorrenza di '/'
-     size_t lastSlashPos = path.find_last_of('/');
 
-     if (lastSlashPos != std::string::npos) {
-     // Estrai la parte del percorso dopo l'ultima '/'
-     std::string newPath = path.substr(0, lastSlashPos + 1);
+     if(newName != oldName ){
+        ::remove(path.c_str());
+        std::string searchString = oldName;
+        std::string pathImg = path;
+        std::string searchString2 = "Card";
 
-     // Nuovo nome da assegnare
-     std::string newFileName = card->getName()+ ".jpg";
-
-     // Concatena il nuovo nome al percorso
-     newPath += newFileName;
-
-     // Sostituisci la stringa originale con la nuova
-     newUrl = newPath;
+        size_t index1 = path.find(searchString2);
+        if (index1 != std::string::npos){
+            pathImg.replace(index1, searchString2.length(), "CardImg");
+        }
+        QPixmap tmp(QString::fromStdString(pathImg));
+        ::remove(pathImg.c_str());
+        size_t index2 = pathImg.find(oldName);
+        if (index2 != std::string::npos) {
+              pathImg.replace(index2, searchString.length(), newName);
+            }
+        tmp.save(QString::fromStdString(pathImg));
+        size_t index = path.find(oldName);
+        if (index != std::string::npos) {
+              path.replace(index, searchString.length(), newName);
+            }
+        std::string newUrl = path;
+        card -> setPath(newUrl);
      }
-
-     card->setPath(newUrl);
-
-     std::string imgPathOld = path;
-     std::string imgPathNew = newUrl;
-     std::string searchString = "Card";
-
-     size_t index1 = imgPathOld.find(searchString);
-     size_t index2 = imgPathNew.find(searchString);
-      if (index1 != std::string::npos && index2!= std::string::npos ) {
-     imgPathOld.replace(index1, searchString.length(), "CardImg");
-     imgPathNew.replace(index2, searchString.length(), "CardImg");
-
-     QFile::rename(QString::fromStdString(path), QString::fromStdString(newUrl));
-     QFile::rename(QString::fromStdString(imgPathOld), QString::fromStdString(imgPathNew));
     }
-  }
+
+
 
 

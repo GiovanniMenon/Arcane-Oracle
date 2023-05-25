@@ -14,8 +14,7 @@ public:
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
-    virtual void manual() ;
-
+    virtual void manual() override;
 public slots:
     void setFieldsCardSlot() override;
     void levelSlot(int value);

@@ -6,62 +6,51 @@
 DALL_E_generator::DALL_E_generator() : imageGenerator() {}
 
 size_t DALL_E_generator::callback(char* data, size_t size, size_t nmemb, std::string* buffer) {
-   // Calculate the size of the response
+
    size_t realsize = size * nmemb;
-   // Append the response to the buffer
    buffer->append(data, realsize);
-   // Return the size of the response
    return realsize;
  }
 
 std::string DALL_E_generator::generate(std::string text) {
+
     CURL *curl = curl_easy_init();
     CURLcode res;
 
     if(curl) {
-    // Set the Url for the DALL-E API
-    curl_easy_setopt(curl, CURLOPT_URL, "https://api.openai.com/v1/images/generations");
 
-    // Set the HTTP method to POST
+    curl_easy_setopt(curl, CURLOPT_URL, "https://api.openai.com/v1/images/generations");
     curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 
-    //Set the request body
+
     std::string data = "{\"prompt\": \""+ text + "\",\"n\": 1 , \"size\":\"512x512\" , \"response_format\":\"b64_json\" }";
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
-
-    // Set the request headers
     struct curl_slist* headers = NULL;
+
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "Authorization: Bearer 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"); //api_key
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-
     std::string response;
 
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-    //Perform the request
     res = curl_easy_perform(curl);
-
-    //Clear up
     curl_easy_cleanup(curl);
 
     if (res != CURLE_OK){
             std::cerr << "Error: Res Error ";
     }
 
-    // Parsing the response with Json
-
     Json::Value jsonData;
     Json::Reader jsonReader;
 
     if (jsonReader.parse(response, jsonData))
-    {
-        const Json::Value image = jsonData["data"][0];
-        std::string b64 = image["b64_json"].asString();
-
-        return b64;
-    }
+        {
+            const Json::Value image = jsonData["data"][0];
+            std::string b64 = image["b64_json"].asString();
+            return b64;
+        }
     }
     std::cerr << "Error Curl Request " ;
     return "error" ;

@@ -6,8 +6,6 @@
 class EffectCards : public Card{ //effectCards non implementa il metodo setGrade quindi anche lei è astratta pura
 private:
     std::string effect;
-protected:
-    std::ostream& print(std::ostream& os) const override;
 public:
     EffectCards(std::string n, std::string d, std::string b64U, unsigned int c, std::string eff , bool status = 0);
     std::string getEffect() const;

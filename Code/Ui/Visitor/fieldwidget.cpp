@@ -96,6 +96,7 @@ fieldWidget::fieldWidget(territoryCard* f, QWidget *parent) : effectWidget(nullp
     elements.push_back("Fire");
     elements.push_back("Water");
     elements.push_back("Wind");
+
     for(unsigned int i = 0 ; i < elements.size(); i++){
         if(elements[i]==f->getType()){
         id = i;

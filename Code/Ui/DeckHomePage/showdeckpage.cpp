@@ -186,7 +186,22 @@ void ShowDeckPage::imageClikedSlot(Card* card) {
 }
 
 void ShowDeckPage::saveDeckSlot(){
-    deck->save();
+
+    QMessageBox msgBox;
+    msgBox.setText("Salvataggio Mazzo");
+    msgBox.setInformativeText("Il mazzo verra' salvato, rendendo permanenti tutte le modifiche effettuate. \nSei Sicuro?");
+
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    // Visualizzazione della finestra di dialogo e recupero della risposta
+    int ret = msgBox.exec();
+
+    // Gestione della risposta
+    if (ret == QMessageBox::Yes) {
+        deck->save();
+    }
+
 }
 
 void ShowDeckPage::clear() {
