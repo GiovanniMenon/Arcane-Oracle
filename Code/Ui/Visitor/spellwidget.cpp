@@ -449,3 +449,14 @@ void spellWidget::setFieldsCardSlot() {
     takeScreen(tmp);
 
 }
+
+void spellWidget::manual() {
+    effectWidget::manual();
+    manuale->setWindowTitle("Manuale Mostro");
+    QLabel *spellText = new QLabel(textLabel -> text() + "5)L'elemento a cui la Magia Appartiene: Terra, Fuoco, Acqua, Aria, Veleno, Ghiaccio, Tempo, Fulmine e Tempesta\n6)Il danno che la magia infligge\n");
+    imageLabelManual -> setPixmap(QPixmap("asset/Manual/spellManual.png"));
+    manualLayout->addWidget(spellText, 0, Qt::AlignLeft);
+
+    manuale->exec();
+
+}

@@ -25,6 +25,7 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
 
 
 
+
     cardGroup = new QGroupBox();
     outside = new QHBoxLayout(menu);
     outsideVertical = new QVBoxLayout();
@@ -109,7 +110,14 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
     image -> setObjectName("cardImage");
     desc ->setObjectName("cardDesc");
 
-
+    //Manual
+    manuale = new QDialog();
+    textLabel = new QLabel();
+    imageLabelManual = new QLabel();
+    manualLayout = new QVBoxLayout(manuale);
+    manualLayout->addWidget(imageLabelManual, 0, Qt::AlignCenter);
+    manuale ->setStyleSheet("background-color: #323232;color : white ;font-size: 14px;");
+    textLabel->setText("Tutti gli Attributi numerici hanno un valore in scala da 0 a 9. \n1)Nome Della carta\n2)Costo Della carta\n3)Descrizione della immagine della carta, meglio se in inglese e piu' dettagliata possibile.\n  In base a quello che si scrive in questo campo verra' generata l'immagine.\n");
 
 }
 
@@ -144,16 +152,14 @@ bool cardWidget::checkInput() const{
     costCard -> setReadOnly(true);
     descText = desc -> toPlainText();
     std::string futureDesc = descText.toStdString();
-    //path = generator.convert(generator.generate(desc->toPlainText().toStdString()),nameCard->text().toStdString(),deck ->getName());
     DALL_E_generator generator;
 
     QFutureWatcher<std::string>* watcher = new QFutureWatcher<std::string>(this);
     QObject::connect(watcher, &QFutureWatcher<std::string>::finished, this, [=]() {
         QFuture<std::string> future = watcher->future();
-        std::string path = future.result();
+        path = future.result();
 
-
-        QPixmap pixmap(QString::fromStdString(path)); // path
+        QPixmap pixmap(QString::fromStdString(path));
 
         std::string searchString = "CardImg";
 
@@ -262,3 +268,5 @@ bool cardWidget::checkInput() const{
      QFile::rename(QString::fromStdString(imgPathOld), QString::fromStdString(imgPathNew));
     }
   }
+
+

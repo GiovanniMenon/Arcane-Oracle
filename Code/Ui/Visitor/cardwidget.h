@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QSpinBox>
 #include "../Utils/clickablelabel.h"
+#include <QMessageBox>
 #include "../../class/Cards/abstractcard.h"
 #include "../../class/Deck/deck.h"
 
@@ -20,7 +21,8 @@ class cardWidget : public QWidget
     Q_OBJECT
 public:
     cardWidget(Deck *,QWidget *parent=nullptr);
-    virtual Card* getInput() = 0;\
+    virtual Card* getInput() = 0;
+    virtual void manual() {};
     virtual void generate() ;
     virtual bool checkInput() const;
     QPixmap takeScreen(bool i) const;
@@ -28,6 +30,7 @@ public:
             return path;
     }
     void takeScreen(Card* c);
+
 
 public slots:
     virtual void setFieldsCardSlot();
@@ -60,6 +63,12 @@ protected:
 
     //visitor
     Card* card;
+
+    //Manual
+    QDialog *manuale;
+    QVBoxLayout *manualLayout;
+    QLabel *textLabel;
+    QLabel *imageLabelManual;
 
 
 

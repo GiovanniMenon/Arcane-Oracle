@@ -283,3 +283,14 @@ void artifactWidget::setFieldsCardSlot(){
 
     takeScreen(tmp);
 }
+
+void artifactWidget::manual() {
+
+    manuale->setWindowTitle("Manuale Mostro");
+    QLabel *artText = new QLabel(textLabel -> text() + "4)Il tipo di Artefatto. I Tipi sono : Armatura, Pozione e Arma. \n5)I punti di Attacco che l'artefatto aggiunge .\n6)I punti Difesa che aggiunge.");
+    imageLabelManual -> setPixmap(QPixmap("asset/Manual/artManual.png"));
+    manualLayout->addWidget(artText, 0, Qt::AlignLeft);
+
+    manuale->exec();
+
+}

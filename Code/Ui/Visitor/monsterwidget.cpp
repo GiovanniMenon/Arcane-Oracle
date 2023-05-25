@@ -210,3 +210,17 @@ void monsterWidget::setFieldsCardSlot(){
     takeScreen(tmp);
 
 }
+
+void monsterWidget::manual() {
+
+
+
+    manuale->setWindowTitle("Manuale Mostro");
+    QLabel *monsterText = new QLabel(textLabel -> text() + "4)Il Livello del mostro, da 1 a 8. 5)I punti di Attacco del mostro.\n6)I punti Difesa o Armatura. \n7)I Punti Vita del mostro.");
+    imageLabelManual -> setPixmap(QPixmap("asset/Manual/monsterManual.png"));
+    manualLayout->addWidget(monsterText, 0, Qt::AlignLeft);
+
+    manuale->exec();
+
+
+}

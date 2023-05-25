@@ -252,3 +252,14 @@ void fieldWidget::setFieldsCardSlot(){
 
     takeScreen(tmp);
 }
+
+void fieldWidget::manual() {
+    effectWidget::manual();
+    manuale->setWindowTitle("Manuale Mostro");
+    QLabel *fieldText = new QLabel(textLabel -> text() + "5)L'elemento della Carta terreno. Gli elementi sono : Terra, Fuoco, Aria, Acqua.\n");
+    imageLabelManual -> setPixmap(QPixmap("asset/Manual/fielManual.png"));
+    manualLayout->addWidget(fieldText, 0, Qt::AlignLeft);
+
+    manuale->exec();
+
+}

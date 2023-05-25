@@ -28,6 +28,7 @@ public slots:
     void RemoveCardSlot();
     void generateCardSlot();
     void SaveScreenSlot();
+    void ManualScreeSlot();
 
     void ModifyCardSlot(Card* toModify);
     void BackShowDeckPageSlot();
@@ -52,9 +53,10 @@ private:
     QHBoxLayout * card;
     QPushButton *generateButton;
 
-    QPushButton *saveButton ;
-    QPushButton *removeButton ;
-    QPushButton *addButton ;
+    QPushButton *saveButton;
+    QPushButton *CardManual;
+    QPushButton *removeButton;
+    QPushButton *addButton;
 
     QLabel *errore;
     QPushButton *backButton;

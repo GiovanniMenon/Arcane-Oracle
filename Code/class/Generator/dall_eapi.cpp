@@ -79,7 +79,6 @@ std::string DALL_E_generator::convert(std::string b64,std::string name, std::str
     std::string formato = ".jpg";
 
     QString path = QString::fromStdString( folder + deck + name + formato);
-
     if(b64=="error" || b64=="" || b64==" "){
         QPixmap img("asset/Icon/error.png");
         img.save(path);

@@ -125,3 +125,14 @@ void trapWidget::setFieldsCardSlot(){
 
     takeScreen(tmp);
 }
+
+void trapWidget::manual() {
+    effectWidget::manual();
+    manuale->setWindowTitle("Manuale Mostro");
+    QLabel *trapText = new QLabel(textLabel -> text() + "5)I punti danno della Carta Trappola.\n7)La durata dell'effetto della carta");
+    imageLabelManual -> setPixmap(QPixmap("asset/Manual/trapManual.png"));
+    manualLayout->addWidget(trapText, 0, Qt::AlignLeft);
+
+    manuale->exec();
+
+}

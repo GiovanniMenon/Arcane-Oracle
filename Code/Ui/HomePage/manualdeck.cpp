@@ -19,15 +19,20 @@ ManualDeck::ManualDeck(QWidget * parent) : QWidget(parent)
 
     QFile manualText("asset/Manual/manualDeck.txt");
     manualText.open(QFile::ReadOnly);
-    std::string text = manualText.readAll().toStdString();
+    QString text = manualText.readAll();
+    manualText.close();
+
 
 
     QPushButton *backButton = new QPushButton("Back");
     QLabel *title = new QLabel("ArcaneOracle Manual");
     title -> setObjectName("Title");
-    QTextEdit *manual = new QTextEdit(QString::fromStdString(text));
+    QTextEdit *manual = new QTextEdit();
     Back -> addWidget(backButton);
+
     Back -> addStretch();
+    manual -> setPlainText(text);
+
 
     backButton -> setFixedSize(155, 60);
     manual -> setFixedHeight(550);

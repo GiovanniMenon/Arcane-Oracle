@@ -28,6 +28,7 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     saveButton = new QPushButton("Export Png");
     removeButton = new QPushButton("Discard");
     addButton = new QPushButton("Add To Deck");
+    CardManual = new QPushButton("Guide");
 
     saveButton -> hide();
     removeButton -> hide();
@@ -38,6 +39,8 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     header->addWidget(backButton);
     header -> addStretch();
     header->addWidget(errore);
+    header -> addStretch();
+    header->addWidget(CardManual);
 
 
 
@@ -69,6 +72,7 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     removeButton ->setObjectName("remButton");
 
 
+    CardManual-> setFixedSize(140, 45);
 
     backButton -> setFixedSize(140, 45);
     saveButton -> setFixedSize(250, 70);
@@ -83,6 +87,14 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     connect(addButton,&QPushButton::clicked, this ,&CardPage::AddNewCardSlot);
     connect(removeButton,&QPushButton::clicked, this ,&CardPage::RemoveCardSlot);
     connect(saveButton,&QPushButton::clicked, this ,&CardPage::SaveScreenSlot);
+    connect(CardManual,&QPushButton::clicked, this ,&CardPage::ManualScreeSlot);
+
+
+}
+void CardPage::ManualScreeSlot() {
+
+   dynamic_cast<cardWidget*>(absCard) -> manual();
+
 }
 
 void CardPage::BackHomePageSlot() {

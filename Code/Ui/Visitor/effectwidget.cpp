@@ -44,4 +44,8 @@ void effectWidget::setFieldsCardSlot(){
     EffectCards* tmp = dynamic_cast<EffectCards*>(card);
     tmp->setEffectBase(effect->toPlainText().toStdString());
 }
+void effectWidget::manual() {
+    textLabel -> setText(textLabel -> text() + "4)La descrizione degli Effetti della Carta.\n");
+
+}
 

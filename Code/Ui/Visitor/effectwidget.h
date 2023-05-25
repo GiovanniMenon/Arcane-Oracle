@@ -15,7 +15,7 @@ class effectWidget : public cardWidget
     Q_OBJECT
 public:
     effectWidget(Deck * , QWidget *parent=nullptr);
-
+    virtual void manual() override;
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:

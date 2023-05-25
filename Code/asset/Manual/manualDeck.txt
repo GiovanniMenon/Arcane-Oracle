@@ -1,70 +1,37 @@
+Questo e' il manuale principale di ArcaneOracle. 
+In questo manuale spiegheremo le varie funzionalita' della nostra applicazione ed il suo funzionamento. 
+ArcaneOracle e' una interfaccia grafica per la creazione di Carte da gioco basata sull'API DALL·E 2 (per ulteriori informazioni https://openai.com/product/dall-e-2). 
 
-Prova Manuale
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur
-magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor
-sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam
-aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam
-nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus
-et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias
-excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id
-est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis au
-t rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.
-Prova Manuale
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur
-magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor
-sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam
-aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam
-nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus
-et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias
-excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id
-est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis au
-t rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.
-Prova Manuale
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur
-magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor
-sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam
-aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam
-nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus
-et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias
-excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id
-est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis au
-t rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.
-Prova Manuale
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur
-magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor
-sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam
-aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam
-nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus
-et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias
-excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id
-est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis au
-t rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.
+L'interfaccia e' stato disegnata per permettere sempre di tornare indietro dopo ogni azione e nel caso si stesse facendo qualcosa che comporti delle modifiche dei popups compariranno.
+
+Per comodita' ogni modifica verra' automaticamente salvata, esclusa la cancellazione
+che dovra' essere salvata esplicitamente dall'utente (in modo da dare la possibilita' di recuperare la carta se il cambiamento non viene salvato).
+
+Descrizione delle Pagine: 
+
+Nella HomePage , oltre alla Pagina con il manuale manuale , si puo' accedere alla Pagina relativa alla creazione del Deck o alla Pagina relativa al caricamento di un Deck gia' esistente. 
+
+Una volta selezionato/creato il proprio Deck si arriva alla HomeDeck, in questa pagina ci sono diverse funzionalita' importanti: 
+	- Il pulsante per vedere le carte all'interno del mazzo.
+	- Il pulsante per generare una nuova carta. 
+	- Il pulsante per eseguire il Log-out del Deck corrente che riporta alla Home page.
+	- Il pulsante per l'eliminazione del Deck e di tutte le sue carte (definitivamente). 
+
+Nella Card Page (la pagina in cui si arriva premendo generate card) avviene la vera e propria generazione della carta. 
+	- Per prima cosa avrete di fronte la scelta del tipo (Mostro,Magia,Trappola,Terreno,Arteffato) con una loro piccola descrizione.
+	- Dopo aver scelto un tipo (la scelta non e' definitiva e in caso si puo' sempre tornare indietro mantenendo i dati gia' inseriti) si deve riempire i campi della carta a proprio piacere, una volta fatto si potra' generare la carta. (La generazione puo' richiedere tempo che va da alcuni secondi a anche una decina in base alla velocita' della connessione e allo stato dei server di DALL·E 2)(INFO STATUS OpenAI server https://status.openai.com/)
+	- Una volta generato si puo' scartare la carta (perdendola per sempre), esportare l'immagine della carta e infine aggiungerla al mazzo. 
+
+Nella Card Page in base al tipo di carta selezionato sara' possibile consultare un manuale che spieghera' i vari atributi e i vari pulsanti. 
+
+Nella Show Page (la pagina in cui si arriva premendo il pulsante per vedere il mazzo) si puo' vedere le proprie carte create. Si puo' salvare, cercare e ordinare (in vari modi) il mazzo.
+
+Qualsiasi carta puo' essere premuta per essere ingradita' e permettere una nuova visualizzazione del mazzo come una lista di carte, in cui e' possibile muoversi in entrambi i sensi premendo la carta in cui si vuole andare. 
+In questa nuova visualizzazione si puo' modificare, eliminare o esportare l'immagine della carta in cui ci si trova. 
+
+Come detto precedentemente la cancellazione e' l'unica operazione che non viene salvata in automatica per evitare la perdita di carte definitivamente. Per salvare l'eventuale cancellazione di una carta basta salvare il mazzo dopo aver effettuato l'operazione. 
+
+Per la modifica il salvataggio avviene in automatico  e dunque ogni modifica e' permanente.
+
+
 

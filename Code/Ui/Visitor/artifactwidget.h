@@ -13,7 +13,7 @@ public:
     artifactWidget(Deck * , QWidget *parent=nullptr);
     artifactWidget(artifactCard* ,QWidget *parent=nullptr) ;
     virtual Card* getInput() override;
-
+    void manual() override;
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:
