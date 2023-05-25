@@ -9,6 +9,8 @@
 #include <QPainter>
 #include <QMovie>
 #include <thread>
+#include <QCoreApplication>
+#include <QtConcurrent/QtConcurrent>
 
 cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(currDeck)
 {
@@ -132,7 +134,7 @@ bool cardWidget::checkInput() const{
      gif->start();
 
 
-    DALL_E_generator generator;
+
 
 
 
@@ -141,26 +143,45 @@ bool cardWidget::checkInput() const{
     nameCard -> setReadOnly(true);
     costCard -> setReadOnly(true);
     descText = desc -> toPlainText();
-    path = generator.convert(generator.generate(desc->toPlainText().toStdString()),nameCard->text().toStdString(),deck ->getName());
+    std::string futureDesc = descText.toStdString();
+    //path = generator.convert(generator.generate(desc->toPlainText().toStdString()),nameCard->text().toStdString(),deck ->getName());
+    DALL_E_generator generator;
+
+    QFutureWatcher<std::string>* watcher = new QFutureWatcher<std::string>(this);
+    QObject::connect(watcher, &QFutureWatcher<std::string>::finished, this, [=]() {
+        QFuture<std::string> future = watcher->future();
+        std::string path = future.result();
 
 
-    QPixmap pixmap(QString::fromStdString(path)); // path
+        QPixmap pixmap(QString::fromStdString(path)); // path
 
-    std::string searchString = "CardImg";
+        std::string searchString = "CardImg";
 
-    size_t index = path.find(searchString);
-     if (index != std::string::npos) {
-    path.replace(index, searchString.length(), "Card");
-     }
-    scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    imageLabel -> setPixmap(scaledPixmap);
+        size_t index = path.find(searchString);
+         if (index != std::string::npos) {
+        path.replace(index, searchString.length(), "Card");
+         }
+        scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        imageLabel -> setPixmap(scaledPixmap);
 
-    imageLayout -> addWidget(imageLabel);
-    imageLayout -> setContentsMargins(0,0,0,0);
+        imageLayout -> addWidget(imageLabel);
+        imageLayout -> setContentsMargins(0,0,0,0);
+        imageLayout -> setAlignment(Qt::AlignCenter);
 
-    gif->stop();
-    loading ->hide();
-    cardGroup -> show();
+        cardGroup -> show();
+        gif->stop();
+        loading ->hide();
+
+        watcher->deleteLater();
+    });
+
+    QFuture<std::string> AsyncG = QtConcurrent::run([&generator,futureDesc, this]() {
+        std::string result = generator.generate(futureDesc);
+        std::string path = generator.convert(result,nameCard->text().toStdString(),deck ->getName());
+        return path;
+    });
+
+    watcher->setFuture(AsyncG);
 
 
 }

@@ -14,7 +14,7 @@ private:
     static size_t callback(char* data, size_t size, size_t nmemb, std::string* buffer);
 public:
     DALL_E_generator();
-    std::string generate(std::string description) const override;
+    std::string generate(const std::string description);
     std::string convert(std::string,std::string,std::string deck_name) const ;
 };
 

@@ -1,5 +1,7 @@
 #include "dall_eapi.h"
 #include "curl/curl.h"
+#include <QCoreApplication>
+#include <QtConcurrent/QtConcurrent>
 
 DALL_E_generator::DALL_E_generator() : imageGenerator() {}
 
@@ -12,7 +14,7 @@ size_t DALL_E_generator::callback(char* data, size_t size, size_t nmemb, std::st
    return realsize;
  }
 
-std::string DALL_E_generator::generate(std::string text) const{
+std::string DALL_E_generator::generate(std::string text) {
     CURL *curl = curl_easy_init();
     CURLcode res;
 
@@ -68,17 +70,25 @@ std::string DALL_E_generator::generate(std::string text) const{
 std::string DALL_E_generator::convert(std::string b64,std::string name, std::string deck_name) const{
     //PRE : Si ha l'immagine in b64 , il Nome della Carta e il deckName
     //POST : Si ritorna la path di sistema in cui si e' salvata l'immagine, questa comporra il campo url.
-    if(b64!="error"){
     name.erase(std::remove_if(name.begin(), name.end(), ::isspace),
                name.end());
     deck_name.erase(std::remove_if(deck_name.begin(), deck_name.end(), ::isspace),
               deck_name.end());
-    //convertire da 64 a immagine
     std::string folder ="asset/Deck/";
     std::string deck = deck_name + "/CardImg/";
     std::string formato = ".jpg";
-    QByteArray txt = QByteArray::fromBase64(b64.c_str());
+
     QString path = QString::fromStdString( folder + deck + name + formato);
+
+    if(b64=="error" || b64=="" || b64==" "){
+        QPixmap img("asset/Icon/error.png");
+        img.save(path);
+        return path.toStdString();
+    }
+    //convertire da 64 a immagine
+
+    QByteArray txt = QByteArray::fromBase64(b64.c_str());
+
     QFile file(path);
     if(file.open(QIODevice::WriteOnly)){
         file.write(txt);
@@ -88,11 +98,8 @@ std::string DALL_E_generator::convert(std::string b64,std::string name, std::str
     img.loadFromData(txt,"JPG");
     img.save(path);
 
-     return "asset/icon/error.png";
+    return path.toStdString();
 
-    }{
-        return "asset/icon/error.png";
-    }
 
 }
 

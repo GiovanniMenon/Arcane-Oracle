@@ -20,7 +20,7 @@ protected:
     std::string getKey() const;
 public:
     imageGenerator(std::string api = "sk-##############################################");//api key
-    virtual std::string generate(std::string text) const = 0;
+    //virtual std::string generate(std::string text) = 0;
     virtual ~imageGenerator();
 };
 
