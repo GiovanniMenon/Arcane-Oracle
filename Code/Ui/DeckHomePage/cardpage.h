@@ -22,29 +22,31 @@ public:
     void setCard(Card *);
 
 public slots:
+    void onGenerateCardFinish();
     void NewCardIdSlot(Deck*,QWidget*);
     void BackHomePageSlot();
+
+    //Slot Dei pulsanti
     void AddNewCardSlot();
     void RemoveCardSlot();
     void generateCardSlot();
     void SaveScreenSlot();
     void ManualScreeSlot();
 
+    //Slot Per la Modifica
     void ModifyCardSlot(Card* toModify);
     void BackShowDeckPageSlot();
     void SaveDeckAfterModifySlot();
-
     void RefreshImageSlot();
+
 signals:
     void BackHomePageSignal();
     void BackBackHomePageSignal();
-    void ModifiedCardSignal();
     void BackShowDeckPageSignal();
+
+    void ModifiedCardSignal();
     void saveDeckAfterModifySignal();
-
     void refreshImageModifiedSignal(Card* modified);
-
-
 private:
     Deck *deck;
     QWidget* absCard;

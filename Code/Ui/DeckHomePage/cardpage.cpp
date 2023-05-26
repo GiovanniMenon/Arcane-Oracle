@@ -1,6 +1,7 @@
 #include "cardpage.h"
 #include "../Visitor/visitor.h"
 
+#include <QDebug>
 CardPage::CardPage(QWidget * parent) :  QWidget(parent)
 {
     main = new QVBoxLayout(this);
@@ -79,10 +80,11 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     connect(CardManual,&QPushButton::clicked, this ,&CardPage::ManualScreeSlot);
 
 
+
+
 }
 void CardPage::ManualScreeSlot() {
    dynamic_cast<cardWidget*>(absCard) -> manual();
-
 }
 
 void CardPage::BackHomePageSlot() {
@@ -102,6 +104,9 @@ void CardPage::generateCardSlot() {
     addButton ->show();
     removeButton -> show();
     saveButton -> show();
+    addButton -> setEnabled(false);
+    removeButton -> setEnabled(false);
+    saveButton -> setEnabled(false);
 
     dynamic_cast<cardWidget*>(absCard) -> generate();
 
@@ -141,8 +146,13 @@ void CardPage::NewCardIdSlot(Deck* currDeck,QWidget* obj) {
     absCard = dynamic_cast<cardWidget*>(obj);
     card -> addWidget(absCard);
     dynamic_cast<cardWidget*>(absCard) -> show();
+    QObject::connect(dynamic_cast<cardWidget*>(obj) , &cardWidget::generateFinishSignal, this, &CardPage::onGenerateCardFinish);
 }
-
+void CardPage::onGenerateCardFinish() {
+    addButton -> setEnabled(true);
+    removeButton -> setEnabled(true);
+    saveButton -> setEnabled(true);
+}
 void CardPage::SaveScreenSlot() {
    clearFocus();
    QString fileName = QFileDialog::getSaveFileName(this, tr("Salva immagine"), "", tr("Immagini (*.png *.jpg *.bmp)"));

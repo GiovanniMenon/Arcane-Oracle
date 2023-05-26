@@ -39,6 +39,8 @@ public:
     virtual bool checkInput() const;
 public slots:
     virtual void setFieldsCardSlot();
+signals:
+    void generateFinishSignal();
 protected:
     Deck *deck;
     std::string path;

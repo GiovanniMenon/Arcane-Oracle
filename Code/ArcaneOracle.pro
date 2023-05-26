@@ -35,7 +35,6 @@ SOURCES += \
     class/Generator/dall_eapi.cpp \
     class/Deck/deck.cpp \
     class/Cards/effectcards.cpp \
-    class/Generator/imagegenerator.cpp \
     main.cpp \
     class/Cards/monstercard.cpp \
     class/Cards/spellcard.cpp \
@@ -68,7 +67,6 @@ HEADERS += \
     class/Generator/dall_eapi.h \
     class/Deck/deck.h \
     class/Cards/effectcards.h \
-    class/Generator/imagegenerator.h \
     class/Cards/monstercard.h \
     class/Cards/spellcard.h \
     class/Cards/territorycard.h \

@@ -87,7 +87,7 @@ trapWidget::trapWidget(trapCard* t , QWidget *parent) : effectWidget(nullptr, pa
     if (index != std::string::npos) {
         imgPath.replace(index, substringLength, "CardImg");
     }
-
+    effect -> setAlignment(Qt::AlignCenter);
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);

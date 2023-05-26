@@ -111,8 +111,9 @@ bool cardWidget::checkInput() const{
 void cardWidget::generate() {
     //Genera l'immagine in base a cosa e' stato scritto nella descrizione
     //Utilizziamo QFutureWatcher e QFuture per rendere asincrono l'esecuzione di questa funzione.
+    //Emette un segnale quando ha finito di generare la carta.
 
-    DALL_E_generator generator("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");//Inserire Qua La api Key
+    DALL_E_generator generator;
     desc -> hide();
     cardGroup -> hide();
     loading ->show();
@@ -152,6 +153,8 @@ void cardWidget::generate() {
         loading ->hide();
 
         watcher->deleteLater();
+
+        emit generateFinishSignal();
     });
 
     QFuture<std::string> AsyncG = QtConcurrent::run([&generator,futureDesc, this]() {

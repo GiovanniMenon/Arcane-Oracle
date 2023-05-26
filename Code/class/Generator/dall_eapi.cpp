@@ -1,9 +1,7 @@
 #include "dall_eapi.h"
 #include "curl/curl.h"
-#include <QCoreApplication>
-#include <QtConcurrent/QtConcurrent>
 
-DALL_E_generator::DALL_E_generator(std::string api) : imageGenerator(api) {}
+DALL_E_generator::DALL_E_generator() {}
 
 size_t DALL_E_generator::callback(char* data, size_t size, size_t nmemb, std::string* buffer) {
 
@@ -13,6 +11,8 @@ size_t DALL_E_generator::callback(char* data, size_t size, size_t nmemb, std::st
  }
 
 std::string DALL_E_generator::generate(const std::string text) {
+
+
 
     CURL *curl = curl_easy_init();
     CURLcode res;
@@ -26,9 +26,8 @@ std::string DALL_E_generator::generate(const std::string text) {
     std::string data = "{\"prompt\": \""+ text + "\",\"n\": 1 , \"size\":\"512x512\" , \"response_format\":\"b64_json\" }";
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
     struct curl_slist* headers = NULL;
-    std::string auth ="Authorization: Bearer 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";
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, auth.c_str()); //api_key
+    headers = curl_slist_append(headers, "Authorization: Bearer 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"); //api_key
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     std::string response;
 
