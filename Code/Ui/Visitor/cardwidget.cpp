@@ -1,31 +1,19 @@
 #include "cardwidget.h"
+#include "class/Generator/dall_eapi.h"
 
+std::string cardWidget::getUrl() const{ return path; }
 
-
-#include "../../class/Generator/dall_eapi.h"
-
-#include <QPixmap>
-#include <QScreen>
-#include <QPainter>
-#include <QMovie>
-#include <thread>
-#include <QCoreApplication>
-#include <QtConcurrent/QtConcurrent>
-
-
+//Costruttore
 cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(currDeck)
 {
     main = new QHBoxLayout(this);
     centerImage = new QHBoxLayout();
-    gif = new QMovie("asset/Icon/gif1.gif");
+    gif = new QMovie("asset/Icon/gif.gif");
 
     QGroupBox * menu = new QGroupBox();
     loading = new QLabel();
 
     loading->setMovie(gif);
-
-
-
 
     cardGroup = new QGroupBox();
     outside = new QHBoxLayout(menu);
@@ -45,8 +33,6 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
     validator->setRange(1, 9);
     costCard->setValidator(validator);
 
-
-
     nameCard = new QLineEdit();
     desc = new QTextEdit();
     desc -> setPlaceholderText("Descrizione Immagine");
@@ -63,13 +49,8 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
     centerImage ->addWidget(image);
     centerImage->addStretch();
 
-
-
-
-
     outside -> addWidget(cardGroup);
     outside -> addWidget(loading);
-
 
     outsideVerticalCentral ->  addWidget(desc);
 
@@ -85,14 +66,9 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
     inside -> addLayout(header);
     inside -> addLayout(centerImage);
 
-
     cardGroup->setLayout(inside);
 
-
-
     main ->addWidget(menu);
-
-
 
 
     nameCard -> setMaxLength(22);
@@ -122,10 +98,8 @@ cardWidget::cardWidget(Deck * currDeck,QWidget *parent) : QWidget(parent) ,deck(
 
 }
 
-
-
 bool cardWidget::checkInput() const{
-
+    //Ritorna 0 se i vari requisiti non sono soddisfatti
     if(Deck::verifyInput(nameCard ->text().simplified().toStdString()) || desc -> toPlainText().simplified().isEmpty() || nameCard ->text().simplified().isEmpty() || costCard ->text().simplified().isEmpty() || deck->verifyCardName(nameCard ->text().toStdString())){
         return 0;
     }else{
@@ -134,8 +108,11 @@ bool cardWidget::checkInput() const{
 }
 
 
+void cardWidget::generate() {
+    //Genera l'immagine in base a cosa e' stato scritto nella descrizione
+    //Utilizziamo QFutureWatcher e QFuture per rendere asincrono l'esecuzione di questa funzione.
 
- void cardWidget::generate() {
+    DALL_E_generator generator("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");//Inserire Qua La api Key
     desc -> hide();
     cardGroup -> hide();
     loading ->show();
@@ -146,7 +123,6 @@ bool cardWidget::checkInput() const{
     costCard -> setReadOnly(true);
     descText = desc -> toPlainText();
     std::string futureDesc = descText.toStdString();
-    DALL_E_generator generator;
 
     QFutureWatcher<std::string>* watcher = new QFutureWatcher<std::string>(this);
     QObject::connect(watcher, &QFutureWatcher<std::string>::finished, this, [=]() {
@@ -157,10 +133,13 @@ bool cardWidget::checkInput() const{
 
         std::string searchString = "CardImg";
 
-        size_t index = path.find(searchString);
-         if (index != std::string::npos) {
-        path.replace(index, searchString.length(), "Card");
-         }
+        size_t lastSlashPos = path.find_last_of('/');
+        size_t secondLastSlashPos = path.find_last_of('/', lastSlashPos - 1);
+        size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+        size_t index = path.find(searchString, secondLastSlashPos + 1);
+        if (index != std::string::npos) {
+            path.replace(index, substringLength, "Card");
+        }
         scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
         imageLabel -> setPixmap(scaledPixmap);
 
@@ -187,9 +166,7 @@ bool cardWidget::checkInput() const{
 }
 
  QPixmap cardWidget::takeScreen(bool i) const{
-
-     // Catturare l'immagine dell'area specificata
-
+     //Esegue lo screenShot della carta, puo' salvarlo oppure no,
      QRect area = cardGroup->geometry();
      QPixmap screenshot(area.size());
      QPainter painter(&screenshot);
@@ -197,7 +174,6 @@ bool cardWidget::checkInput() const{
      painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
      painter.setRenderHint(QPainter::TextAntialiasing, true);
      cardGroup->render(&painter, QPoint(), QRegion(), QWidget::DrawChildren);
-     // Salvare l'immagine su disco
      if(i){
 
         screenshot.save(QString::fromStdString(path));
@@ -207,6 +183,7 @@ bool cardWidget::checkInput() const{
  }
 
  void cardWidget::takeScreen(Card* c){
+     //Data una carta esegue lo screenshot e salva l'immagine nel suo url.
     QRect area = cardGroup->geometry();
     QPixmap screenshot(area.size());
     QPainter painter(&screenshot);
@@ -214,49 +191,86 @@ bool cardWidget::checkInput() const{
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.setRenderHint(QPainter::TextAntialiasing, true);
     cardGroup->render(&painter, QPoint(), QRegion(), QWidget::DrawChildren);
-    // Salvare l'immagine su disco
+
     screenshot.save(QString::fromStdString(c->getUrl()));
 
-    // Aggiorna l'immagine visualizzata nel widget
     imageLabel->setPixmap(screenshot);
     imageLabel->setScaledContents(true);
  }
 
+ bool cardWidget::isNameCardUnique(const std::string& nameToCheck) const{
+    //Controlla che il nome della carta sia univoco nel deck.
+    std::string url = card->getUrl();
+    size_t lastSlashPos = url.find_last_of('/');
+        std::string newPath = url.substr(0, lastSlashPos + 1);
+        QDir directory(QString::fromStdString(newPath));
+        QStringList filters;
+        filters << "*.jpg";
+
+        QStringList fileList = directory.entryList(filters, QDir::Files);
+        foreach(const QString& fileName, fileList) {
+            QString cardName = fileName.section('.', 0, 0);
+            if (nameToCheck == cardName.toStdString()) {
+                return false;
+            }
+        }
+        return true;
+}
 
  void cardWidget::setFieldsCardSlot() {
-     std::string oldName = card->getName();
-     std::string newName = nameCard->text().toStdString();
-     card->setName(nameCard->text().toStdString());
-     card->setCost(costCard->text().toInt());
-     std::string path = card->getUrl();
+    //Pre: Si ha una carta
+    //Post : Si modifica la carta e i suoi parametri andando ad aggiornare eventualemente anche la sua immagine in memoria.
+    oldName = card->getName();
+    oldCost = card->getCost();
 
+    if((isNameCardUnique(nameCard->text().toStdString()) || nameCard->text().toStdString() == oldName) && !(Deck::verifyInput(nameCard->text().toStdString()))){
+    card->setName(nameCard->text().toStdString());
+    card->setCost(costCard->text().toInt());
 
-     if(newName != oldName ){
-        ::remove(path.c_str());
-        std::string searchString = oldName;
-        std::string pathImg = path;
-        std::string searchString2 = "Card";
+    std::string path = card->getUrl();
+    std::string newUrl;
+    size_t lastSlashPos = path.find_last_of('/');
 
-        size_t index1 = path.find(searchString2);
-        if (index1 != std::string::npos){
-            pathImg.replace(index1, searchString2.length(), "CardImg");
-        }
-        QPixmap tmp(QString::fromStdString(pathImg));
-        ::remove(pathImg.c_str());
-        size_t index2 = pathImg.find(oldName);
-        if (index2 != std::string::npos) {
-              pathImg.replace(index2, searchString.length(), newName);
-            }
-        tmp.save(QString::fromStdString(pathImg));
-        size_t index = path.find(oldName);
-        if (index != std::string::npos) {
-              path.replace(index, searchString.length(), newName);
-            }
-        std::string newUrl = path;
-        card -> setPath(newUrl);
-     }
+    if (lastSlashPos != std::string::npos) {
+    std::string newPath = path.substr(0, lastSlashPos + 1);
+    std::string newFileName = card->getName()+ ".jpg";
+    newPath += newFileName;
+    newUrl = newPath;
     }
 
+     card->setPath(newUrl);
+
+     std::string imgPathOld = path;
+     std::string imgPathNew = newUrl;
+     std::string searchString = "Card";
+
+     size_t lastSlashPos1 = imgPathOld.find_last_of('/');
+     size_t lastSlashPos2 = imgPathNew.find_last_of('/');
+
+     size_t secondLastSlashPos1 = imgPathOld.find_last_of('/', lastSlashPos1 - 1);
+     size_t secondLastSlashPos2 = imgPathNew.find_last_of('/', lastSlashPos2 - 1);
+
+     size_t substringLength1 = lastSlashPos1 - secondLastSlashPos1 - 1;
+     size_t substringLength2 = lastSlashPos2 - secondLastSlashPos2 - 1;
+
+     size_t index1 = imgPathOld.find(searchString, secondLastSlashPos1 + 1);
+     size_t index2 = imgPathNew.find(searchString, secondLastSlashPos2 + 1);
+     if (index1 != std::string::npos && index2 != std::string::npos) {
+        imgPathOld.replace(index1, substringLength1, "CardImg");
+        imgPathNew.replace(index2, substringLength2, "CardImg");
+        screenshot = 1;
+
+        QFile::rename(QString::fromStdString(path), QString::fromStdString(newUrl));
+        QFile::rename(QString::fromStdString(imgPathOld), QString::fromStdString(imgPathNew));
+        }
+    }
+    else{
+        QMessageBox::critical(this, "Errore", "ERRORE\nModifiche non apportate, non utilizzare nomi già esistenti o caratteri non ammessi");
+        card->setName(oldName);
+        card->setCost(oldCost);
+        screenshot = 0;
+    }
+}
 
 
 

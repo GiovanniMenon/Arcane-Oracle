@@ -11,8 +11,15 @@
 #include <QIntValidator>
 #include <QLabel>
 #include <QSpinBox>
-#include "../Utils/clickablelabel.h"
 #include <QMessageBox>
+#include <QPixmap>
+#include <QScreen>
+#include <QPainter>
+#include <QMovie>
+#include <QCoreApplication>
+#include <QtConcurrent/QtConcurrent>
+
+#include "../Utils/clickablelabel.h"
 #include "../../class/Cards/abstractcard.h"
 #include "../../class/Deck/deck.h"
 
@@ -21,17 +28,15 @@ class cardWidget : public QWidget
     Q_OBJECT
 public:
     cardWidget(Deck *,QWidget *parent=nullptr);
+    QPixmap takeScreen(bool i) const;
+    std::string getUrl() const;
+    void takeScreen(Card* c);
+    bool isNameCardUnique(const std::string& nameToCheck) const;
+
     virtual Card* getInput() = 0;
     virtual void manual() {};
     virtual void generate() ;
     virtual bool checkInput() const;
-    QPixmap takeScreen(bool i) const;
-    std::string getUrl() const{
-            return path;
-    }
-    void takeScreen(Card* c);
-
-
 public slots:
     virtual void setFieldsCardSlot();
 protected:
@@ -40,8 +45,8 @@ protected:
 
     QHBoxLayout *main;
     QVBoxLayout *inside;
-    QHBoxLayout*  outside;
-    QVBoxLayout*  outsideVertical;
+    QHBoxLayout *outside;
+    QVBoxLayout *outsideVertical;
     QHBoxLayout *centerImage;
     QVBoxLayout *imageLayout;
 
@@ -69,6 +74,10 @@ protected:
     QVBoxLayout *manualLayout;
     QLabel *textLabel;
     QLabel *imageLabelManual;
+
+    std::string oldName;
+    unsigned int oldCost;
+    bool screenshot;
 
 
 

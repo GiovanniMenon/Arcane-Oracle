@@ -8,6 +8,8 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QMessageBox>
+#include <QLabel>
+#include <QDir>
 #include "../../class/Deck/deck.h"
 
 
@@ -29,17 +31,18 @@ signals :
     void ShowDeckSignal();
     void DeckSelectedSignal(Deck* currDeck);
 
-
-
 private :
 
     QHBoxLayout * layout ;
     QVBoxLayout * lastCardLayout;
     QVBoxLayout *centerImage;
+
     QGroupBox * ButtonMenu;
     QGroupBox * LastCard;
+
     QString NomeMazzo;
     Deck deck;
+
     QLabel *header;
     QLabel* stillNoCard;
     QLabel* imageLabel;

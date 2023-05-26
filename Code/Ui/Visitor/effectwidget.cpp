@@ -42,7 +42,9 @@ bool effectWidget::checkInput() const{
 void effectWidget::setFieldsCardSlot(){
     cardWidget::setFieldsCardSlot();
     EffectCards* tmp = dynamic_cast<EffectCards*>(card);
+    if(screenshot){
     tmp->setEffectBase(effect->toPlainText().toStdString());
+    }
 }
 void effectWidget::manual() {
     textLabel -> setText(textLabel -> text() + "4)La descrizione degli Effetti della Carta.\n");

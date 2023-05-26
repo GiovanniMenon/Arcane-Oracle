@@ -11,10 +11,10 @@ class trapWidget : public effectWidget
 public:
     trapWidget(Deck * , QWidget *parent=nullptr);
     trapWidget(trapCard*, QWidget *parent=nullptr);
+    void manual() override;
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
-    void manual() override;
 public slots:
     void setFieldsCardSlot() override;
 private:

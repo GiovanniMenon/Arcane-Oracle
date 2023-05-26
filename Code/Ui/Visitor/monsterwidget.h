@@ -11,10 +11,10 @@ class monsterWidget : public cardWidget
 public:
     monsterWidget(Deck * , QWidget *parent=nullptr);
     monsterWidget(monsterCard*,QWidget *parent=nullptr) ;
+    virtual void manual() override;
     virtual Card* getInput() override;
     virtual void generate() override ;
     virtual bool checkInput() const override ;
-    virtual void manual() override;
 public slots:
     void setFieldsCardSlot() override;
     void levelSlot(int value);

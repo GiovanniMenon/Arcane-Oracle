@@ -8,9 +8,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QIcon>
+#include <QFileDialog>
 
 #include "../Visitor/cardwidget.h"
-
 #include "../../class/Deck/deck.h"
 
 
@@ -51,15 +51,16 @@ private:
 
     QVBoxLayout *main;
     QHBoxLayout * card;
-    QPushButton *generateButton;
 
+    QPushButton *generateButton;
     QPushButton *saveButton;
     QPushButton *CardManual;
     QPushButton *removeButton;
     QPushButton *addButton;
+    QPushButton *backButton;
+
 
     QLabel *errore;
-    QPushButton *backButton;
 
     Card* c;
 

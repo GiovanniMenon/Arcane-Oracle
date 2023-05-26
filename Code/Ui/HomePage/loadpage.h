@@ -7,9 +7,10 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QButtonGroup>
-#include <vector>
 #include <QScrollArea>
 #include <QLabel>
+
+#include <vector>
 
 class LoadPage : public QWidget{
 Q_OBJECT
@@ -25,12 +26,14 @@ signals :
     void newDeckCreatedSignal(QString nome);
 private:
     std::vector <std::string> NomiDeck;
+
     QButtonGroup *buttonGroup;
     QVBoxLayout *layout;
     QVBoxLayout *vbox;
     QGroupBox *groupBox;
     QScrollArea *scroll;
-    QFrame* line ;
+
+    QFrame* line;
     QLabel *label2;
     QLabel *label1;
 

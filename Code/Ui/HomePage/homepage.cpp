@@ -21,8 +21,6 @@ HomePage::HomePage(QWidget * parent) : QWidget(parent)
     Button3-> addWidget(Manualbutton);
     Button3 ->setAlignment(Qt::AlignCenter);
 
-
-
     layout -> addWidget(title);
     layout -> addStretch();
     layout -> addLayout(Button1);
@@ -31,18 +29,16 @@ HomePage::HomePage(QWidget * parent) : QWidget(parent)
     layout -> addSpacing(15);
     layout -> addLayout(Button3);
     layout -> addStretch();
+
     layout->setAlignment(Qt::AlignCenter);
     title->setAlignment(Qt::AlignCenter);
     layout->setAlignment(Qt::AlignCenter);
     layout->setAlignment(Qt::AlignCenter);
     layout->setAlignment(Qt::AlignCenter);
+
     NewDeckButton -> setFixedSize(330, 80);
     LoadDeckButton -> setFixedSize(330, 80);
     Manualbutton -> setFixedSize(330, 80);
-
-
-
-
 
     connect(Manualbutton,&QPushButton::clicked, this,&HomePage::ManualHomePageSlot);
     connect(NewDeckButton,&QPushButton::clicked, this,&HomePage::NewDeckPageSlot);

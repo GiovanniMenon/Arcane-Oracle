@@ -1,14 +1,4 @@
 #include "showdeckpage.h"
-#include <QLineEdit>
-#include <QScrollArea>
-#include <QGridLayout>
-#include <QFileInfo>
-#include <QDebug>
-#include <QDirIterator>
-#include <QMessageBox>
-#include <QPixmap>
-#include <QPropertyAnimation>
-#include <QFileDialog>
 
 ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVisible(true), sortByNameDescVisible(false), sortByCostAscVisible(true), sortByCostDescVisible(false) /*lastClickedLabel(nullptr)*/ {
     layout = new QVBoxLayout(this);
@@ -51,10 +41,7 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostAsc-> setFixedSize(120, 50);
     sortByCostDesc-> setFixedSize(120, 50);
 
-    sortByNameAsc-> setObjectName("sortButtons");
-    sortByNameDesc-> setObjectName("sortButtons");
-    sortByCostAsc-> setObjectName("sortButtons");
-    sortByCostDesc-> setObjectName("sortButtons");
+
 
     sortByNameDesc->setVisible(false);
     sortByCostDesc->setVisible(false);
@@ -76,20 +63,25 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
 
 
     scrollArea = new QScrollArea(this);
-    scrollArea ->setObjectName("scrollArea");
+
     imagesContainer = new QWidget();
     imagesLayout = new QGridLayout(imagesContainer);
-    imagesContainer ->setObjectName("ImageLayout");
+
     scrollArea->setWidget(imagesContainer);
     scrollArea->setWidgetResizable(true);
-
     layout->addWidget(scrollArea);
 
-
+    sortByNameAsc-> setObjectName("sortButtons");
+    sortByNameDesc-> setObjectName("sortButtons");
+    sortByCostAsc-> setObjectName("sortButtons");
+    sortByCostDesc-> setObjectName("sortButtons");
+    scrollArea ->setObjectName("scrollArea");
+    imagesContainer ->setObjectName("ImageLayout");
 
 
     saveDeck = new QPushButton("Save");
     footer = new QHBoxLayout();
+
     layout->addLayout(footer);
     footer->addStretch();
     footer->addWidget(saveDeck);
@@ -127,15 +119,13 @@ void ShowDeckPage::currentDeckSlot(Deck * currDeck){
 
 void ShowDeckPage::setPage(Deck* de) {
 
-    // Leggi i file nella cartella delle immagini
     dir = QDir("asset/Deck/" + nameDeck.replace(" ","") + "/Card");
     QStringList filters;
     filters << "*.png" << "*.jpg" << "*.jpeg" << "*.bmp";
     dir.setNameFilters(filters);
-    //QFileInfoList fileList = dir.entryInfoList();
 
     if (dir.count() == 0) {
-        //messaggio di deck vuoto
+        //Deck vuoto
     }
     else {
 
@@ -179,14 +169,11 @@ void ShowDeckPage::imageClikedSlot(Card* card) {
         imageLabel = new QLabel();
 
         imageLabel->setPixmap(pixmap);
-        emit CardInfoSignal(&pixmap, card, &dir);
+        emit CardInfoSignal(card, &dir);
         emit CurrentDeckSignal(deck);
-
-
 }
 
 void ShowDeckPage::saveDeckSlot(){
-
     QMessageBox msgBox;
     msgBox.setText("Salvataggio Mazzo");
     msgBox.setInformativeText("Il mazzo verra' salvato, rendendo permanenti tutte le modifiche effettuate. \nSei Sicuro?");
@@ -194,10 +181,8 @@ void ShowDeckPage::saveDeckSlot(){
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
 
-    // Visualizzazione della finestra di dialogo e recupero della risposta
     int ret = msgBox.exec();
 
-    // Gestione della risposta
     if (ret == QMessageBox::Yes) {
         deck->save();
     }
@@ -239,7 +224,6 @@ void ShowDeckPage::noCards(){
     sadFace->setAlignment(Qt::AlignCenter);
     stillNoCard->setAlignment(Qt::AlignCenter);
 
-    // Aggiungi questo codice per centrare il layout nella finestra
     imagesLayout->setAlignment(Qt::AlignCenter);
 }
 

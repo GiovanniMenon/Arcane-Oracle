@@ -195,10 +195,13 @@ fieldWidget::fieldWidget(territoryCard* f, QWidget *parent) : effectWidget(nullp
     std::string imgPath = f->getUrl();
     std::string searchString = "Card";
 
-    size_t index = imgPath.find(searchString);
+    size_t lastSlashPos = imgPath.find_last_of('/');
+    size_t secondLastSlashPos = imgPath.find_last_of('/', lastSlashPos - 1);
+    size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+    size_t index = imgPath.find(searchString, secondLastSlashPos + 1);
     if (index != std::string::npos) {
-            imgPath.replace(index, searchString.length(), "CardImg");
-        }
+        imgPath.replace(index, substringLength, "CardImg");
+    }
 
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -248,10 +251,11 @@ void fieldWidget::onImageClickedSlot(){
 void fieldWidget::setFieldsCardSlot(){
     effectWidget::setFieldsCardSlot();
     territoryCard* tmp = dynamic_cast<territoryCard*>(card);
+    if(screenshot){
+        tmp->setType(elements[id]);
 
-    tmp->setType(elements[id]);
-
-    takeScreen(tmp);
+        takeScreen(tmp);
+    }
 }
 
 void fieldWidget::manual() {

@@ -13,11 +13,9 @@ class NewDeckPage : public QWidget
 Q_OBJECT
 public:
     NewDeckPage(QWidget *parent = nullptr);
-
 public slots:
     void BackHomePageSlot();
     void HomeDeckPageSlot();
-
 signals :
     void newDeckCreatedSignal(QString nome);
     void BackHomePageSignal();

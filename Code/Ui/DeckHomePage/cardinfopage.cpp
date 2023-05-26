@@ -1,6 +1,4 @@
-
 #include "cardinfopage.h"
-#include <QGroupBox>
 
 
 CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
@@ -12,6 +10,7 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     QHBoxLayout * footerLayout = new QHBoxLayout();
 
     QGroupBox *cardMenu = new QGroupBox();
+
     cardLayout = new QHBoxLayout(cardMenu);
     image = new QLabel();
     rightImage = new ClickableLabel();
@@ -52,23 +51,23 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     footerLayout->addWidget(modifyCard);
     footerLayout->addWidget(exportPNG);
     footerLayout->addStretch();
+
     headLayout->addLayout(footerLayout);
-
-    connect(backButton, &QPushButton::clicked, this, &CardInfoPage::BackShowDeckPageSlot);
-    connect(deleteCard, &QPushButton::clicked, this, &CardInfoPage::deleteCardSlot);
-
 
     layout->addLayout(headLayout);
 
     backButton -> setFixedSize(155, 75);
-    deleteCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    exportPNG->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    modifyCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     deleteCard->setFixedSize(200, 60);
     exportPNG->setFixedSize(200, 60);
     modifyCard->setFixedSize(200, 60);
     cardMenu ->setFixedSize(390,625);
 
+    deleteCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    exportPNG->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    modifyCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+    connect(backButton, &QPushButton::clicked, this, &CardInfoPage::BackShowDeckPageSlot);
+    connect(deleteCard, &QPushButton::clicked, this, &CardInfoPage::deleteCardSlot);
     connect(exportPNG, &QPushButton::clicked, this, &CardInfoPage::ExportPNGSlot);
     connect(rightImage, &ClickableLabel::clicked, this, &CardInfoPage::nextImageSlot);
     connect(leftImage, &ClickableLabel::clicked, this, &CardInfoPage::previousImageSlot);
@@ -76,7 +75,7 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 }
 
 
-void CardInfoPage::setPixmapp(QPixmap* pixmap, Card* card) {
+void CardInfoPage::setPixmapp(Card* card) {
     QPixmap *tmp = new QPixmap(QString::fromStdString(card->getUrl()));
     image->setPixmap(*tmp);
     cardSelected = card;
@@ -109,33 +108,23 @@ void CardInfoPage::currentDeckSlot(Deck* currDeck) {
 
 
 void CardInfoPage::updateImage(Card* curr) {
-    // Se il mazzo contiene carte, mostra i bottoni di eliminazione ed esportazione PNG
     deleteCard->show();
     exportPNG->show();
-
     if (curr) {
         cardSelected = curr;
         QSize size(296, 480);
-
-        // Imposta l'immagine corrente nella label centrale
         QString imagePath = QString::fromStdString(cardSelected->getUrl());
         QPixmap newPixmap(imagePath);
-
         if (newPixmap.isNull()) {
-            // Se il pixmap è nullo, pulisci l'immagine visualizzata sulla QLabel image
             image->clear();
         } else {
             image->setPixmap(newPixmap.scaled(370, 600, Qt::KeepAspectRatio));
-
             if (deck->next(cardSelected)) {
-                // Imposta l'immagine successiva nella label destra
                 QString nextImagePath = QString::fromStdString(deck->next(cardSelected)->getUrl());
                 QPixmap nextPixmap(nextImagePath);
                 rightImage->setPixmap(nextPixmap.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
             }
-
             if (deck->prec(cardSelected)) {
-                // Imposta l'immagine precedente nella label sinistra
                 QString prevImagePath = QString::fromStdString(deck->prec(cardSelected)->getUrl());
                 QPixmap prevPixmap(prevImagePath);
                 leftImage->setPixmap(prevPixmap.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -143,9 +132,6 @@ void CardInfoPage::updateImage(Card* curr) {
         }
     }
 }
-
-
-
 
 void CardInfoPage::nextImageSlot() {
     updateImage(deck->next(cardSelected));
@@ -161,30 +147,21 @@ void CardInfoPage::receiveImagePaths(QStringList& imagePaths) {
 
 void CardInfoPage::deleteCardSlot() {
     if (deck && cardSelected) {
-
         if(deck->size() == 1){
-
             deck->removeElement(cardSelected);
-
             rightImage->clear();
             leftImage->clear();
 
             emit BackShowDeckPageSignal();
             emit LastCardEliminatedSignal();
-
         }else{
             Card* nextCard = deck->next(cardSelected);
             deck->removeElement(cardSelected);
-
             cardSelected = nullptr;
-
-            // Se il mazzo non è vuoto, aggiorna l'immagine con la carta successiva
             if (nextCard) {
                 updateImage(nextCard);
                 cardSelected = nextCard;
             } else {
-                // Se il mazzo è vuoto, pulisci le immagini e il titolo
-                //image->clear();
                 rightImage->clear();
                 leftImage->clear();
             }
@@ -204,7 +181,6 @@ void CardInfoPage::modifyCardSlot(){
 
 void CardInfoPage::saveDeckAfterModifySlot(){
     deck->save();
-
 }
 
 void CardInfoPage::refreshImageSlot(Card* modified){

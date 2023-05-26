@@ -12,7 +12,6 @@ public:
     ManualDeck(QWidget *parent=nullptr);
 public slots:
     void BackHomePageSlot();
-
 signals :
     void BackHomePageSignal();
 };

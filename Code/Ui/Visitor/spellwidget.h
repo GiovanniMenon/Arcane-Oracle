@@ -2,8 +2,6 @@
 #define SPELLWIDGET_H
 
 #include <QWidget>
-
-
 #include "effectwidget.h"
 #include "../../class/Cards/spellcard.h"
 
@@ -14,10 +12,10 @@ class spellWidget : public effectWidget
 public:
     spellWidget(Deck * , QWidget *parent=nullptr);
     spellWidget(spellCard * , QWidget *parent=nullptr);
-    virtual Card* getInput() override;
     void manual() override;
     virtual bool checkInput() const override ;
     virtual void generate() override ;
+    virtual Card* getInput() override;
 public slots:
     void onImageClickedSlot();
     void setFieldsCardSlot() override;

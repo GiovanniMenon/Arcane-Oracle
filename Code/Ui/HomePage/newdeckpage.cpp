@@ -17,6 +17,7 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
 
      QLabel *title = new QLabel("Create your Own Deck");
      QLabel *text = new QLabel("Enter the name of your deck");
+     QLabel *noChar = new QLabel("Caratteri non validi : '$' , '\\' , '/'");
 
      title -> setObjectName("Title");
      text -> setObjectName("TextNewDeck");
@@ -43,13 +44,14 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
      layout -> addWidget(text);
      layout -> addSpacing(10);
      layout -> addLayout(Button1);
+     layout -> addWidget(noChar);
      layout -> addSpacing(150);
      layout -> addLayout(Button2);
 
      layout -> addStretch();
      layout -> addWidget(Errore);
      Errore -> setAlignment(Qt::AlignCenter);
-
+     noChar-> setAlignment(Qt::AlignCenter);
      title -> setAlignment(Qt::AlignCenter);
      text -> setAlignment(Qt::AlignCenter);
      DeckName -> setAlignment(Qt::AlignCenter);
@@ -59,12 +61,7 @@ NewDeckPage::NewDeckPage(QWidget *parent) :  QWidget(parent)
 
      DeckName -> setMaxLength(16);
 
-
-
-
-
      connect(backButton,&QPushButton::clicked, this ,&NewDeckPage::BackHomePageSlot);
-
      connect(createButton,&QPushButton::clicked, this ,&NewDeckPage::HomeDeckPageSlot);
 
 
@@ -82,8 +79,7 @@ void NewDeckPage::BackHomePageSlot() {
 void NewDeckPage::HomeDeckPageSlot() {
     QString NomeDeck = DeckName->text();
     if(Deck::verifyInput(NomeDeck.toStdString()) || Deck::verifyDeckName(NomeDeck.toStdString()) || NomeDeck.isEmpty() ){
-        Errore -> setText ("Sono Presenti Caratteri non riconosciuti o Esiste un Deck gia' un Deck con questo nome o Il campo e' vuoto");
-
+        Errore -> setText ("Sono Presenti Caratteri non validi o esiste gia' un Deck con questo nome o Il campo e' vuoto");
     }
     else {
         emit HomeDeckPageSignal();

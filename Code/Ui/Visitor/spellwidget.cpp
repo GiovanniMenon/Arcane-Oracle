@@ -375,10 +375,13 @@ spellWidget::spellWidget(spellCard* s, QWidget *parent) : effectWidget(nullptr, 
     std::string imgPath = s->getUrl();
     std::string searchString = "Card";
 
-    size_t index = imgPath.find(searchString);
+    size_t lastSlashPos = imgPath.find_last_of('/');
+    size_t secondLastSlashPos = imgPath.find_last_of('/', lastSlashPos - 1);
+    size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+    size_t index = imgPath.find(searchString, secondLastSlashPos + 1);
     if (index != std::string::npos) {
-            imgPath.replace(index, searchString.length(), "CardImg");
-        }
+        imgPath.replace(index, substringLength, "CardImg");
+    }
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
@@ -446,11 +449,12 @@ void spellWidget::onImageClickedSlot(){
 void spellWidget::setFieldsCardSlot() {
     effectWidget::setFieldsCardSlot();
     spellCard* tmp = dynamic_cast<spellCard*>(card);
+    if(screenshot){
     tmp->setDamage(spellDmg->text().toInt());
     tmp->setElement(spellElement[idSpell]);
 
     takeScreen(tmp);
-
+    }
 }
 
 void spellWidget::manual() {

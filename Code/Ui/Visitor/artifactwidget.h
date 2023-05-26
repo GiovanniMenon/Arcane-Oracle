@@ -12,8 +12,9 @@ class artifactWidget : public cardWidget
 public:
     artifactWidget(Deck * , QWidget *parent=nullptr);
     artifactWidget(artifactCard* ,QWidget *parent=nullptr) ;
-    virtual Card* getInput() override;
     void manual() override;
+
+    virtual Card* getInput() override;
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:
@@ -23,6 +24,7 @@ private:
     std::vector<std::string> artifactType;
     QLineEdit * cardAtt;
     QLineEdit * cardDef;
+
     QLabel* artType;
     QLabel* artTypeText;
     QLabel* title;

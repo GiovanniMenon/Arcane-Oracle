@@ -9,6 +9,15 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QDir>
+#include <QLineEdit>
+#include <QScrollArea>
+#include <QGridLayout>
+#include <QFileInfo>
+#include <QDirIterator>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QFileDialog>
+
 #include "../Utils/clickablelabel.h"
 
 #include "../../class/Deck/deck.h"
@@ -25,40 +34,45 @@ public:
     void noCards();
 public slots:
     void BackDeckPageSlot();
-    void currentDeckSlot(Deck* currDeck);
-    void imageClikedSlot(Card* card);
+
     void saveDeckSlot();
     void lastCardDeletedSlot();
     void refreshDeckSlot();
-
 
     void sortByNameAscending();
     void sortByCostAscending();
     void sortByNameDescending();
     void sortByCostDescending();
+
     void searchTextDeck(const QString& text);
+    void currentDeckSlot(Deck* currDeck);
+    void imageClikedSlot(Card* card);
 
 signals:
     void BackDeckPageSignal();
-    void CardInfoSignal(QPixmap* pixmap, Card* path, QDir* dir);
+    void CardInfoSignal(Card* path, QDir* dir);
     void ImagePathsSignal(QStringList& imagePaths);
     void CurrentDeckSignal(Deck* currDeck);
 private:
-    QVBoxLayout * layout;
+    QStringList filePathCards;
+    QString nameDeck;
+
     Deck* deck;
     Deck* sortedDeck;
-    QGridLayout *imagesLayout;
-    QHBoxLayout * Head;
-    QString nameDeck;
+
+    QDir dir;
     QScrollArea *scrollArea;
     QWidget *imagesContainer;
+
     ClickableLabel* label;
     QLabel* imageLabel;
-    QStringList filePathCards;
-    QDir dir;
 
-    QHBoxLayout* footer;
-    QPushButton* saveDeck;
+    QVBoxLayout *layout;
+    QGridLayout *imagesLayout;
+    QHBoxLayout *Head;
+    QHBoxLayout *footer;
+    QPushButton *saveDeck;
+
     QLabel* sadFace;
     QLabel* stillNoCard;
 

@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "HomePage/homepage.h"
-#include "../class/Deck/deck.h"
 
-#include <QVBoxLayout>
-#include <iostream>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -20,12 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
     cardpage = new CardPage();
     cardinfopage = new CardInfoPage();
 
-
-
-
     setCentralWidget(stackedWidget);
-
     stackedWidget -> addWidget(homepage);
+    stackedWidget -> setCurrentIndex(0);
+
     //Segnali HomePage
     connect(homepage,&HomePage::ManualHomePageSignal, this, &MainWindow::manualWindowSlot );
     connect(homepage,&HomePage::NewDeckPageSignal, this, &MainWindow::newDeckWindowSlot );
@@ -64,15 +59,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(showdeckpage, SIGNAL(CurrentDeckSignal(Deck*)), cardinfopage, SLOT(currentDeckSlot(Deck*)));
     connect(showdeckpage, SIGNAL(ImagePathsSignal(QStringList&)), cardinfopage, SLOT(receiveImagePaths(QStringList&)));
     connect(typepage, SIGNAL(CardSignal(Deck*,QWidget*)), cardpage, SLOT(NewCardIdSlot(Deck*,QWidget*)));
-    stackedWidget -> setCurrentIndex(0);
+    connect(cardpage, SIGNAL(refreshImageModifiedSignal(Card*)), cardinfopage, SLOT(refreshImageSlot(Card*)));
+    connect(cardinfopage, SIGNAL(modifyCardSignal(Card*)), cardpage, SLOT(ModifyCardSlot(Card*)));
+
+
+    connect(cardpage, &CardPage::ModifiedCardSignal, this, &MainWindow::CardPageSlot);
+    connect(cardpage, &CardPage::saveDeckAfterModifySignal, cardinfopage, &CardInfoPage::saveDeckAfterModifySlot);
 
     connect(cardinfopage, &CardInfoPage::LastCardEliminatedSignal, showdeckpage, &ShowDeckPage::lastCardDeletedSlot);
-
-    connect(cardinfopage, SIGNAL(modifyCardSignal(Card*)), cardpage, SLOT(ModifyCardSlot(Card*)));
-    connect(cardpage, &CardPage::ModifiedCardSignal, this, &MainWindow::CardPageSlot);
-
-    connect(cardpage, &CardPage::saveDeckAfterModifySignal, cardinfopage, &CardInfoPage::saveDeckAfterModifySlot);
-    connect(cardpage, SIGNAL(refreshImageModifiedSignal(Card*)), cardinfopage, SLOT(refreshImageSlot(Card*)));
     connect(cardpage, &CardPage::refreshImageModifiedSignal, cardinfopage, &CardInfoPage::refreshImageSlot);
 }
 
@@ -133,9 +127,9 @@ void MainWindow::CardPageSlot() {
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 }
 
-void MainWindow::CardInfoPageSlot(QPixmap* pixmap, Card* card){
+void MainWindow::CardInfoPageSlot(Card* card){
     stackedWidget->addWidget(cardinfopage);
-    cardinfopage->setPixmapp(pixmap,card);
+    cardinfopage->setPixmapp(card);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
 
 }

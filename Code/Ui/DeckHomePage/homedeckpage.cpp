@@ -1,6 +1,5 @@
 #include "homedeckpage.h"
-#include <QLabel>
-#include <QDir>
+
 
 HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 {
@@ -8,27 +7,33 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     ButtonMenu = new QGroupBox();
     LastCard = new QGroupBox();
     centerImage = new QVBoxLayout();
+
     QVBoxLayout *col = new QVBoxLayout();
     QVBoxLayout * BoxVertical = new QVBoxLayout(ButtonMenu);
-    lastCardLayout = new QVBoxLayout(LastCard);
     QHBoxLayout * Exit = new QHBoxLayout();
 
+
+    lastCardLayout = new QVBoxLayout(LastCard);
     header = new QLabel();
-    header-> setAlignment(Qt::AlignCenter);
-    header -> setObjectName("Title");
+
     imageLabel = new QLabel();
     stillNoCard = new QLabel();
     sadFace = new QLabel();
+
     QPushButton * ExitButton = new QPushButton("Log Out");
     QPushButton * DeleteButton = new QPushButton("");
-    DeleteButton -> setToolTip("Delete Mazzo");
     QPushButton * ShowDeck = new QPushButton("Show Deck");
     QPushButton * GenerateCard = new QPushButton("Generate Card");
+
     ExitButton ->setObjectName("ExitButton");
     ShowDeck -> setObjectName("funButton");
     GenerateCard -> setObjectName("funButton");
     ButtonMenu ->setObjectName("ButtonGroupHomeDeck");
     DeleteButton ->setObjectName("DeleteButton");
+    DeleteButton -> setToolTip("Delete Mazzo");
+    DeleteButton->setStyleSheet("QToolTip { color: #1c1c1c; }");
+    header -> setObjectName("Title");
+
     QIcon p1("asset/Icon/delete.png");
     QSize size(24, 24);
 
@@ -41,8 +46,6 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
 
     Exit -> addWidget(ExitButton);
     Exit -> addWidget(DeleteButton);
-    Exit -> setAlignment(Qt::AlignCenter);
-    LastCard -> setAlignment(Qt::AlignCenter);
     BoxVertical -> addStretch();
     BoxVertical -> addWidget(ShowDeck);
     BoxVertical -> addStretch();
@@ -50,7 +53,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     BoxVertical -> addStretch();
     BoxVertical -> addLayout(Exit);
     BoxVertical -> addSpacing(20);
-    BoxVertical -> setAlignment(Qt::AlignCenter);
+
 
 
     ButtonMenu -> setLayout(BoxVertical);
@@ -60,7 +63,7 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     col->addStretch();
     col->addWidget(LastCard);
     col->addStretch();
-    col ->setAlignment(Qt::AlignCenter);
+
 
     layout -> addSpacing(50);
     layout -> addWidget(ButtonMenu);
@@ -76,34 +79,41 @@ HomeDeckPage::HomeDeckPage(QWidget * parent) : QWidget(parent)
     LastCard -> setFixedSize(390, 625);
     DeleteButton -> setFixedSize(60, 60);
 
-    connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
-    connect(DeleteButton,&QPushButton::clicked, this ,&HomeDeckPage::DeleteDeckSlot);
-    connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
-    connect(ShowDeck, &QPushButton::clicked, this, &HomeDeckPage::ShowDeckSlot);
+
 
     sadFace -> setObjectName("Title");
     stillNoCard -> setObjectName("GHeader");
-    sadFace ->setText("˙◠˙" );
+    sadFace -> setText("˙◠˙" );
     stillNoCard ->setText("The Deck is Empty");
+
+
     sadFace ->setAlignment(Qt::AlignCenter);
     stillNoCard ->setAlignment(Qt::AlignCenter);
     lastCardLayout ->setAlignment(Qt::AlignCenter);
     centerImage -> setAlignment(Qt::AlignCenter);
+    col ->setAlignment(Qt::AlignCenter);
+    Exit -> setAlignment(Qt::AlignCenter);
+    LastCard -> setAlignment(Qt::AlignCenter);
+    header-> setAlignment(Qt::AlignCenter);
+    BoxVertical -> setAlignment(Qt::AlignCenter);
 
     centerImage ->addWidget(imageLabel);
     centerImage ->addWidget(sadFace);
     centerImage ->addWidget(stillNoCard);
+
     lastCardLayout ->addLayout(centerImage);
 
 
     lastCardLayout -> setContentsMargins(0,0,0,0);
     centerImage-> setContentsMargins(0,0,0,0);
 
+    connect(ExitButton,&QPushButton::clicked, this ,&HomeDeckPage::BackHomePageSlot);
+    connect(DeleteButton,&QPushButton::clicked, this ,&HomeDeckPage::DeleteDeckSlot);
+    connect(GenerateCard,&QPushButton::clicked,this , &HomeDeckPage::GenerateCardSlot);
+    connect(ShowDeck, &QPushButton::clicked, this, &HomeDeckPage::ShowDeckSlot);
+
 }
 void HomeDeckPage::lastCardGenerate() const {
-
-
-
     if(!deck.is_empty()){
             imageLabel -> show();
             stillNoCard -> hide();
@@ -132,13 +142,10 @@ void HomeDeckPage::BackHomePageSlot() {
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
 
-
-    // Visualizzazione della finestra di dialogo e recupero della risposta
     int ret = msgBox.exec();
 
-    // Gestione della risposta
     if (ret == QMessageBox::Yes) {
-    deck.clear(); //pulisco il mazzo da quello precedente
+    deck.clear();
     emit BackHomePageSignal();
     }
 
@@ -152,10 +159,8 @@ void HomeDeckPage::DeleteDeckSlot() {
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
 
-    // Visualizzazione della finestra di dialogo e recupero della risposta
     int ret = msgBox.exec();
 
-    // Gestione della risposta
     if (ret == QMessageBox::Yes) {
     deck.clear();
     std::string deckNamePath =deck.getName();
@@ -181,7 +186,5 @@ void HomeDeckPage::newDeckCreatedSlot(QString nomeDeck) {
 void HomeDeckPage::ShowDeckSlot() {
     emit ShowDeckSignal();
     emit DeckSelectedSignal(&deck);
-    //emit ClearShowDeckPageSignal();
-
 }
 

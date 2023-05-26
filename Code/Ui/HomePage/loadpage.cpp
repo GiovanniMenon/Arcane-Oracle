@@ -21,15 +21,12 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     QHBoxLayout * Back  = new QHBoxLayout();
     QHBoxLayout * Title  = new QHBoxLayout();
 
-
     QHBoxLayout * LoadLayout  = new QHBoxLayout();
     scrollArea = new QScrollArea();
-
 
     QPushButton *backButton = new QPushButton("Back");
     QPushButton *loadButton = new QPushButton("Load");
     QLabel *title = new QLabel("Choose your Deck");
-
 
     line =  new QFrame();
     label1 = new QLabel("Testing Decks");
@@ -40,13 +37,9 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     label2->setObjectName("GHeader");
     scrollArea->setObjectName("LoadScroll");
 
-
     line->setFrameShape(QFrame::HLine);
 
     title -> setObjectName("Title");
-
-
-
 
     Back -> addWidget(backButton);
     Back -> addStretch();
@@ -57,10 +50,6 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     layout -> addLayout(Back);
     layout -> addLayout(Title);
     layout -> addStretch();
-
-
-
-
 
     if(opendir("asset")){
 
@@ -84,9 +73,6 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     backButton -> setFixedSize(150, 60);
     loadButton -> setFixedSize(250, 70);
     scrollArea -> setFixedHeight(400);
-
-
-
 
     connect(backButton,&QPushButton::clicked, this ,&LoadPage::BackHomePageSlot);
     connect(loadButton,&QPushButton::clicked, this ,&LoadPage::HomeDeckPageSlot);
@@ -143,13 +129,7 @@ void LoadPage::SearchDeck(){
         vbox->addWidget(checkButton);
         i++;
     }
-
-
-
     vbox->addWidget(label2);
-
-
-
 
     QDir directory1(path1);
     directory1.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);

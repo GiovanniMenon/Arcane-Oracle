@@ -14,9 +14,8 @@ class fieldWidget : public effectWidget
 public:
     fieldWidget(Deck * , QWidget *parent=nullptr);
     fieldWidget(territoryCard* , QWidget *parent=nullptr);
-
-    virtual Card* getInput() override;
     void manual() override;
+    virtual Card* getInput() override;
     virtual bool checkInput() const override ;
     virtual void generate() override ;
 public slots:

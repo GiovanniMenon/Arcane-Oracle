@@ -1,20 +1,14 @@
 #include "cardpage.h"
 #include "../Visitor/visitor.h"
-#include <QFileDialog>
-
-
-
 
 CardPage::CardPage(QWidget * parent) :  QWidget(parent)
 {
     main = new QVBoxLayout(this);
-    QGroupBox *footerMenu = new QGroupBox();
-
-    QHBoxLayout * header = new QHBoxLayout();
     card = new QHBoxLayout();
 
+    QGroupBox *footerMenu = new QGroupBox();
+    QHBoxLayout * header = new QHBoxLayout();
     QHBoxLayout * footer = new QHBoxLayout(footerMenu);
-
     QHBoxLayout * footerCenter = new QHBoxLayout();
 
 
@@ -42,12 +36,6 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     header -> addStretch();
     header->addWidget(CardManual);
 
-
-
-
-
-
-
     footer -> addStretch();
     footer ->addWidget(removeButton);
     footer -> addStretch();
@@ -58,6 +46,7 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
     footer -> addStretch();
 
     footer->setAlignment(Qt::AlignCenter);
+    errore ->setAlignment(Qt::AlignCenter);
     footerCenter->setAlignment(Qt::AlignCenter);
     footerCenter->addWidget(footerMenu);
 
@@ -92,7 +81,6 @@ CardPage::CardPage(QWidget * parent) :  QWidget(parent)
 
 }
 void CardPage::ManualScreeSlot() {
-
    dynamic_cast<cardWidget*>(absCard) -> manual();
 
 }
@@ -115,8 +103,6 @@ void CardPage::generateCardSlot() {
     removeButton -> show();
     saveButton -> show();
 
-    // chiamiamo il metodo per rimuovere la desc
-    // chiamiamo il metodo che displaya l'immagine dentro il rettangolo centrale
     dynamic_cast<cardWidget*>(absCard) -> generate();
 
 
@@ -124,7 +110,7 @@ void CardPage::generateCardSlot() {
     generateButton -> hide();
     errore->clear();
     }else{
-        errore -> setText("Non si possono usare nomi di carte gia' utilizzati o lasciare campi della carta vuoti");
+        errore -> setText("Nome della Carta gia' in uso oppure alcuni Caratteri non sono accettati.\n Tutti i Campi devono essere riempiti");
     }
 }
 
@@ -132,11 +118,14 @@ void CardPage::RemoveCardSlot() {
     std::string imgPath = dynamic_cast<cardWidget*>(absCard) -> getUrl();
     std::string searchString = "Card";
 
-    size_t index = imgPath.find(searchString);
-     if (index != std::string::npos) {
-    imgPath.replace(index, searchString.length(), "CardImg");
-    ::remove(imgPath.c_str());
-     }
+    size_t lastSlashPos = imgPath.find_last_of('/');
+    size_t secondLastSlashPos = imgPath.find_last_of('/', lastSlashPos - 1);
+    size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+    size_t index = imgPath.find(searchString, secondLastSlashPos + 1);
+    if (index != std::string::npos) {
+        imgPath.replace(index, substringLength, "CardImg");
+        ::remove(imgPath.c_str());
+    }
     dynamic_cast<cardWidget*>(absCard) -> hide();
     backButton -> show();
     addButton ->hide();
@@ -206,7 +195,6 @@ void CardPage::ModifyCardSlot(Card* toModify){
 void CardPage::BackShowDeckPageSlot(){
     emit BackShowDeckPageSignal();
 }
-
 
 
 void CardPage::SaveDeckAfterModifySlot(){

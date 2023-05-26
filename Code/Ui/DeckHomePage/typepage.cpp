@@ -9,7 +9,7 @@
 #include "../Visitor/artifactwidget.h"
 #include "../Visitor/fieldwidget.h"
 #include "../Visitor/spellwidget.h"
-#include <QDebug>
+
 
 
 
@@ -88,8 +88,6 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
     ButtonMenu -> setLayout(Choice);
 
     Footer -> addStretch();
-    //Footer -> addWidget(Submit);
-
 
     layout -> addLayout(Head);
     layout -> addStretch();
@@ -104,14 +102,11 @@ TypePage::TypePage(QWidget * parent) : QWidget(parent)
     connect(backButton,&QPushButton::clicked, this ,&TypePage::BackDeckPageSlot);
 
 
-
     Monster->installEventFilter(this);
     Field->installEventFilter(this);
     Artifact->installEventFilter(this);
     Spell->installEventFilter(this);
     Trap->installEventFilter(this);
-
-
 
 
     connect(Monster,&QPushButton::clicked, this ,&TypePage::CardSlot);
@@ -142,14 +137,13 @@ void TypePage::CardSlot() {
     emit CreateCardPageSignal();
     emit CardSignal(deck , cardWidgets[clickedButton->property("id").toInt()]);
 
-
 }
 
 void TypePage::currentDeckSlot(Deck * currDeck){
     deck = currDeck;
 
     cardWidgets.clear();
-    //Carico I CardWidgets
+
     cardWidgets.push_back(new monsterWidget(deck));
     cardWidgets.push_back(new fieldWidget(deck));
     cardWidgets.push_back(new artifactWidget(deck));

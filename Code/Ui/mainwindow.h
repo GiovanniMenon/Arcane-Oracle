@@ -24,6 +24,23 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void manualWindowSlot();
+    void newDeckWindowSlot();
+    void LoadDeckPageSlot();
+    void BackWindowSlot();
+    void BackBackWindowSlot();
+
+    void HomeDeckPageSlot();
+    void ShowDeckPageSlot();
+    void CardPageSlot();
+    void TypePageSlot();
+    void CardInfoPageSlot(Card* card);
+    void BackWindowSlotHomePage();
+signals:
+    void newDeckWindowSignal();
+    void manualWindowSignal();
+
 private:
     MainWindow *ui;
     QStackedWidget *stackedWidget;
@@ -36,25 +53,5 @@ private:
     ShowDeckPage *showdeckpage;
     CardPage *cardpage;
     CardInfoPage* cardinfopage;
-
-
-public slots:
-    void manualWindowSlot();
-    void newDeckWindowSlot();
-    void LoadDeckPageSlot();
-    void BackWindowSlot();
-    void BackBackWindowSlot();
-
-    void HomeDeckPageSlot();
-    void ShowDeckPageSlot();
-    void CardPageSlot();
-    void TypePageSlot();
-    void CardInfoPageSlot(QPixmap* pixmap, Card* card);
-    void BackWindowSlotHomePage();
-signals:
-    void newDeckWindowSignal();
-    void manualWindowSignal();
-
-
 };
 #endif // MAINWINDOW_H

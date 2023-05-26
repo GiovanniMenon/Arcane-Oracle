@@ -10,10 +10,8 @@ class ClickableLabel : public QLabel {
 public:
     explicit ClickableLabel( QString text = "", QWidget* parent = nullptr);
     ~ClickableLabel() = default;
-
 signals:
     void clicked();
-
 public slots:
     void mousePressEvent(QMouseEvent* event) override;
 };

@@ -12,7 +12,6 @@ trapWidget::trapWidget(Deck * currDeck,QWidget *parent) : effectWidget(currDeck,
     durata->setValidator(validator);
     QHBoxLayout *footer = new QHBoxLayout();
 
-
     footer -> addWidget(durata);
 
     footer -> addStretch();
@@ -81,10 +80,13 @@ trapWidget::trapWidget(trapCard* t , QWidget *parent) : effectWidget(nullptr, pa
     std::string imgPath = t->getUrl();
     std::string searchString = "Card";
 
-    size_t index = imgPath.find(searchString);
+    size_t lastSlashPos = imgPath.find_last_of('/');
+    size_t secondLastSlashPos = imgPath.find_last_of('/', lastSlashPos - 1);
+    size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+    size_t index = imgPath.find(searchString, secondLastSlashPos + 1);
     if (index != std::string::npos) {
-            imgPath.replace(index, searchString.length(), "CardImg");
-        }
+        imgPath.replace(index, substringLength, "CardImg");
+    }
 
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -119,11 +121,11 @@ bool trapWidget::checkInput() const{
 void trapWidget::setFieldsCardSlot(){
     effectWidget::setFieldsCardSlot();
     trapCard* tmp = dynamic_cast<trapCard*>(card);
+    if(screenshot){
     tmp->setDuration(durata->text().toUInt());
     tmp->setDamage(spellDmg->text().toUInt());
-
-
     takeScreen(tmp);
+    }
 }
 
 void trapWidget::manual() {

@@ -226,10 +226,13 @@ artifactWidget::artifactWidget(artifactCard* a,QWidget *parent) : cardWidget(nul
     std::string imgPath = a->getUrl();
     std::string searchString = "Card";
 
-    size_t index = imgPath.find(searchString);
+    size_t lastSlashPos = imgPath.find_last_of('/');
+    size_t secondLastSlashPos = imgPath.find_last_of('/', lastSlashPos - 1);
+    size_t substringLength = lastSlashPos - secondLastSlashPos - 1;
+    size_t index = imgPath.find(searchString, secondLastSlashPos + 1);
     if (index != std::string::npos) {
-            imgPath.replace(index, searchString.length(), "CardImg");
-        }
+        imgPath.replace(index, substringLength, "CardImg");
+    }
     QPixmap pixmap(QString::fromStdString(imgPath));
     scaledPixmap = pixmap.scaled(QSize(290,290), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     imageLabel -> setPixmap(scaledPixmap);
@@ -277,11 +280,13 @@ void artifactWidget::generate(){
 void artifactWidget::setFieldsCardSlot(){
     cardWidget::setFieldsCardSlot();
     artifactCard* tmp = dynamic_cast<artifactCard*>(card);
+    if(screenshot){
     tmp->setDamage(cardAtt->text().toUInt());
     tmp->setDefense(cardDef->text().toUInt());
     tmp->setType(artifactType[id]);
 
     takeScreen(tmp);
+    }
 }
 
 void artifactWidget::manual() {
