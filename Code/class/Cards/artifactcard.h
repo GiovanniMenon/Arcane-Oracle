@@ -15,15 +15,18 @@ public:
     unsigned int getDamage() const;
     unsigned int getDefense() const;
 
-    bool operator==(const Card& c) const override;
-    Json::Value serialize() const override;
-    virtual artifactCard* clone() const override;
-    //Visitor
-    void accept(Visitor*) override;
-
     void setType(const std::string& newType);
     void setDamage(unsigned int newdam);
     void setDefense(unsigned int newdef);
+
+    bool operator==(const Card& c) const override;
+    Json::Value serialize() const override;
+    virtual artifactCard* clone() const override;
+
+    //Visitor
+    void accept(Visitor*) override;
+
+
 
 };
 #endif // ARTIFACTCARD_H

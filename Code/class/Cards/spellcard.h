@@ -19,8 +19,6 @@ public:
     virtual  Json::Value  serialize() const override;
     virtual spellCard* clone() const override;
 
-
-
     //visitor
     void accept(Visitor*) override;
 };

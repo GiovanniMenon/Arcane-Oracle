@@ -17,7 +17,6 @@ public:
     virtual  Json::Value  serialize() const override;
     virtual territoryCard* clone() const override;
 
-
     void accept(Visitor*) override;
 
 };

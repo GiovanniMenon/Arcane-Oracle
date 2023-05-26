@@ -8,13 +8,16 @@ private:
     std::string effect;
 public:
     EffectCards(std::string n, std::string d, std::string b64U, unsigned int c, std::string eff , bool status = 0);
+
     std::string getEffect() const;
+    void setEffectBase(const std::string& newEffect);
+
     virtual  Json::Value  serialize() const override;
     bool operator ==(const Card&) const override;
     virtual ~EffectCards();
 
-    //Visitor
-    void setEffectBase(const std::string& newEffect);
+
+
 };
 
 #endif // EFFECTCARDS_H

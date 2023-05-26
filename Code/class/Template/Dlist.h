@@ -10,7 +10,6 @@ template <class T>
 class list{
 friend class iterator;
 private: class nodo{
-
                 public:
                        T* info;
                        nodo *next , *prev ;
@@ -35,7 +34,6 @@ public:
 
                     T& operator*() const;
                     iterator() ;
-
 
                 private:
                     iterator(list<T>::nodo* a , bool pte=false) ;

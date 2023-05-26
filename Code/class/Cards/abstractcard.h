@@ -21,8 +21,8 @@ friend std::ostream& operator<<(std::ostream& os, const Card& c);
 private:
     std::string name;
     std::string description;
-    std::string b64Url;     //base64 url of the image of the card
-    unsigned int cost;      //cost in Mana of the card
+    std::string b64Url;
+    unsigned int cost;
     bool save ;
 public:
     Card(std::string n, std::string desc, std::string b64U, unsigned int c , bool save=0);

@@ -4,7 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 INCLUDEPATH += /Users/endyhysa/Qt/jsoncpp-master/include
 LIBS += -L/usr/local/lib -ljsoncpp -lcurl
-
+MOC_DIR = profiles
+OBJECTS_DIR = profiles
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

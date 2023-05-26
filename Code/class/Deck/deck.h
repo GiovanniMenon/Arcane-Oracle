@@ -58,7 +58,7 @@ public: Deck();
 
         Card* operator[](unsigned int) const;
 
-
+        //Metodi Controllo Input
         bool verifyCardName(const std::string &) const ;
         static bool verifyDeckName(const std::string &) ;
         static bool verifyInput(const std::string &);
