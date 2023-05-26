@@ -33,8 +33,8 @@ Arcane Oracle fa utilizzo di due librerie esterne necessarie per la compilazione
 Il progetto compila ed esegue corretteamente su Linux.
 
 ## Building
-Lo script [./install.sh](./code/install.sh) scarica le due librerie necessarie per la compilazione e successivamente compila il programma eseguendo **qmake** e  **make**.
-> [./install.sh](./code/install.sh) non e' pensato per essere usato in sistemi Operativi diversi da Ubuntu (Versione di Test).
+Lo script [./install.sh](./Code/install.sh) scarica le due librerie necessarie per la compilazione e successivamente compila il programma eseguendo **qmake** e  **make**.
+> [./install.sh](./Code/install.sh) non e' pensato per essere usato in sistemi Operativi diversi da Ubuntu (Versione di Test).
 Nel caso si voglia compilare il programma in un altro SO (escluso Windows) si compili manualmente tramite **qmake** e  **make** (assicurandosi prima di rispettare i Requirements).  
 ## Disclaimer
 Il progetto e' stato rilasciato sotto licenza [MIT](./LICENSE).
