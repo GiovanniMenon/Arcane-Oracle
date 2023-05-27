@@ -39,7 +39,7 @@ Il progetto compila ed esegue corretteamente su Linux.
 - **IMPORTANTE :** Per la generazione delle immagini e' **necessario** avere una API-KEY. Per la corretta generazione inserire la propria API-KEY nel file [APIKEY.txt](./Code/APIKEY.txt)
 
 
-> La creazione della API-KEY e' gratuita tramite il loro sito [ufficiale](https://platform.openai.com/account/api-keys). La generazione delle immagini delle carte ha un costo di $0.018 a immagine (maggiori informazioni [qui](https://openai.com/pricing#language-models)).
+> La creazione della API-KEY e' gratuita tramite il loro sito [ufficiale](https://platform.openai.com/account/api-keys). La generazione delle immagini delle carte ha un costo di $0.018 a immagine (maggiori informazioni [qui](https://openai.com/pricing#other-models)).
 Per eseguire il programma non e' necessario avere  una API-KEY, in tal caso l'immagine delle carte sara' data di default(uguale per tutte le carte generate).
 
 ## Building
