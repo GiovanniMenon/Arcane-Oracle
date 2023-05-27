@@ -1,7 +1,19 @@
 #include "dall_eapi.h"
 #include "curl/curl.h"
+#include <fstream>
 
-DALL_E_generator::DALL_E_generator() {}
+
+DALL_E_generator::DALL_E_generator()  {
+    std::ifstream file("APIKEY.txt");
+        if (file.is_open()) {
+            std::string key;
+            std::getline(file, key);
+            apiKey = "Authorization: Bearer " + key;
+            file.close();
+        } else {
+            throw std::runtime_error("Failed to open API key file");
+        }
+}
 
 size_t DALL_E_generator::callback(char* data, size_t size, size_t nmemb, std::string* buffer) {
 
@@ -27,7 +39,8 @@ std::string DALL_E_generator::generate(const std::string text) {
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, "Authorization: Bearer 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"); //api_key
+    headers = curl_slist_append(headers, apiKey.c_str());
+
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     std::string response;
 

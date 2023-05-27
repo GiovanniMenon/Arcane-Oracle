@@ -21,7 +21,9 @@
 class DALL_E_generator {
 private:
     static size_t callback(char* data, size_t size, size_t nmemb, std::string* buffer);
+
 public:
+    std::string apiKey;
     DALL_E_generator();
     std::string generate(const std::string description);
     std::string convert(std::string,std::string,std::string deck_name) const ;

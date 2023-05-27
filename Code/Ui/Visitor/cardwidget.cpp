@@ -113,7 +113,7 @@ void cardWidget::generate() {
     //Utilizziamo QFutureWatcher e QFuture per rendere asincrono l'esecuzione di questa funzione.
     //Emette un segnale quando ha finito di generare la carta.
 
-    DALL_E_generator generator;
+
     desc -> hide();
     cardGroup -> hide();
     loading ->show();
@@ -124,7 +124,7 @@ void cardWidget::generate() {
     costCard -> setReadOnly(true);
     descText = desc -> toPlainText();
     std::string futureDesc = descText.toStdString();
-
+    DALL_E_generator* generator = new DALL_E_generator();
     QFutureWatcher<std::string>* watcher = new QFutureWatcher<std::string>(this);
     QObject::connect(watcher, &QFutureWatcher<std::string>::finished, this, [=]() {
         QFuture<std::string> future = watcher->future();
@@ -156,20 +156,18 @@ void cardWidget::generate() {
 
         emit generateFinishSignal();
     });
-
-    QFuture<std::string> AsyncG = QtConcurrent::run([&generator,futureDesc, this]() {
-        std::string result = generator.generate(futureDesc);
-        std::string path = generator.convert(result,nameCard->text().toStdString(),deck ->getName());
+    QFuture<std::string> AsyncG = QtConcurrent::run([generator,futureDesc, this]() {
+        std::string result = generator ->generate(futureDesc);
+        std::string path = generator->convert(result,nameCard->text().toStdString(),deck ->getName());
         return path;
     });
 
     watcher->setFuture(AsyncG);
 
-
 }
 
  QPixmap cardWidget::takeScreen(bool i) const{
-     //Esegue lo screenShot della carta, puo' salvarlo oppure no,
+     //Esegue lo screenShot della carta, lo salva nella path della carta e ritorna l'immagine,
      QRect area = cardGroup->geometry();
      QPixmap screenshot(area.size());
      QPainter painter(&screenshot);
