@@ -33,7 +33,7 @@ private:
     QGroupBox *groupBox;
     QScrollArea *scroll;
 
-    QFrame* line;
+
     QLabel *label2;
     QLabel *label1;
 

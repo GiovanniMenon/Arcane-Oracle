@@ -28,7 +28,7 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     QPushButton *loadButton = new QPushButton("Load");
     QLabel *title = new QLabel("Choose your Deck");
 
-    line =  new QFrame();
+
     label1 = new QLabel("Testing Decks");
     label2 = new QLabel("Your Decks");
     label1->setAlignment(Qt::AlignCenter);
@@ -37,7 +37,6 @@ LoadPage::LoadPage(QWidget *parent) : QWidget(parent)
     label2->setObjectName("GHeader");
     scrollArea->setObjectName("LoadScroll");
 
-    line->setFrameShape(QFrame::HLine);
 
     title -> setObjectName("Title");
 

@@ -4,6 +4,10 @@
 CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     layout = new QHBoxLayout(this);
     QVBoxLayout * headLayout = new QVBoxLayout();
+
+    QVBoxLayout * nextLayout = new QVBoxLayout();
+    QVBoxLayout * prevLayout = new QVBoxLayout();
+
     QHBoxLayout * headWidgetLayout = new QHBoxLayout();
 
     QHBoxLayout * imageLayout = new QHBoxLayout();
@@ -11,13 +15,40 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     QGroupBox *cardMenu = new QGroupBox();
 
+    QFrame * line1 =  new QFrame();
+    line1->setFrameShape(QFrame::HLine);
+    QFrame * line2 =  new QFrame();
+    line2->setFrameShape(QFrame::HLine);
+    QFrame * line3 =  new QFrame();
+    line3->setFrameShape(QFrame::HLine);
+    QFrame * line4 =  new QFrame();
+    line4->setFrameShape(QFrame::HLine);
+
+    line1 -> setLineWidth(10);
+    line1 -> setFixedHeight(6);
+    line1->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
+    line2 -> setLineWidth(10);
+    line2 -> setFixedHeight(6);
+    line2 ->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
+    line3 -> setLineWidth(10);
+    line3 -> setFixedHeight(6);
+    line3->setStyleSheet("background-color: #FCF8E8;border-radius: 2px;border : 1px solid #FCF8E8");
+    line4 -> setLineWidth(10);
+    line4 -> setFixedHeight(6);
+    line4 ->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
+
     cardLayout = new QHBoxLayout(cardMenu);
     image = new QLabel();
     rightImage = new ClickableLabel();
     leftImage = new ClickableLabel();
     title = new QLabel();
+    QLabel * nextTitle = new QLabel("Next Card");
+    QLabel * PrevTitle = new QLabel("Prev Card");
     title->setObjectName("Title");
-
+    PrevTitle->setObjectName("TextNewDeck");
+    nextTitle->setObjectName("TextNewDeck");
+    PrevTitle-> setAlignment(Qt::AlignCenter);
+    nextTitle->setAlignment(Qt::AlignCenter);
 
     QPushButton * backButton = new QPushButton("Back");
     deleteCard = new QPushButton("Delete");
@@ -32,13 +63,31 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     cardLayout -> addWidget(image);
     cardLayout -> setContentsMargins(0,0,0,0);
+    nextLayout -> setContentsMargins(0,0,0,0);
+    prevLayout -> setContentsMargins(0,0,0,0);
 
     imageLayout->addStretch();
-    imageLayout->addWidget(leftImage);
+
+    nextLayout -> addStretch();
+
+    nextLayout -> addWidget(nextTitle);
+    nextLayout -> addWidget(line1);
+    nextLayout -> addWidget(rightImage);
+    nextLayout -> addWidget(line2);
+    nextLayout -> addStretch();
+
+    prevLayout -> addStretch();
+    prevLayout -> addWidget(PrevTitle);
+    prevLayout -> addWidget(line3);
+    prevLayout -> addWidget(leftImage);
+    prevLayout -> addWidget(line4);
+    prevLayout -> addStretch();
+
+    imageLayout->addLayout(prevLayout);
     imageLayout->addSpacing(25);
     imageLayout->addWidget(cardMenu);
     imageLayout->addSpacing(25);
-    imageLayout->addWidget(rightImage);
+    imageLayout->addLayout(nextLayout);
     imageLayout->addStretch();
 
     headLayout->addLayout(imageLayout);
