@@ -61,7 +61,6 @@ private:
     QPushButton * modifyCard;
 
     QHBoxLayout * cardLayout;
-    QHBoxLayout* layout;
 
 };
 

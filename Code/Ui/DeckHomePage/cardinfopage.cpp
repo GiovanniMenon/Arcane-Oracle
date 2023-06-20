@@ -2,18 +2,22 @@
 
 
 CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
-    layout = new QHBoxLayout(this);
-    QVBoxLayout * headLayout = new QVBoxLayout();
+
+    QVBoxLayout * headLayout = new QVBoxLayout(this);
 
     QVBoxLayout * nextLayout = new QVBoxLayout();
+    QVBoxLayout * cardLayoutOutside = new QVBoxLayout();
     QVBoxLayout * prevLayout = new QVBoxLayout();
 
     QHBoxLayout * headWidgetLayout = new QHBoxLayout();
 
     QHBoxLayout * imageLayout = new QHBoxLayout();
-    QHBoxLayout * footerLayout = new QHBoxLayout();
+
 
     QGroupBox *cardMenu = new QGroupBox();
+    QGroupBox *footerMenu = new QGroupBox();
+
+    QHBoxLayout * footerLayout = new QHBoxLayout(footerMenu);
 
     QFrame * line1 =  new QFrame();
     line1->setFrameShape(QFrame::HLine);
@@ -42,18 +46,32 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     rightImage = new ClickableLabel();
     leftImage = new ClickableLabel();
     title = new QLabel();
+
     QLabel * nextTitle = new QLabel("Next Card");
     QLabel * PrevTitle = new QLabel("Prev Card");
+
+    QLabel * current = new QLabel();
+    QPixmap groundImg("asset/Icon/pointer.png");
+    current -> setPixmap(groundImg);
+
+    current ->setMargin(-22);
+
+
     title->setObjectName("Title");
     PrevTitle->setObjectName("TextNewDeck");
     nextTitle->setObjectName("TextNewDeck");
     PrevTitle-> setAlignment(Qt::AlignCenter);
     nextTitle->setAlignment(Qt::AlignCenter);
-
+    current->setAlignment(Qt::AlignCenter);
+    cardLayoutOutside->setAlignment(Qt::AlignCenter);
     QPushButton * backButton = new QPushButton("Back");
     deleteCard = new QPushButton("Delete");
     exportPNG = new QPushButton("Export PNG");
     modifyCard = new QPushButton("Modify");
+
+    deleteCard ->setObjectName("remButton");
+    exportPNG ->setObjectName("saveButton");
+    modifyCard ->setObjectName("addButton");
 
     headWidgetLayout->addWidget(backButton);
     headWidgetLayout->addSpacing(20);
@@ -66,10 +84,7 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     nextLayout -> setContentsMargins(0,0,0,0);
     prevLayout -> setContentsMargins(0,0,0,0);
 
-    imageLayout->addStretch();
-
     nextLayout -> addStretch();
-
     nextLayout -> addWidget(nextTitle);
     nextLayout -> addWidget(line1);
     nextLayout -> addWidget(rightImage);
@@ -83,10 +98,15 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     prevLayout -> addWidget(line4);
     prevLayout -> addStretch();
 
+    cardLayoutOutside -> addWidget(current);
+    cardLayoutOutside -> addWidget(cardMenu);
+    cardLayoutOutside -> addStretch();
+
+    imageLayout-> addStretch();
     imageLayout->addLayout(prevLayout);
-    imageLayout->addSpacing(25);
-    imageLayout->addWidget(cardMenu);
-    imageLayout->addSpacing(25);
+    imageLayout-> addStretch();
+    imageLayout->addLayout(cardLayoutOutside);
+    imageLayout-> addStretch();
     imageLayout->addLayout(nextLayout);
     imageLayout->addStretch();
 
@@ -96,14 +116,13 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
 
     footerLayout->addStretch();
     footerLayout->addWidget(deleteCard);
-
     footerLayout->addWidget(modifyCard);
     footerLayout->addWidget(exportPNG);
     footerLayout->addStretch();
 
-    headLayout->addLayout(footerLayout);
+    headLayout->addWidget(footerMenu);
 
-    layout->addLayout(headLayout);
+
 
     backButton -> setFixedSize(155, 75);
     deleteCard->setFixedSize(200, 60);
