@@ -32,7 +32,7 @@ CardInfoPage::CardInfoPage(QWidget * parent) : QWidget(parent) {
     line2 ->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
     line3 -> setLineWidth(10);
     line3 -> setFixedHeight(6);
-    line3->setStyleSheet("background-color: #FCF8E8;border-radius: 2px;border : 1px solid #FCF8E8");
+    line3->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
     line4 -> setLineWidth(10);
     line4 -> setFixedHeight(6);
     line4 ->setStyleSheet("background-color: #1c1c1c;border-radius: 2px;border : 1px solid #1c1c1c");
