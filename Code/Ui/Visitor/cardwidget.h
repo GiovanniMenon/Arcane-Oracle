@@ -41,6 +41,8 @@ public slots:
     virtual void setFieldsCardSlot();
 signals:
     void generateFinishSignal();
+    void signalErrorSignal(std::string);
+
 protected:
     Deck *deck;
     std::string path;

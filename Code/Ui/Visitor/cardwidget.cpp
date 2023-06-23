@@ -158,6 +158,10 @@ void cardWidget::generate() {
     });
     QFuture<std::string> AsyncG = QtConcurrent::run([generator,futureDesc, this]() {
         std::string result = generator ->generate(futureDesc);
+        if(result.substr(0, 6)=="Errore"){
+            emit signalErrorSignal(result);
+            result = "default";
+        }
         std::string path = generator->convert(result,nameCard->text().toStdString(),deck ->getName());
         return path;
     });
@@ -176,7 +180,6 @@ void cardWidget::generate() {
      painter.setRenderHint(QPainter::TextAntialiasing, true);
      cardGroup->render(&painter, QPoint(), QRegion(), QWidget::DrawChildren);
      if(i){
-
         screenshot.save(QString::fromStdString(path));
      }
      return screenshot;

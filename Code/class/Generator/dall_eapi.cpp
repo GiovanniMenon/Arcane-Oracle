@@ -10,8 +10,6 @@ DALL_E_generator::DALL_E_generator()  {
             std::getline(file, key);
             apiKey = "Authorization: Bearer " + key;
             file.close();
-        } else {
-            throw std::runtime_error("Failed to open API key file");
         }
 }
 
@@ -51,21 +49,27 @@ std::string DALL_E_generator::generate(const std::string text) {
     curl_easy_cleanup(curl);
 
     if (res != CURLE_OK){
-            std::cerr << "Error: Res Error ";
-    }
-
+           qDebug() << "Errore nella richiesta: " << curl_easy_strerror(res);
+    }else{
     Json::Value jsonData;
     Json::Reader jsonReader;
 
-    if (jsonReader.parse(response, jsonData))
-        {
-            const Json::Value image = jsonData["data"][0];
-            std::string b64 = image["b64_json"].asString();
-            return b64;
+    if (jsonReader.parse(response, jsonData)){
+        if (jsonData.isMember("error")) {
+                            std::string errorMessage = jsonData["error"]["message"].asString();
+                            return std::string("Errore: ") + errorMessage;
+        }else {
+                const Json::Value image = jsonData["data"][0];
+                std::string b64 = image["b64_json"].asString();
+                return b64;
+                        }
+    }else{
+             return "default";
         }
     }
-    std::cerr << "Error Curl Request " ;
-    return "error" ;
+    }
+
+    return "default";
 }
 
 std::string DALL_E_generator::convert(std::string b64,std::string name, std::string deck_name) const{
@@ -80,7 +84,7 @@ std::string DALL_E_generator::convert(std::string b64,std::string name, std::str
     std::string formato = ".jpg";
 
     QString path = QString::fromStdString( folder + deck + name + formato);
-    if(b64=="error" || b64=="" || b64==" "){
+    if(b64=="default" || b64=="" || b64==" "){
         QPixmap img("asset/Icon/error.png");
         img.save(path);
         return path.toStdString();

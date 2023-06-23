@@ -115,10 +115,13 @@ void CardPage::generateCardSlot() {
     generateButton -> hide();
     errore->clear();
     }else{
-        errore -> setText("Nome della Carta gia' in uso oppure alcuni Caratteri non sono accettati.\n Tutti i Campi devono essere riempiti");
+        errore -> setText("Nome della Carta gia' in uso (anche in una carta salvata) oppure alcuni Caratteri non sono accettati.\n Tutti i Campi devono essere riempiti");
     }
 }
 
+void CardPage::ErrorSlot(std::string res){
+    errore -> setText(QString::fromStdString(res));
+}
 void CardPage::RemoveCardSlot() {
     std::string imgPath = dynamic_cast<cardWidget*>(absCard) -> getUrl();
     std::string searchString = "Card";
@@ -147,6 +150,7 @@ void CardPage::NewCardIdSlot(Deck* currDeck,QWidget* obj) {
     card -> addWidget(absCard);
     dynamic_cast<cardWidget*>(absCard) -> show();
     QObject::connect(dynamic_cast<cardWidget*>(obj) , &cardWidget::generateFinishSignal, this, &CardPage::onGenerateCardFinish);
+    QObject::connect(dynamic_cast<cardWidget*>(obj) , &cardWidget::signalErrorSignal, this, &CardPage::ErrorSlot);
 }
 void CardPage::onGenerateCardFinish() {
     addButton -> setEnabled(true);

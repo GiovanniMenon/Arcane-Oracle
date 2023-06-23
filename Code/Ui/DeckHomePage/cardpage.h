@@ -39,6 +39,9 @@ public slots:
     void SaveDeckAfterModifySlot();
     void RefreshImageSlot();
 
+    //Err Signal
+    void ErrorSlot(std::string);
+
 signals:
     void BackHomePageSignal();
     void BackBackHomePageSignal();
