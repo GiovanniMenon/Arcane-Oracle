@@ -58,7 +58,7 @@ monsterWidget::monsterWidget(Deck * currDeck,QWidget *parent) : cardWidget(currD
 
 
     level -> setMaximum(8);
-    level -> setMinimum(1);
+    level -> setMinimum(0);
 
     cardAtt ->setFixedSize(64,64);
     cardHP ->setFixedSize(72,72);
@@ -82,6 +82,8 @@ monsterWidget::monsterWidget(Deck * currDeck,QWidget *parent) : cardWidget(currD
 
     iconLayout -> setContentsMargins(0,0,0,0);
 
+
+
 }
 
 monsterWidget::monsterWidget(monsterCard* m, QWidget *parent) : cardWidget(nullptr, parent){
@@ -102,7 +104,8 @@ monsterWidget::monsterWidget(monsterCard* m, QWidget *parent) : cardWidget(nullp
     QHBoxLayout *centerLevelOutside = new QHBoxLayout();
 
     QIntValidator *validator = new QIntValidator();
-    validator->setRange(1, 9);
+
+
 
     cardAtt->setValidator(validator);
     cardHP->setValidator(validator);
@@ -139,7 +142,8 @@ monsterWidget::monsterWidget(monsterCard* m, QWidget *parent) : cardWidget(nullp
 
 
     level -> setMaximum(8);
-    level -> setMinimum(1);
+    level -> setMinimum(0);
+
 
     cardAtt ->setFixedSize(64,64);
     cardHP ->setFixedSize(72,72);
@@ -196,7 +200,7 @@ iconLayout -> setContentsMargins(0,0,0,0);
 
 void monsterWidget::levelSlot(int value){
     //Funzione che permette di modificare il livello e cambiare le rispettive icone
-    if(value != 0 && value != 9){
+    if(value != 9){
 
         while (QLayoutItem* item = iconLayout->takeAt(value)) {
             if (QWidget* widget = item->widget()) {
