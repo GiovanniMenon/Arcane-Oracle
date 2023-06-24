@@ -17,7 +17,7 @@ int main(int argc , char *argv[])
     application.resize(1250,800);
 
 
-    QIcon icon("asset/Icon/icon.png");
+    QIcon icon("asset/Icon/icon.jpg");
     QApplication::setWindowIcon(icon);
     QFile stylesheet("asset/Dark_style.qss");
     stylesheet.open(QFile::ReadOnly);

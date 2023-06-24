@@ -1,0 +1,141 @@
+{
+	"Cards" : 
+	[
+		{
+			"attack_points" : 1,
+			"b64url" : "asset/Deck/TestDeck1/Card/1.jpg",
+			"cost" : 1,
+			"defense_points" : 1,
+			"description" : "Futurist post apocalipse ninja in van gogh style",
+			"health" : 1,
+			"level" : 3,
+			"name" : "1",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"attack_points" : 2,
+			"b64url" : "asset/Deck/TestDeck1/Card/2.jpg",
+			"cost" : 2,
+			"defense_points" : 2,
+			"description" : "pixel art of a king",
+			"health" : 2,
+			"level" : 2,
+			"name" : "2",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"b64url" : "asset/Deck/TestDeck1/Card/3.jpg",
+			"cost" : 3,
+			"description" : "a museom paint of a erupting vulcano4",
+			"effect" : "3",
+			"name" : "3",
+			"save" : true,
+			"type" : 3,
+			"type_effect" : "Fire"
+		},
+		{
+			"attack_points" : 4,
+			"b64url" : "asset/Deck/TestDeck1/Card/4.jpg",
+			"cost" : 4,
+			"description" : "a hand that throw a bolt in van gogh style and night",
+			"effect" : "4",
+			"element" : "Thunder",
+			"name" : "4",
+			"save" : true,
+			"type" : 2
+		},
+		{
+			"artifact_type" : "Potions",
+			"attack_points" : 5,
+			"b64url" : "asset/Deck/TestDeck1/Card/5.jpg",
+			"cost" : 5,
+			"defense_points" : 5,
+			"description" : "An horse in middle of the universe riding a rainbow",
+			"name" : "5",
+			"save" : true,
+			"type" : 5
+		},
+		{
+			"attack_points" : 6,
+			"b64url" : "asset/Deck/TestDeck1/Card/6.jpg",
+			"cost" : 6,
+			"description" : "a wizard castin flame spell ",
+			"effect" : "6",
+			"element" : "Fire",
+			"name" : "6",
+			"save" : true,
+			"type" : 2
+		},
+		{
+			"b64url" : "asset/Deck/TestDeck1/Card/7.jpg",
+			"cost" : 7,
+			"damage" : 7,
+			"description" : "Hunter trap ",
+			"duration" : 7,
+			"effect" : "7",
+			"name" : "7",
+			"save" : true,
+			"type" : 4
+		},
+		{
+			"attack_points" : 8,
+			"b64url" : "asset/Deck/TestDeck1/Card/8.jpg",
+			"cost" : 8,
+			"description" : "ancient dragoon of thunder, van gogh style",
+			"effect" : "8",
+			"element" : "Thunder",
+			"name" : "8",
+			"save" : true,
+			"type" : 2
+		},
+		{
+			"artifact_type" : "Weapon",
+			"attack_points" : 9,
+			"b64url" : "asset/Deck/TestDeck1/Card/9.jpg",
+			"cost" : 4,
+			"defense_points" : 9,
+			"description" : "A nipponic katana forced by the rest of a dragoon",
+			"name" : "9",
+			"save" : true,
+			"type" : 5
+		},
+		{
+			"attack_points" : 1,
+			"b64url" : "asset/Deck/TestDeck1/Card/10.jpg",
+			"cost" : 1,
+			"defense_points" : 1,
+			"description" : "old dragoon of forest casting spell",
+			"health" : 1,
+			"level" : 8,
+			"name" : "10",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"artifact_type" : "Weapon",
+			"attack_points" : 2,
+			"b64url" : "asset/Deck/TestDeck1/Card/11.jpg",
+			"cost" : 2,
+			"defense_points" : 2,
+			"description" : "Old hat inforced with magic1",
+			"name" : "11",
+			"save" : true,
+			"type" : 5
+		},
+		{
+			"attack_points" : 3,
+			"b64url" : "asset/Deck/TestDeck1/Card/12.jpg",
+			"cost" : 3,
+			"defense_points" : 3,
+			"description" : "A frog eating sushi in a restaurant",
+			"health" : 3,
+			"level" : 3,
+			"name" : "12",
+			"save" : true,
+			"type" : 1
+		}
+	],
+	"Name" : "TestDeck1"
+}

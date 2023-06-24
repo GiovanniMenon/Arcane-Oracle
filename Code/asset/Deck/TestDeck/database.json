@@ -1,0 +1,95 @@
+{
+	"Cards" : 
+	[
+		{
+			"artifact_type" : "Weapon",
+			"attack_points" : 6,
+			"b64url" : "asset/Deck/TestDeck/Card/TiraPugni-Rosso.jpg",
+			"cost" : 4,
+			"defense_points" : 1,
+			"description" : "brass knuckles for a red panda",
+			"name" : "TiraPugni-Rosso",
+			"save" : true,
+			"type" : 5
+		},
+		{
+			"attack_points" : 5,
+			"b64url" : "asset/Deck/TestDeck/Card/Panda Glaciale.jpg",
+			"cost" : 4,
+			"description" : "draw of a red panda inside a block of ice in the middle of a forest ",
+			"effect" : "Congela un Mostro \"Panda\" per un turno e infigge 5 danno",
+			"element" : "Ice",
+			"name" : "Panda Glaciale",
+			"save" : true,
+			"type" : 2
+		},
+		{
+			"attack_points" : 2,
+			"b64url" : "asset/Deck/TestDeck/Card/Pixel Rosso.jpg",
+			"cost" : 2,
+			"defense_points" : 2,
+			"description" : "Red Panda in pixel art in middle of a forest",
+			"health" : 2,
+			"level" : 1,
+			"name" : "Pixel Rosso",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"attack_points" : 5,
+			"b64url" : "asset/Deck/TestDeck/Card/Panda Rosso .jpg",
+			"cost" : 2,
+			"defense_points" : 3,
+			"description" : "Red Panda in van gogh style, in forest as background",
+			"health" : 2,
+			"level" : 3,
+			"name" : "Panda Rosso ",
+			"save" : true,
+			"type" : 1
+		},
+		{
+			"b64url" : "asset/Deck/TestDeck/Card/Foresta dei Panda.jpg",
+			"cost" : 1,
+			"description" : "Forest in monet style, full of red panda eating together",
+			"effect" : "Aumenta l'attacco di tutti i mostri Panda nel terreno",
+			"name" : "Foresta dei Panda",
+			"save" : true,
+			"type" : 3,
+			"type_effect" : "Earth"
+		},
+		{
+			"b64url" : "asset/Deck/TestDeck/Card/Fortezza Dei Panda.jpg",
+			"cost" : 5,
+			"description" : "Ancient ruins of a civilization of red pandas in middle of the forest",
+			"effect" : "Fornisce +3 difesa a tutti i mostri Panda",
+			"name" : "Fortezza Dei Panda",
+			"save" : true,
+			"type" : 3,
+			"type_effect" : "Earth"
+		},
+		{
+			"b64url" : "asset/Deck/TestDeck/Card/Falsa Adorazione.jpg",
+			"cost" : 1,
+			"damage" : 4,
+			"description" : "two clone of a red panda facing each other inside a forest ",
+			"duration" : 4,
+			"effect" : "Se un avversario controlla un Panda Rosso puoi attivare questa carta per evocare una copia di quel mostro  con 4/4 nel suo terreno. ",
+			"name" : "Falsa Adorazione",
+			"save" : true,
+			"type" : 4
+		},
+		{
+			"attack_points" : 2,
+			"b64url" : "asset/Deck/TestDeck/Card/Re-Red Panda.jpg",
+			"cost" : 3,
+			"defense_points" : 3,
+			"description" : "Red Panda with crown in leonardo da vinci style",
+			"health" : 2,
+			"level" : 3,
+			"name" : "Re-Red Panda",
+			"save" : true,
+			"type" : 1
+		}
+	],
+	"Name" : "TestDeck"
+}
