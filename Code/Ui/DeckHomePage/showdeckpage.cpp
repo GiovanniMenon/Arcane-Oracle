@@ -147,7 +147,7 @@ void ShowDeckPage::setPage(Deck* de) {
             label->setPixmap(pixmap.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
             label->setScaledContents(true);
             label->setFixedSize(148, 240);
-            connect(label, &ClickableLabel::clicked, this, [this, index = i, de = deck]() { imageClikedSlot((*de)[index]); });
+            connect(label, &ClickableLabel::clicked, this, [this, index = i, de ]() { imageClikedSlot((*de)[index]); });
 
             imagesLayout->addWidget(label, row, col);
 
@@ -287,8 +287,6 @@ void ShowDeckPage::searchTextDeck(const QString& text){
     Deck* result = deck->search(texToSearch);
     clear();
     setPage(result);
-    delete result;
-
 }
 
 
