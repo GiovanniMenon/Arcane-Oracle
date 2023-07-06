@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(homepage,&HomePage::ManualHomePageSignal, this, &MainWindow::manualWindowSlot );
     connect(homepage,&HomePage::NewDeckPageSignal, this, &MainWindow::newDeckWindowSlot );
     connect(homepage,&HomePage::LoadDeckPageSignal, this , &MainWindow::LoadDeckPageSlot );
+    connect(homepage,&HomePage::lightmodeSignal, this , &MainWindow::modeSlot );
 
     //Segnali DeckHomePage
     connect(homedeckpage, &HomeDeckPage::ShowDeckSignal, this, &MainWindow::ShowDeckPageSlot);
@@ -75,6 +76,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::modeSlot(int mode) {
+    std::string path;
+
+    switch (mode) {
+    case 0:
+        path = "asset/Light_style.qss";
+        break;
+    case 1:
+        path =  "asset/Dark_style.qss";
+
+        break;
+    default:
+        break;
+    }
+
+    QFile stylesheet(path.c_str());
+    stylesheet.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(stylesheet.readAll()));
+
+}
 
 void MainWindow::manualWindowSlot() {
     stackedWidget -> addWidget(manualdeck);
@@ -131,5 +152,5 @@ void MainWindow::CardInfoPageSlot(Card* card){
     stackedWidget->addWidget(cardinfopage);
     cardinfopage->setPixmapp(card);
     stackedWidget -> setCurrentIndex(stackedWidget->currentIndex()+1);
-
 }
+

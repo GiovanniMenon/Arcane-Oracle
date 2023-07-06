@@ -19,7 +19,6 @@
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -37,10 +36,10 @@ public slots:
     void TypePageSlot();
     void CardInfoPageSlot(Card* card);
     void BackWindowSlotHomePage();
+    void modeSlot(int);
 signals:
     void newDeckWindowSignal();
     void manualWindowSignal();
-
 private:
     MainWindow *ui;
     QStackedWidget *stackedWidget;
