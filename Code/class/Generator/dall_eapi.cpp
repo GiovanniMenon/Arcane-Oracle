@@ -49,7 +49,7 @@ std::string DALL_E_generator::generate(const std::string text) {
     curl_easy_cleanup(curl);
 
     if (res != CURLE_OK){
-           qDebug() << "Errore nella richiesta: " << curl_easy_strerror(res);
+          return "default";
     }else{
     Json::Value jsonData;
     Json::Reader jsonReader;
