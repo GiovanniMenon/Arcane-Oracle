@@ -2,6 +2,8 @@
 #define DLIST_H
 
 #include <iostream>
+#include <algorithm>
+
 
 
 template <class T> class list;
@@ -16,8 +18,6 @@ private: class nodo{
                        nodo();
                        nodo(T& i, nodo* n=0 ,nodo* p=0) ;
                        ~nodo();
-
-
     };
     nodo* first;
     nodo* last;
@@ -64,7 +64,8 @@ public:
     iterator end() const;
     T& operator[](iterator) const;
 
-
+    //Search
+    list<T> search(const std::string&) const;
 
 };
 
@@ -75,7 +76,6 @@ list<T>::nodo::~nodo(){
         if(*info!=nullptr){
             delete *info;
         }
-
     }
 };
 
@@ -135,6 +135,7 @@ list<T>& list<T>::operator=(const list<T>& l){
 
     return *this;
 }
+
 //Operazioni su lista
 template <class T>
 void list<T>::push_back(T info){
@@ -198,6 +199,29 @@ void list<T>::remove(T i){
         std::cerr << "dato non presente" ;
     }
 
+}
+
+//Search for Card Name
+template <class T>
+list<T> list<T>::search(const std::string& string) const{
+    list<T> tmp;
+    nodo* q=first;
+    while(q!=0){
+        std::string name = (*(q->info))->getName();
+        std::string description = (*(q->info))->getDescription();
+        transform(name.begin(), name.end(), name.begin(), ::tolower);
+        transform(description.begin(), description.end(), description.begin(), ::tolower);
+
+        std::size_t found_name = name.find(string);
+        std::size_t found_desc = description.find(string);
+        if(found_name!=std::string::npos || found_desc!=std::string::npos)
+        {
+           //Copia profonda della carta
+           tmp.push_back(((*(q->info))->clone()));
+        }
+        q=q->next;
+    }
+    return tmp;
 }
 
 //Operazioni generiche

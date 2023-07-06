@@ -189,27 +189,11 @@ void Deck::clear()  {
 Deck* Deck::search(std::string string)  const {
     //Pre: Data una stringa
     //POST : Ritorna un mazzo costituito da tutte le carte che hanno quella stringa nel nome o nella descrizione
-        Deck* tmp = new Deck();
-        for(list<Card*>::iterator it = deck.begin(); it !=  deck.end(); ++it )
-        {
-            std::string name = deck[it]->getName();
-            std::string description = deck[it]->getDescription();
+    transform(string.begin(), string.end(), string.begin(), ::tolower);
 
-            //Converto in lower case entrambe le stringhe cosi non essere case sensitive.
-            transform(name.begin(), name.end(), name.begin(), ::tolower);
-            transform(description.begin(), description.end(), description.begin(), ::tolower);
-            transform(string.begin(), string.end(), string.begin(), ::tolower);
-
-            std::size_t found_name = name.find(string);
-            std::size_t found_desc = description.find(string);
-            if(found_name!=std::string::npos || found_desc!=std::string::npos)
-            {
-               //Copia profonda della carta
-               tmp->insert(deck[it]->clone());
-            }
-
-        }
-        return tmp;
+    Deck* tmp = new Deck();
+    tmp -> deck = deck.search(string);
+    return tmp;
 
 }
 void Deck::order(int option, bool ord){
