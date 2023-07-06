@@ -47,6 +47,8 @@ public slots:
     void searchTextDeck(const QString& text);
     void currentDeckSlot(Deck* currDeck);
     void imageClikedSlot(Card* card);
+    void filterSlot();
+    void deleteFilterSlot();
 
 signals:
     void BackDeckPageSignal();
@@ -54,6 +56,7 @@ signals:
     void ImagePathsSignal(QStringList& imagePaths);
     void CurrentDeckSignal(Deck* currDeck);
 private:
+    int filterObj;
     QStringList filePathCards;
     QString nameDeck;
 
@@ -80,6 +83,9 @@ private:
     QPushButton *sortByCostAsc;
     QPushButton *sortByNameDesc;
     QPushButton *sortByCostDesc;
+
+    QPushButton *deleteFilter;
+    QPushButton *filter;
 
     bool sortByNameAscVisible;
     bool sortByNameDescVisible;

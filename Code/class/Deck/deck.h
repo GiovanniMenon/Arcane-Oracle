@@ -49,6 +49,7 @@ public: Deck();
         Card* last() const;
 
         Deck* search(std::string) const;
+        Deck* filter(const int) const;
         void order(int , bool);
 
 

@@ -196,6 +196,60 @@ Deck* Deck::search(std::string string)  const {
     return tmp;
 
 }
+
+Deck* Deck::filter(const int i)  const {
+    //Pre: Data una stringa
+    //POST : Ritorna un mazzo costituito da tutte le carte che hanno quella stringa nel nome o nella descrizione
+    Deck* tmp = new Deck();
+    for(list<Card*>::iterator it = deck.begin(); it !=  deck.end(); ++it )
+           {
+        switch (i) {
+        case 1:
+            if(dynamic_cast<monsterCard*>(deck[it])!=nullptr)
+            {
+               //Copia profonda della carta
+               tmp->insert(deck[it]->clone());
+            }
+            break;
+        case 2:
+            if(dynamic_cast<territoryCard*>(deck[it])!=nullptr)
+            {
+               //Copia profonda della carta
+               tmp->insert(deck[it]->clone());
+            }
+
+            break;
+        case 3:
+            if(dynamic_cast<artifactCard*>(deck[it])!=nullptr)
+            {
+               //Copia profonda della carta
+               tmp->insert(deck[it]->clone());
+            }
+            break;
+        case 4:
+            if(dynamic_cast<spellCard*>(deck[it])!=nullptr)
+            {
+               //Copia profonda della carta
+               tmp->insert(deck[it]->clone());
+            }
+            break;
+        case 5:
+            if(dynamic_cast<trapCard*>(deck[it])!=nullptr)
+            {
+               //Copia profonda della carta
+               tmp->insert(deck[it]->clone());
+            }
+            break;
+        default:
+            break;
+        }
+
+
+
+           }
+    return tmp;
+
+}
 void Deck::order(int option, bool ord){
     //PRE: Dato un mazzo
     //POST: Ordina il mazzo con diversi criteri

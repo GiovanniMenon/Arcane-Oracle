@@ -1,6 +1,7 @@
 #include "showdeckpage.h"
 
 ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVisible(true), sortByNameDescVisible(false), sortByCostAscVisible(true), sortByCostDescVisible(false) /*lastClickedLabel(nullptr)*/ {
+    filterObj = 1;
     layout = new QVBoxLayout(this);
     imagesLayout = new QGridLayout();
 
@@ -10,6 +11,8 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostAsc = new QPushButton();
     sortByNameDesc = new QPushButton();
     sortByCostDesc = new QPushButton();
+    filter = new QPushButton();
+    deleteFilter = new QPushButton();
     QLineEdit *search = new QLineEdit(this);
 
 
@@ -17,11 +20,17 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     QPixmap p2("asset/Icon/ZtoA.png");
     QPixmap p3("asset/Icon/1to9.png");
     QPixmap p4("asset/Icon/9to1.png");
+
+    QPixmap p5("asset/Icon/filterM.png");
+    QPixmap p6("asset/Icon/reset.png");
+
     QSize size(24, 24);
     p1 = p1.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     p2 = p2.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     p3 = p3.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     p4 = p4.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    p5 = p5.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    p6 = p6.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 
     sortByNameAsc->setIcon(p1);
@@ -33,6 +42,12 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostAsc->setIconSize(size);
     sortByCostDesc->setIconSize(size);
 
+
+    filter->setIcon(p5);
+    filter->setIconSize(size);
+    deleteFilter->setIcon(p6);
+    deleteFilter->setIconSize(size);
+
     search->setPlaceholderText("Search");
     search->setFixedSize(400,50);
     backButton -> setFixedSize(155, 75);
@@ -41,8 +56,11 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostAsc-> setFixedSize(120, 50);
     sortByCostDesc-> setFixedSize(120, 50);
 
+    filter -> setFixedSize(50, 50);
+    deleteFilter-> setFixedSize(50, 50);
 
 
+    deleteFilter -> setVisible(false);
     sortByNameDesc->setVisible(false);
     sortByCostDesc->setVisible(false);
     search->setAlignment(Qt::AlignCenter);
@@ -55,9 +73,12 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     Head -> addStretch(); 
     Head->addStretch();
     Head -> addWidget(sortByNameAsc);
-    Head->addWidget(sortByNameDesc);
-    Head->addWidget(sortByCostAsc);
-    Head->addWidget(sortByCostDesc);
+    Head ->addWidget(sortByNameDesc);
+    Head ->addWidget(sortByCostAsc);
+    Head ->addWidget(sortByCostDesc);
+    Head ->addWidget(deleteFilter);
+    Head ->addWidget(filter);
+
 
     layout->addLayout(Head);
 
@@ -77,6 +98,8 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     sortByCostDesc-> setObjectName("sortButtons");
     scrollArea ->setObjectName("scrollArea");
     imagesContainer ->setObjectName("ImageLayout");
+    filter -> setObjectName("FilterButton");
+    deleteFilter -> setObjectName("resetB");
 
 
     saveDeck = new QPushButton("Save");
@@ -97,8 +120,52 @@ ShowDeckPage::ShowDeckPage(QWidget * parent) : QWidget(parent), sortByNameAscVis
     connect(sortByNameAsc, &QPushButton::clicked, this, &ShowDeckPage::sortByNameAscending);
     connect(sortByCostAsc, &QPushButton::clicked, this, &ShowDeckPage::sortByCostAscending);
     connect(search, &QLineEdit::textChanged, this, &ShowDeckPage::searchTextDeck);
+    connect(filter, &QPushButton::clicked, this, &ShowDeckPage::filterSlot);
+    connect(deleteFilter, &QPushButton::clicked, this, &ShowDeckPage::deleteFilterSlot);
 
 
+}
+
+void ShowDeckPage::filterSlot(){
+
+    Deck* result = deck->filter(filterObj);
+    clear();
+    setPage(result);
+    filterObj=((filterObj+1)%5)+1;
+    std::string campo;
+    switch (filterObj) {
+    case 1:
+        campo = "asset/Icon/filterM.png";
+        break;
+    case 2:
+        campo = "asset/Icon/filterF.png";
+        break;
+    case 3:
+        campo = "asset/Icon/filterA.png";
+        break;
+    case 4:
+        campo = "asset/Icon/filterS.png";
+        break;
+    case 5:
+        campo = "asset/Icon/filterT.png";
+        break;
+
+    default:
+        campo = "asset/Icon/filterM.png";
+        break;
+    }
+    QPixmap p7(campo.c_str());
+    QSize size(24, 24);
+    p7 = p7.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    filter->setIcon(p7);
+    filter->setIconSize(size);
+    deleteFilter -> setVisible(true);
+}
+
+void ShowDeckPage::deleteFilterSlot(){
+    clear();
+    setPage(deck);
+    deleteFilter -> setVisible(false);
 }
 
 void ShowDeckPage::BackDeckPageSlot() {
