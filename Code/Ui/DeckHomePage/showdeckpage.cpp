@@ -169,7 +169,7 @@ void ShowDeckPage::deleteFilterSlot(){
 }
 
 void ShowDeckPage::BackDeckPageSlot() {
-
+    deleteFilter -> setVisible(false);
     dir.refresh();
     clear();
     emit BackDeckPageSignal();
@@ -230,6 +230,7 @@ void ShowDeckPage::setPage(Deck* de) {
 
 
 void ShowDeckPage::imageClikedSlot(Card* card) {
+        deleteFilter -> setVisible(false);
         ClickableLabel* clickedLabel = qobject_cast<ClickableLabel*>(sender()); // Ottiene il puntatore alla label cliccata
         QPixmap pixmap = clickedLabel->pixmap(Qt::ReturnByValue).scaled(500, 500, Qt::KeepAspectRatio);
 
@@ -306,6 +307,7 @@ void ShowDeckPage::refreshDeckSlot(){
 }
 
 void ShowDeckPage::sortByNameAscending() {
+    deleteFilter -> setVisible(false);
     sortedDeck->order(1, true);
     clear();
     setPage(sortedDeck);
@@ -317,6 +319,7 @@ void ShowDeckPage::sortByNameAscending() {
 
 
 void ShowDeckPage::sortByNameDescending() {
+    deleteFilter -> setVisible(false);
     sortedDeck->order(1, false);
     clear();
     setPage(sortedDeck);
@@ -329,6 +332,7 @@ void ShowDeckPage::sortByNameDescending() {
 
 
 void ShowDeckPage::sortByCostAscending() {
+    deleteFilter -> setVisible(false);
     sortedDeck->order(2, true);
     clear();
     setPage(sortedDeck);
@@ -339,6 +343,7 @@ void ShowDeckPage::sortByCostAscending() {
 }
 
 void ShowDeckPage::sortByCostDescending() {
+    deleteFilter -> setVisible(false);
     sortedDeck->order(2, false);
     clear();
     setPage(sortedDeck);
@@ -349,6 +354,7 @@ void ShowDeckPage::sortByCostDescending() {
 }
 
 void ShowDeckPage::searchTextDeck(const QString& text){
+    
     std::string texToSearch = text.toStdString();
 
     Deck* result = deck->search(texToSearch);
